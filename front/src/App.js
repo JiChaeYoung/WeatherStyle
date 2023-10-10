@@ -1,24 +1,34 @@
-import logo from './logo.svg';
+import styled from 'styled-components';
 import './App.css';
+import Header from './component/Util/Header';
+import Sidebar from './component/Util/Sidebar';
+
+const FullScreenDiv = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex; /* Flexbox 사용 */
+`;
+
+const Hheader = styled.div`
+  border: 1px solid black;
+  height: 60px;
+  width: 100%;
+  margin: 5px;
+`;
+
+const Ssbar = styled.div`
+  border: 1px solid black;
+  height: 100%;
+  width: 250px;
+  margin: 5px;
+`;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <FullScreenDiv>
+      <Ssbar></Ssbar>
+      <Hheader></Hheader>
+    </FullScreenDiv>
   );
 }
 
