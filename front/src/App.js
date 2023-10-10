@@ -1,34 +1,49 @@
 import styled from 'styled-components';
-import './App.css';
-import Header from './component/Util/Header';
-import Sidebar from './component/Util/Sidebar';
 
-const FullScreenDiv = styled.div`
-  width: 100vw;
+const Container = styled.div`
+  display: flex;
+`;
+
+const Qontainer = styled.div`
+  display: flex;
+  flex-direction: column;
   height: 100vh;
-  display: flex; /* Flexbox 사용 */
-`;
-
-const Hheader = styled.div`
-  border: 1px solid black;
-  height: 60px;
   width: 100%;
-  margin: 5px;
 `;
 
-const Ssbar = styled.div`
+const Qiv = styled.div`
+  display: flex;
+  margin: 10px;
+  border: 1px solid black;
+  height: 100px;
+`;
+
+const Qiv2 = styled.div`
+  display: flex;
+  margin: 10px;
   border: 1px solid black;
   height: 100%;
+  margin-left: 20%;
+  margin-right: 20%;
+  padding: 10%;
+`;
+
+const Div = styled.div`
+  display: flex;
+  margin: 10px;
+  border: 1px solid black;
   width: 250px;
-  margin: 5px;
 `;
 
 function App() {
   return (
-    <FullScreenDiv>
-      <Ssbar></Ssbar>
-      <Hheader></Hheader>
-    </FullScreenDiv>
+    <Container>
+      <Div>Div 1</Div>
+      <Qontainer>
+        <Qiv>Div 2</Qiv>
+        <Qiv2>Div 3</Qiv2>
+      </Qontainer>
+    </Container>
   );
 }
 
