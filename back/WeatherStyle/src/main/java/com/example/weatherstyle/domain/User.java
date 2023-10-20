@@ -9,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
+@Table(name = "users")
 public class User {
     @Id @GeneratedValue
     @Column(name = "user_id")
@@ -29,13 +30,13 @@ public class User {
     @Embedded
     private Address address;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "user")
     private List<Post> postList=new ArrayList<>();
 
-    @OneToMany(mappedBy = "like")
+    @OneToMany(mappedBy = "user")
     private List<Like> user_like = new ArrayList<>();
 
-    @OneToMany(mappedBy = "comment")
+    @OneToMany(mappedBy = "user")
     private List<Comment> user_comment = new ArrayList<>();
 
 }

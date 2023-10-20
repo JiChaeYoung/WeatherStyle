@@ -24,10 +24,10 @@ public class Post {
 
     private String image_url;
 
-    @OneToMany(mappedBy = "like_id")
+    @OneToMany(mappedBy = "post")
     private List<Like> likes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "comment_id")
+    @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
 
 }
