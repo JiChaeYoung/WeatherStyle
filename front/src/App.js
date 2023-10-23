@@ -1,9 +1,11 @@
-import Mainpage from './component/pages/main';
+import Mainpage from './pages/MainPage';
+import TestPage from './pages/TestPage';
+import PlanPage from './pages/PlanPage';
 
 function App() {
   return (
     <div>
-      <Mainpage></Mainpage>
+      <TestPage></TestPage>
     </div>
   );
 }
