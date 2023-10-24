@@ -17,7 +17,7 @@ import java.sql.Timestamp;
 public class Like {
     @Id @GeneratedValue
     @Column(name = "like_id")
-    private Long id;
+    private int id;
 
 //    @Enumerated(EnumType.STRING)
 //    private WeatherEmotion weatherEmotion;

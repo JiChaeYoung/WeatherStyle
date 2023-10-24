@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 public class Follow {
     @Id @GeneratedValue
     @Column(name="follow_id")
-    private Long id;
+    private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fromUserId")

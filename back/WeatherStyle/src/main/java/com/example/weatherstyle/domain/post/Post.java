@@ -17,7 +17,7 @@ import java.util.List;
 public class Post {
     @Id @GeneratedValue
     @Column(name = "post_id")
-    private Long id;
+    private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

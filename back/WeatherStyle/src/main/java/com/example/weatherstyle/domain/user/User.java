@@ -18,7 +18,7 @@ import java.util.List;
 public class User {
     @Id @GeneratedValue
     @Column(name = "user_id")
-    private Long id;
+    private int id;
 
     private String email;
 
@@ -36,6 +36,8 @@ public class User {
     private String profileImageUrl; //프로필 이미지 경로
 
     private RoleType role; // User, Admin
+
+    private String aboutMe;
 
     @CreationTimestamp
     private Timestamp createDate;
