@@ -1,4 +1,4 @@
-package com.example.weatherstyle.domain;
+package com.example.weatherstyle.domain.user;
 
 import jakarta.persistence.Embeddable;
 
