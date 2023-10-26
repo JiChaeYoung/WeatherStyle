@@ -1,0 +1,13 @@
+package com.example.weatherstyle.entity.user;
+
+import com.example.weatherstyle.entity.post.Post;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
+
+public interface UserPostRepository extends JpaRepository<Post, Integer> {
+
+    @Query(value = "select * from post where userId = ?1", nativeQuery = true)//순수 쿼리문
+    List<Post> userPost(int PostUserid); //유저의 게시물 조회
+}
