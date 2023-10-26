@@ -1,7 +1,7 @@
-package com.example.weatherstyle.domain.comment;
+package com.example.weatherstyle.entity.comment;
 
-import com.example.weatherstyle.domain.post.Post;
-import com.example.weatherstyle.domain.user.User;
+import com.example.weatherstyle.entity.post.Post;
+import com.example.weatherstyle.entity.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

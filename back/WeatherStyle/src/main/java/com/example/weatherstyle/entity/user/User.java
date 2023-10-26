@@ -1,8 +1,9 @@
-package com.example.weatherstyle.domain.user;
+package com.example.weatherstyle.entity.user;
 
-import com.example.weatherstyle.domain.comment.Comment;
-import com.example.weatherstyle.domain.like.Like;
-import com.example.weatherstyle.domain.post.Post;
+import com.example.weatherstyle.entity.Address;
+import com.example.weatherstyle.entity.comment.Comment;
+import com.example.weatherstyle.entity.like.Like;
+import com.example.weatherstyle.entity.post.Post;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -43,7 +44,7 @@ public class User {
     private Timestamp createDate;
 
     @Embedded
-    private Address address;
+    private Address address; //값 객체 VO
 
     @OneToMany(mappedBy = "user")
     private List<Post> posts=new ArrayList<>();

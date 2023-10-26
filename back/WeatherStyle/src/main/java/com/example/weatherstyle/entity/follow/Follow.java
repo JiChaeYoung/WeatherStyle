@@ -1,6 +1,6 @@
-package com.example.weatherstyle.domain.follow;
+package com.example.weatherstyle.entity.follow;
 
-import com.example.weatherstyle.domain.user.User;
+import com.example.weatherstyle.entity.user.User;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
