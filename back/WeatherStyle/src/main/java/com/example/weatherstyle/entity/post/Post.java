@@ -1,8 +1,9 @@
-package com.example.weatherstyle.domain.post;
+package com.example.weatherstyle.entity.post;
 
-import com.example.weatherstyle.domain.comment.Comment;
-import com.example.weatherstyle.domain.like.Like;
-import com.example.weatherstyle.domain.user.User;
+import com.example.weatherstyle.entity.Address;
+import com.example.weatherstyle.entity.comment.Comment;
+import com.example.weatherstyle.entity.like.Like;
+import com.example.weatherstyle.entity.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,6 +30,8 @@ public class Post {
 
     private String image_url;
 
+    private Address address;
+
     @CreationTimestamp
     private Timestamp creteDate;
 
@@ -44,6 +47,9 @@ public class Post {
 
     @Transient
     private boolean likeState; //좋아요 눌렀는지 안눌렀는지
+
+    @Transient
+    private int commentCount;
 
     //==연관관계 메소드==//
     public void setUser(User user){
