@@ -8,17 +8,16 @@ import java.sql.Timestamp;
 
 @Entity
 public class Follow {
-    @Id @GeneratedValue
-    @Column(name="follow_id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fromUserId")
-    private User fromUser;  //팔로우를 하는 사람
+    private User fromUser;  //팔로우 관계를 요청하는 사용자
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "toUserId")
-    private User toUser; //팔로우를 당하는 사람
+    private User toUser; //다른 사용자에 의해 팔로우 관계가 생성되는 사용자
 
     @CreationTimestamp
     private Timestamp creteDate;

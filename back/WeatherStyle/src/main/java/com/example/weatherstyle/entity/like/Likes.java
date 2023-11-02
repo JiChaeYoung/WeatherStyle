@@ -1,6 +1,6 @@
 package com.example.weatherstyle.entity.like;
 
-import com.example.weatherstyle.entity.post.Post;
+import com.example.weatherstyle.entity.post.Image;
 import com.example.weatherstyle.entity.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -13,10 +13,8 @@ import java.sql.Timestamp;
 
 @Entity
 @Getter @Setter
-@Table(name="post_user_like")
-public class Like {
-    @Id @GeneratedValue
-    @Column(name = "like_id")
+public class Likes {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
 //    @Enumerated(EnumType.STRING)
@@ -24,11 +22,11 @@ public class Like {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "post_id")
-    private Post post;
+    @JoinColumn(name = "imageId")
+    private Image image;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="userId")
     private User user;
 
     @CreatedDate
