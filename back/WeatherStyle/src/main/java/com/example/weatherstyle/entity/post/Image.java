@@ -36,11 +36,11 @@ public class Image {
     @CreationTimestamp
     private Timestamp creteDate;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "image")
     private List<Likes> likes = new ArrayList<>();
 
     @OrderBy("id DESC")//댓글 정렬
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "image")
     private List<Comment> comments = new ArrayList<>();
     
     @Transient //테이블에 컬럼 안만들어짐

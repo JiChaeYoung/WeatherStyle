@@ -21,7 +21,7 @@ public class Comment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name="postId")
+    @JoinColumn(name="imageId")
     private Image image;
 
     @ManyToOne(fetch = FetchType.LAZY)

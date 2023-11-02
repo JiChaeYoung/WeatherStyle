@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface ImageRepository extends JpaRepository {
+public interface ImageRepository extends JpaRepository<Image, Integer> {
     List<Image> findByUserId(int userId);
 
     // 내가 팔로우 하지 않은 사람들의 이미지들(최대 20개)
