@@ -111,7 +111,7 @@ public class ImageService {
     @Transactional(readOnly = true)
     public List<UserProfileImageRespDto> 인기사진(int loginUserId) {
 
-        // LKH 나말고 다른 유저들의 ImageRespDto 정보 받아오기
+        // 나말고 다른 유저들의 ImageRespDto 정보 받아오기
         StringBuilder sb = new StringBuilder();
         sb.append("select im.id, im.imageUrl, im.userId, ");
         sb.append("(select count(*) from likes lk where lk.imageId = im.id) as likeCount, ");
@@ -121,10 +121,10 @@ public class ImageService {
         Query query = em.createNativeQuery(q, "UserProfileImageRespDtoMapping").setParameter(1, loginUserId);
         List<UserProfileImageRespDto> imagesEntity = query.getResultList();
 
-        // LKH 내가 팔로우한 유저 정보 받아오기
+        // 내가 팔로우한 유저 정보 받아오기
         List<Follow> LoginUserFollowingList = followRepository.findByFromUserId(loginUserId);
 
-        // LKH 내가 팔로우 한 유저인지 아닌지 찾아서 해당 부분을 삭제함
+        // 내가 팔로우 한 유저인지 아닌지 찾아서 해당 부분을 삭제함
         for (Follow asdf : LoginUserFollowingList) {
             for (int i = 0; i < imagesEntity.size(); i++) {
                 if (imagesEntity.get(i).getUserId() == asdf.getToUser().getId()) {
