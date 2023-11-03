@@ -2,15 +2,17 @@ package com.example.weatherstyle.controller.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class UserProfileImageRespDto {
     private int id;
-    private String image_url;
+    private String imageUrl;
     private int likeCount;
     private int commentCount;
-    private int user_id;
+    private int userId;
 }

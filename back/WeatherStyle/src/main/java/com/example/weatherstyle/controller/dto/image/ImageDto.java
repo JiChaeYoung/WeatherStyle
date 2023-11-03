@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Getter @Setter
 public class ImageDto {
-    private MultipartFile multipartFile;
+    private MultipartFile file;
     private String weatherDescription;
     private Address address;
 
@@ -17,7 +17,7 @@ public class ImageDto {
         return Image.builder()
                 .address(address)
                 .weatherDescription(weatherDescription)
-                .image_url(imageUrl)
+                .imageUrl(imageUrl)
                 .user(userEntity)
                 .build();
     }

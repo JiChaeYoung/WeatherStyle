@@ -20,16 +20,16 @@ public interface FollowRepository extends JpaRepository<Follow, Integer> {
 
     //user_id가 pageUserId를 팔로우 하는지
     @Query(value = "SELECT count(*) FROM follow WHERE fromUserId = ?1 AND toUserId = ?2", nativeQuery = true)
-    int mFollowState(int user_id, int pageUserId);
+    int mFollowState(int userId, int pageUserId);
 
     //팔로우하기
     @Modifying
     @Query(value = "INSERT INTO follow(fromUserId, toUserId) VALUES(?1, ?2)", nativeQuery = true)
-    int mFollow(int user_id, int pageUserId);
+    int mFollow(int userId, int pageUserId);
 
     //언팔로우
     @Modifying
     @Query(value = "DELETE FROM follow WHERE fromUserId = ?1 AND toUserId = ?2", nativeQuery = true)
-    int mUnFollow(int user_id, int pageUserId);
+    int mUnFollow(int userId, int pageUserId);
 
 }

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class FollowDto {
 
         private int id;
-        private String username;
+        private String nickname;
         private String name;
         private String profileImage;
         private boolean followState;

@@ -1,5 +1,6 @@
 package com.example.weatherstyle.entity.post;
 
+import com.example.weatherstyle.controller.dto.user.UserProfileImageRespDto;
 import com.example.weatherstyle.entity.Address;
 import com.example.weatherstyle.entity.comment.Comment;
 import com.example.weatherstyle.entity.like.Likes;
@@ -12,6 +13,11 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+@SqlResultSetMapping(name = "UserProfileImageRespDtoMapping", classes = @ConstructorResult(targetClass = UserProfileImageRespDto.class, columns = {
+        @ColumnResult(name = "id", type = Integer.class), @ColumnResult(name = "imageUrl", type = String.class),
+        @ColumnResult(name = "likeCount", type = Integer.class),
+        @ColumnResult(name = "commentCount", type = Integer.class),
+        @ColumnResult(name = "userId", type = Integer.class) }))
 @Entity
 @Getter @Setter
 @Builder
@@ -29,7 +35,7 @@ public class Image {
 
     private String weatherDescription; //날씨관련 정보(게시물)
 
-    private String image_url;
+    private String imageUrl;
 
     private Address address;
 

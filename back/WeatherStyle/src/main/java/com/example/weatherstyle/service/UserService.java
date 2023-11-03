@@ -65,6 +65,7 @@ public class UserService {
     }
 
     //nickname 으로 다른 회원 검색할때
+    @Transactional
     public User 회원검색(String userNickName){
         return userRepository.findByNickname(userNickName);
     }

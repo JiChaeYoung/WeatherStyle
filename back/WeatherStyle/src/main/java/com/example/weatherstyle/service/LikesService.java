@@ -13,6 +13,7 @@ public class LikesService {
     private final LikesRepository likesRepository;
     private final ImageRepository imageRepository;
 
+    @Transactional
     public void 좋아요(int imageId, int loginId){
         likesRepository.mSave(imageId, loginId);
     }

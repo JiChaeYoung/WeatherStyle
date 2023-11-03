@@ -1,5 +1,6 @@
 package com.example.weatherstyle.entity.user;
 
+import com.example.weatherstyle.controller.dto.follow.FollowDto;
 import com.example.weatherstyle.entity.Address;
 import com.example.weatherstyle.entity.comment.Comment;
 import com.example.weatherstyle.entity.like.Likes;
@@ -12,6 +13,20 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+@SqlResultSetMapping(
+        name = "FollowRespDtoMapping",
+        classes = @ConstructorResult(
+                targetClass = FollowDto.class,
+                columns = {
+                        @ColumnResult(name="id", type = Integer.class),
+                        @ColumnResult(name="nickname", type = String.class),
+                        @ColumnResult(name="name", type = String.class),
+                        @ColumnResult(name="profileImage", type = String.class),
+                        @ColumnResult(name="followState", type = Boolean.class),
+                        @ColumnResult(name="equalUserState", type = Boolean.class),
+                }
+        )
+)
 @Entity
 @Getter @Setter
 @Builder
@@ -21,32 +36,20 @@ import java.util.List;
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String email;
-
     private String password;
-
     private String name; //이름
-
     @Column(unique = true, length = 30)
     private String nickname; //별명
-
     private String phoneNumber; //휴대전화
-
     private String birth;
-    
-    private String profileImageUrl; //프로필 이미지 경로
-
+    private String profileImage; //프로필 이미지 경로
     private RoleType role; // User, Admin
-
     private String aboutMe;
-
     @CreationTimestamp
     private Timestamp createDate;
-
     @Embedded
     private Address address; //값 객체 VO
-
     @OneToMany(mappedBy = "user")
     private List<Image> images =new ArrayList<>();
 
