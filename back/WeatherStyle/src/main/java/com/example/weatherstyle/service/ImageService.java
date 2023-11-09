@@ -65,47 +65,55 @@ public class ImageService {
     }
 
     @Transactional(readOnly = true)
-    public void 단독게시물(int imageId, int loginUserId){
+    public List<Image> 단독게시물(int loginUserId, int imageId) {
         List<Image> boards = null;
-        boards=imageRepository.mBoardImage(imageId);
-        for(Image board:boards){
-            board.setLikeCount(board.getLikes().size());
-            board.setCommentCount(board.getComments().size());
+        boards = imageRepository.mBoardImage(imageId);
 
-            for(Likes like: board.getLikes()){
-                if(like.getUser().getId()==loginUserId){
+        for (Image board : boards) {
+            board.setLikeCount(board.getLikes().size());
+
+            // 좋아요 상태 여부 등록
+            for (Likes like : board.getLikes()) {
+                if (like.getUser().getId() == loginUserId) {
                     board.setLikeState(true);
                 }
             }
-            for(Comment comment:board.getComments()){
-                if(comment.getUser().getId() == loginUserId){
+            // 댓글 주인 여부 등록
+            for (Comment comment : board.getComments()) {
+                if (comment.getUser().getId() == loginUserId) {
                     comment.setCommentHost(true);
                 }
             }
         }
+        return boards;
     }
 
     @Transactional(readOnly = true)
-    public void 피드게시물(int loginUserId){
-        List<Image> images=null;
-        images=imageRepository.mFeeds(loginUserId);
+    public List<Image> 피드사진(int loginUserId) {
+        List<Image> images = null;
+        images = imageRepository.mFeeds(loginUserId);
+        if (images.size() == 0) {
+            images = imageRepository.mAllFeeds(loginUserId);
+        }
 
-        for(Image image:images){
+        for (Image image : images) {
             image.setLikeCount(image.getLikes().size());
-            image.setCommentCount(image.getComments().size());
 
-            for(Likes like:image.getLikes()){
-                if(like.getUser().getId()==loginUserId){
+            // 좋아요 상태 여부 등록
+            for (Likes like : image.getLikes()) {
+                if (like.getUser().getId() == loginUserId) {
                     image.setLikeState(true);
                 }
             }
-            for(Comment comment:image.getComments()){
-                if(comment.getUser().getId() == loginUserId){
+            // 댓글 주인 여부 등록
+            for (Comment comment : image.getComments()) {
+                if (comment.getUser().getId() == loginUserId) {
                     comment.setCommentHost(true);
                 }
             }
         }
 
+        return images;
     }
 
     @Transactional(readOnly = true)
