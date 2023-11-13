@@ -1,92 +1,79 @@
 import styled from 'styled-components';
+import LeftHeader from '../component/LeftHeader';
+import RightHeader from '../component/RightHeader';
+import PostBox from '../component/PostBox';
 
 function MainPage() {
   return (
-    <Container1>
-      <Div1>
-        <Logodiv>logo</Logodiv>
-        <SideBardiv>side bar</SideBardiv>
-      </Div1>
-      <Container2>
-        <Headerdiv>Header</Headerdiv>
-        <Div2>
-          <Postdiv>post page</Postdiv>
-          <Settingdiv>setting page</Settingdiv>
-        </Div2>
-      </Container2>
-    </Container1>
+    <MainContainer>
+      <LeftMainSection>
+        <LeftHeader />
+        <PostContainer>
+          <PostBox />
+        </PostContainer>
+        <PostContainer>
+          <PostBox />
+        </PostContainer>
+        <PostContainer>
+          <PostBox />
+        </PostContainer>
+      </LeftMainSection>
+      <RightMainSection>
+        <RightHeader />
+        <PostContainer>
+          <WeatherComment>WeatherComment</WeatherComment>
+          <MenuBar>MenuBar</MenuBar>
+        </PostContainer>
+      </RightMainSection>
+    </MainContainer>
   );
 }
 
 export default MainPage;
 
-const Container1 = styled.div`
+const MainContainer = styled.div`
   display: flex;
+  height: 300vh;
 `;
 
-const Container2 = styled.div`
+const LeftMainSection = styled.div`
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+`;
+
+const RightMainSection = styled.div`
+  border: 1px solid black;
   display: flex;
   flex-direction: column;
   height: 100vh;
   width: 100%;
 `;
 
-const Headerdiv = styled.div`
-  display: flex;
-  margin: 10px;
+const PostContainer = styled.div`
   border: 1px solid black;
-  height: 100px;
-`;
-
-const Div2 = styled.div`
   display: flex;
-  margin: 10px;
-  border: 1px solid black;
-  height: 100%;
-  margin-left: 20%;
-  position: relative;
-`;
-
-const Postdiv = styled.div`
-  display: flex;
-  border: 1px solid black;
-  margin: 5% 5% 0;
-  width: 60%;
-  height: 90%;
-  position: absolute;
-`;
-
-const Settingdiv = styled.div`
-  display: flex;
-  border: 1px solid black;
-  width: 20%;
-  height: 20%;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-`;
-
-const Div1 = styled.div`
-  display: flex;
-  margin: 10px;
-  border: 1px solid black;
-  width: 250px;
-  position: relative;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 `;
 
-const Logodiv = styled.div`
-  display: flex;
+const WeatherComment = styled.div`
   border: 1px solid black;
-  width: 250px;
-  height: 85px;
+  width: 80%;
+  height: 70%;
 `;
 
-const SideBardiv = styled.div`
-  display: flex;
+const MenuBar = styled.div`
   border: 1px solid black;
-  width: 250px;
-  height: 80%;
-  position: absolute;
-  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  margin-left: 65%;
 `;
