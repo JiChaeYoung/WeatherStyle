@@ -1,4 +1,4 @@
-package com.example.weatherstyle.domain;
+package com.example.weatherstyle.entity;
 
 import jakarta.persistence.Embeddable;
 
@@ -6,5 +6,5 @@ import jakarta.persistence.Embeddable;
 public class Address {
     private String city;
     private String street;
-    private String zipcode;
+    private String dong;
 }

@@ -1,0 +1,38 @@
+<!-- profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+<!-- Display user profile information -->
+<h1>User Profile</h1>
+<p>Username: ${respDto.username}</p>
+<!-- Add other user profile information as needed -->
+
+<!-- Display following and follower lists -->
+<h2>Following List</h2>
+<ul>
+    <c:forEach var="following" items="${followingList}">
+        <li>${following.username}</li>
+    </c:forEach>
+</ul>
+
+<h2>Follower List</h2>
+<ul>
+    <c:forEach var="follower" items="${followerList}">
+        <li>${follower.username}</li>
+    </c:forEach>
+</ul>
+
+<!-- Display user's board -->
+<h2>User Board</h2>
+<ul>
+    <c:forEach var="image" items="${board}">
+        <li><img src="${image.url}" alt="Image"></li>
+    </c:forEach>
+</ul>
+</body>
+</html>
