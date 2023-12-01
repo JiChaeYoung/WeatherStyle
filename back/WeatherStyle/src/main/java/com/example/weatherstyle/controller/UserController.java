@@ -6,6 +6,7 @@ import com.example.weatherstyle.entity.post.Image;
 import com.example.weatherstyle.entity.user.User;
 import com.example.weatherstyle.service.FollowService;
 import com.example.weatherstyle.service.UserService;
+import com.example.weatherstyle.web.argumentresolver.Login;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,7 @@ public class UserController {
         model.addAttribute("board", UserBoard);
         return "user/profile";
     }
+    //회원 수정 폼 가져오는 부분
     @GetMapping("/user/profileEdit")
     public String profileEdit(User loginUser, Model model) {
         User userEntity = userService.회원정보(loginUser);
@@ -40,19 +42,22 @@ public class UserController {
         model.addAttribute("user", userEntity);
         return "user/profile-edit";
     }
-    @PutMapping("/user")
-    public ResponseEntity<?> userUpdate(User user) {
-        userService.회원수정(user);
-        return new ResponseEntity<String>("ok", HttpStatus.OK);
-    }
     @PostMapping("/user/profileEditUpload")
-    public String profileEdit(@RequestParam("profileImage") MultipartFile file, int userId, User loginUser) {
+    public String profileEdit(@RequestParam("profileImage") MultipartFile file, int userId,
+                              @Login User loginUser) {
         if (userId == loginUser.getId()) {
             userService.프로필사진업로드(loginUser, file);
         }
 
         return "redirect:/user/profile-edit";
     }
+    //실제 변경 업로드
+    @PutMapping("/user")
+    public ResponseEntity<?> userUpdate(User user) {
+        userService.회원수정(user);
+        return new ResponseEntity<String>("ok", HttpStatus.OK);
+    }
+
     @PostMapping("/user/profileUpload")
     public String userProfileUpload(@RequestParam("profileImage") MultipartFile file, int userId, User loginUser) {
         if (userId == loginUser.getId()) {

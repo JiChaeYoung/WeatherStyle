@@ -44,6 +44,7 @@ public class User {
     private String phoneNumber; //휴대전화
     private String birth;
     private String profileImage; //프로필 이미지 경로
+    @Enumerated(EnumType.STRING)
     private RoleType role; // User, Admin
     private String aboutMe;
     @CreationTimestamp

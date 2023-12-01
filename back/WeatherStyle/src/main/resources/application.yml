@@ -17,6 +17,7 @@ spring:
         format_sql: true
         use_sql_comments: true
 
+
 logging:
   level:
     org.hibernate.SQL : debug
@@ -24,5 +25,8 @@ logging:
 
 file:
   path: C:\Users\지혜인\Desktop\Image
+
+
+
 
 

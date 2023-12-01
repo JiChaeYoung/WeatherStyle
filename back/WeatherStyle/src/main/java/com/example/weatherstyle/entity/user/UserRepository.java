@@ -5,10 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    User findByNickname(String nickname);
+    Optional<User> findByEmail(String email);
 
     // 회원가입시 이메일, nickname 중복체크
     @Query(value = "select * from user where email = ?1 or nickname = ?2", nativeQuery = true)
@@ -20,4 +21,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(value = "select u.*,(select true from follow where fromUserId = ?2 and toUserId = u.id) as matpal from follow f inner join user u on f.fromUserId = u.id and f.toUserId = ?1", nativeQuery = true)
     List<User> mFollowerUser(int pageUserId, int user_id);
 
+    @Query(value = "select * from user where id = ?1", nativeQuery = true)
+    User mSelectedUser(int selectedUserId);
+
+    @Query(value = "select * from user where username like ?1 and id != ?2", nativeQuery = true)
+    List<User> mSearchUserList(String username, int id);
 }
