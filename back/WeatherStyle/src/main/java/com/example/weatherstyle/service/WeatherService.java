@@ -19,3 +19,20 @@ public class WeatherService {
         }
     }
 }
+
+//import org.springframework.web.client.RestTemplate;
+//
+//public class WeatherService {
+//    private final String apiUrl = "http://api.openweathermap.org/data/2.5/weather?q={city}&appid={key}";  // 실제 API의 URL로 변경해야 합니다.
+//    private final String apiKey = "d37280ed18ab61b5f0632a932206c1eb"; // 발급받은 API 키를 사용합니다.
+//    private final RestTemplate restTemplate;
+//
+//    public WeatherService(RestTemplate restTemplate) {
+//        this.restTemplate = restTemplate;
+//    }
+//
+//    public String getWeatherData(String city) {
+//        String url = apiUrl + "?q=" + city + "&appid=" + apiKey;
+//        return restTemplate.getForObject(url, String.class);
+//    }
+//}

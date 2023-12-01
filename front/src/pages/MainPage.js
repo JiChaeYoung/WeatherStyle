@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import LeftHeader from '../component/LeftHeader';
 import RightHeader from '../component/RightHeader';
 import PostBox from '../component/PostBox';
+import MenuBar from '../component/MenuBar';
 
 function MainPage() {
   return (
@@ -22,7 +23,7 @@ function MainPage() {
         <RightHeader />
         <PostContainer>
           <WeatherComment>WeatherComment</WeatherComment>
-          <MenuBar>MenuBar</MenuBar>
+          <MenuBar />
         </PostContainer>
       </RightMainSection>
     </MainContainer>
@@ -32,30 +33,32 @@ function MainPage() {
 export default MainPage;
 
 const MainContainer = styled.div`
+  background-color: white;
   display: flex;
   height: 300vh;
 `;
 
 const LeftMainSection = styled.div`
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  width: 100%;
+  height: 85%;
+  width: 50%;
 `;
 
 const RightMainSection = styled.div`
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   height: 100vh;
-  width: 100%;
+  width: 50%;
+  position: fixed;
+  top: 0px;
+  right: -3px;
 `;
 
 const PostContainer = styled.div`
-  border: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
@@ -66,14 +69,4 @@ const WeatherComment = styled.div`
   border: 1px solid black;
   width: 80%;
   height: 70%;
-`;
-
-const MenuBar = styled.div`
-  border: 1px solid black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100px;
-  height: 100px;
-  margin-left: 65%;
 `;

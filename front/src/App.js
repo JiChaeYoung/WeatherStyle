@@ -1,27 +1,21 @@
-import Mainpage from './pages/MainPage';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import MainPage from './pages/MainPage';
 import UserPostPage from './pages/UserPostPage';
 import UserPage from './pages/UserPage';
 import LoginPage from './pages/LoginPage';
-import TestPage from './pages/TestPage';
-import { useEffect, useState, useRef } from 'react';
+import UploadPage from './pages/UploadPage';
 
 function App() {
-  const inputRef = useRef();
-
-  useEffect(() => {
-    // console.log(inputRef);
-    inputRef.current.focus();
-  }, []);
-
-  const login = () => {
-    alert(`환영합니다 ${inputRef.current.value}!`);
-    inputRef.current.focus();
-  };
   return (
-    <div>
-      <input ref={inputRef} type='text' placeholder='username' />
-      <button onClick={login}>로그인</button>
-    </div>
+    <Router>
+      <Routes>
+        <Route path='/' element={<LoginPage />} />
+        <Route path='/story' element={<MainPage />} />
+        <Route path='/userpost' element={<UserPostPage />} />
+        <Route path='/user' element={<UserPage />} />
+        <Route path='/upload' element={<UploadPage />} />
+      </Routes>
+    </Router>
   );
 }
 

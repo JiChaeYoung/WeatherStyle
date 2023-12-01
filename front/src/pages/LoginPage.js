@@ -1,16 +1,51 @@
 import styled from 'styled-components';
+import { Link as RouterLink } from 'react-router-dom';
 
+const Link = styled(RouterLink)`
+  color: inherit;
+  text-decoration: none;
+`;
 function LoginPage() {
+  const handleLogin = () => {
+    const enteredId = document.getElementById('idInput').value;
+    const enteredPassword = document.getElementById('passwordInput').value;
+
+    const storedId = 'asdf';
+    const storedPassword = 'asdf';
+
+    if (enteredId === storedId && enteredPassword === storedPassword) {
+      window.location.href = '/story';
+    } else {
+      alert('ID와 비밀번호가 일치하지 않습니다.');
+    }
+  };
   return (
     <MainContainer>
       <MainSection>
         <TitleDiv> WS</TitleDiv>
         <LoginDiv>
-          <IdSection>IdSection</IdSection>
-          <IdSection>IdSection</IdSection>
+          <IdSection>
+            <input
+              id='idInput'
+              name='idInput'
+              type='text'
+              placeholder='아이디'
+            ></input>
+          </IdSection>
+          <IdSection>
+            <input
+              id='passwordInput'
+              name='passwordInput'
+              type='password'
+              placeholder='비밀번호'
+            ></input>
+          </IdSection>
           <LoginBtnDiv>
-            <LoginBtn>LoginBtn</LoginBtn>
-            <LoginBtn>LoginBtn</LoginBtn>
+            <LoginBtn onClick={handleLogin}>로그인</LoginBtn>
+            {/* <LoginBtn>
+              <Link to='/story'>로그인</Link>
+            </LoginBtn> */}
+            <LoginBtn>회원가입</LoginBtn>
           </LoginBtnDiv>
         </LoginDiv>
       </MainSection>
@@ -23,8 +58,7 @@ export default LoginPage;
 const MainContainer = styled.div``;
 
 const MainSection = styled.div`
-  background-color: #d8ffb9;
-  border: 1px solid black;
+  background-color: white;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -61,6 +95,10 @@ const IdSection = styled.div`
   border: 1px solid black;
   width: 200px;
   height: 40px;
+  input {
+    width: 193px;
+    height: 35px;
+  }
 `;
 
 const LoginBtnDiv = styled.div`
