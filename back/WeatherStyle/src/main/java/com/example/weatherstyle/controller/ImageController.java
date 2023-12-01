@@ -4,7 +4,6 @@ import com.example.weatherstyle.controller.dto.image.ImageDto;
 import com.example.weatherstyle.entity.post.Image;
 import com.example.weatherstyle.entity.user.User;
 import com.example.weatherstyle.service.ImageService;
-import com.example.weatherstyle.service.UserService;
 import com.example.weatherstyle.web.argumentresolver.Login;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
