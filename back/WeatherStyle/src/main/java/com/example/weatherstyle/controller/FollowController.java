@@ -3,6 +3,7 @@ package com.example.weatherstyle.controller;
 import com.example.weatherstyle.controller.dto.follow.FollowDto;
 import com.example.weatherstyle.entity.user.User;
 import com.example.weatherstyle.service.FollowService;
+import com.example.weatherstyle.web.argumentresolver.Login;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -17,16 +18,16 @@ import java.util.List;
 public class FollowController {
     private final FollowService followService;
 
-    @GetMapping("/follow/followingList/{pageUserId}")
-    public String followingList(@PathVariable int pageUserId, User loginUser, Model model) {
-        model.addAttribute("followingList", followService.팔로잉리스트(loginUser.getId(), pageUserId));
-        return "follow/following-list";
+    @GetMapping("/api/user/{pageUserId}/following")
+    public ResponseEntity<List<FollowDto>> getFollowingList(@PathVariable int pageUserId, @Login User loginUser) {
+        List<FollowDto> followingList = followService.팔로잉리스트(loginUser.getId(), pageUserId);
+        return ResponseEntity.ok(followingList);
     }
 
-    @GetMapping("/follow/followerList/{pageUserId}")
-    public String followerList(@PathVariable int pageUserId, User loginUser, Model model) {
-        model.addAttribute("followerList", followService.팔로워리스트(loginUser.getId(), pageUserId));
-        return "follow/follower-list";
+    @GetMapping("/api/user/{pageUserId}/followers")
+    public ResponseEntity<List<FollowDto>> getFollowerList(@PathVariable int pageUserId, @Login User loginUser) {
+        List<FollowDto> followerList = followService.팔로워리스트(loginUser.getId(), pageUserId);
+        return ResponseEntity.ok(followerList);
     }
 
     @GetMapping("test/follow/followingList/{pageUserId}")

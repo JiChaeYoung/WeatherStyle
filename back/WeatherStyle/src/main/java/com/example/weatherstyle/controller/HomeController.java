@@ -6,36 +6,36 @@ import com.example.weatherstyle.service.UserService;
 import com.example.weatherstyle.web.argumentresolver.Login;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @Slf4j
 public class HomeController {
     private final UserService userService;
 
     @GetMapping("/")
-    public String homeLogin(@Login User loginMember, Model model){
+    public ResponseEntity<User> homeLogin(@Login User loginUser){
 
         //세션 관리자에 저장된 회원 정보 조회
-        if(loginMember==null){
-            return "/image/feed";
+        if(loginUser==null){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        model.addAttribute("member", loginMember);
-        return "auth/loginForm";
+        return ResponseEntity.ok(loginUser);
 
     }
-    @GetMapping("/auth/joinForm")
-    public String joinForm() {
+    @GetMapping("/api/auth/joinForm")
+    public ResponseEntity<String> joinForm() {
         log.info("/auth/joinForm 진입");
-        return "auth/joinForm";
+        return ResponseEntity.ok("auth/joinForm 진입");
     }
-    @PostMapping("/auth/joinForm")
-    public String join(JoinReqDto joinReqDto){
+    @PostMapping("/api/auth/joinForm")
+    public ResponseEntity<String> join(JoinReqDto joinReqDto){
         userService.회원가입(joinReqDto);
-        return "redirect:/auth/loginForm";
+        return ResponseEntity.ok("회원가입 완료");
     }
 }

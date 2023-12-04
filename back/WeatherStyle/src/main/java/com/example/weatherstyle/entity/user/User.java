@@ -49,8 +49,8 @@ public class User {
     private String aboutMe;
     @CreationTimestamp
     private Timestamp createDate;
-    @Embedded
-    private Address address; //값 객체 VO
+//    @Embedded
+    private String address; //값 객체 VO
     @OneToMany(mappedBy = "user")
     private List<Image> images =new ArrayList<>();
 

@@ -16,7 +16,7 @@ public class JoinReqDto {
     private String nickname;
     private String phoneNumber;
     private String birth;
-//    private Address address;
+    private String address;
 
     public User toEntity(){
         return User.builder()
@@ -26,7 +26,7 @@ public class JoinReqDto {
                 .nickname(nickname)
                 .phoneNumber(phoneNumber)
                 .birth(birth)
-//                .address(address)
+                .address(address)
                 .role(RoleType.USER)
                 .build();
     }
