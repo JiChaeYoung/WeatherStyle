@@ -1,7 +1,6 @@
 package com.example.weatherstyle.entity.user;
 
-import com.example.weatherstyle.controller.dto.follow.FollowDto;
-import com.example.weatherstyle.entity.Address;
+import com.example.weatherstyle.entity.dto.follow.FollowDto;
 import com.example.weatherstyle.entity.comment.Comment;
 import com.example.weatherstyle.entity.like.Likes;
 import com.example.weatherstyle.entity.post.Image;
@@ -28,7 +27,7 @@ import java.util.List;
         )
 )
 @Entity
-@Getter @Setter
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -59,4 +58,16 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Comment> user_comment = new ArrayList<>();
+
+    public User(String email, String password, String name, String nickname,
+                String phoneNumber, String birth, String address, RoleType role) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.nickname = nickname;
+        this.phoneNumber = phoneNumber;
+        this.birth = birth;
+        this.address = address;
+        this.role = role;
+    }
 }

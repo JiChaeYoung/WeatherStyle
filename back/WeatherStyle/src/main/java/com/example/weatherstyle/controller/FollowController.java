@@ -1,9 +1,8 @@
 package com.example.weatherstyle.controller;
 
-import com.example.weatherstyle.controller.dto.follow.FollowDto;
+import com.example.weatherstyle.entity.dto.follow.FollowDto;
 import com.example.weatherstyle.entity.user.User;
 import com.example.weatherstyle.service.FollowService;
-import com.example.weatherstyle.web.argumentresolver.Login;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;

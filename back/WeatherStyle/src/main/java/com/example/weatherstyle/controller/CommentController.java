@@ -1,6 +1,6 @@
 package com.example.weatherstyle.controller;
 
-import com.example.weatherstyle.controller.dto.comment.CommentDto;
+import com.example.weatherstyle.entity.dto.comment.CommentDto;
 import com.example.weatherstyle.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

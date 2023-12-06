@@ -24,6 +24,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(value = "select * from users where id = ?1", nativeQuery = true)
     User mSelectedUser(int selectedUserId);
 
-    @Query(value = "select * from users where username like ?1 and id != ?2", nativeQuery = true)
+    @Query(value = "select * from users where nickname like ?1 and id != ?2", nativeQuery = true)
     List<User> mSearchUserList(String username, int id);
 }

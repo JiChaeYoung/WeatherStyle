@@ -11,6 +11,8 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class WeatherService {
     private static final String WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API key}&lang=KR";
+    private static final String WEATHER_KEY="bd7ce4f710393cae8b95c1c2925bb1c9";
+
     private static final String AIR_URL="https://api.openweathermap.org/data/2.5/air_pollution?lat={lat}&lon={lon}&appid={API key}";
 
     public WeatherInfo getWeather(String city) {

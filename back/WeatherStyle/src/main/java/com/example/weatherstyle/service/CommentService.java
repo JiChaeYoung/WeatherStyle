@@ -1,6 +1,6 @@
 package com.example.weatherstyle.service;
 
-import com.example.weatherstyle.controller.dto.comment.CommentDto;
+import com.example.weatherstyle.entity.dto.comment.CommentDto;
 import com.example.weatherstyle.entity.comment.CommentRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

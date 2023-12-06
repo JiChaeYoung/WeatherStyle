@@ -1,6 +1,6 @@
 package com.example.weatherstyle.controller;
 
-import com.example.weatherstyle.controller.dto.user.UserProfileDto;
+import com.example.weatherstyle.entity.dto.user.UserProfileDto;
 import com.example.weatherstyle.entity.post.Image;
 import com.example.weatherstyle.entity.user.User;
 import com.example.weatherstyle.service.FollowService;

@@ -2,7 +2,7 @@ package com.example.weatherstyle.controller;
 
 
 import com.example.weatherstyle.SessionConst;
-import com.example.weatherstyle.controller.dto.user.LoginDto;
+import com.example.weatherstyle.entity.dto.user.LoginDto;
 import com.example.weatherstyle.entity.user.User;
 import com.example.weatherstyle.service.LoginService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,19 +22,21 @@ public class LoginController {
 
     @PostMapping("/api/login")
     public ResponseEntity login(@Valid @RequestBody LoginDto form,
-                        HttpServletRequest request) {
+                                HttpServletRequest request) {
         User loginUser = loginService.login(form.getEmail(), form.getPassword());
         log.info("login? {}", loginUser);
 
         if (loginUser == null) {
+            log.info("실패");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            log.info("성공");
+            HttpSession session = request.getSession();
+            session.setAttribute(SessionConst.LOGIN_MEMBER, loginUser);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-
-        HttpSession session = request.getSession();
-        session.setAttribute(SessionConst.LOGIN_MEMBER, loginUser);
-        return new ResponseEntity<>(HttpStatus.OK);
-
     }
+
 
     @PostMapping("/api/logout")
     public ResponseEntity logout(HttpServletRequest request) {

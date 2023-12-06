@@ -1,8 +1,8 @@
 package com.example.weatherstyle.service;
 
-import com.example.weatherstyle.controller.dto.user.JoinReqDto;
-import com.example.weatherstyle.controller.dto.user.UserProfileDto;
-import com.example.weatherstyle.controller.dto.user.UserProfileImageRespDto;
+import com.example.weatherstyle.entity.dto.user.JoinReqDto;
+import com.example.weatherstyle.entity.dto.user.UserProfileDto;
+import com.example.weatherstyle.entity.dto.user.UserProfileImageRespDto;
 import com.example.weatherstyle.entity.comment.Comment;
 import com.example.weatherstyle.entity.follow.FollowRepository;
 import com.example.weatherstyle.entity.like.Likes;
