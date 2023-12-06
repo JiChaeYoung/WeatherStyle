@@ -21,12 +21,12 @@ public class UserController {
     private final FollowService followService;
 
     @GetMapping("/api/user/{pageUserId}")
-    public ResponseEntity<UserProfileDto> profile(@PathVariable int pageUserId, @Login User loginUser){
+    public ResponseEntity<UserProfileDto> profile(@PathVariable int pageUserId,  User loginUser){
         UserProfileDto userProfileDto = userService.회원프로필(pageUserId, loginUser);
         return ResponseEntity.ok(userProfileDto);
     }
     @GetMapping("/api/user/{pageUserId}/images")
-    public ResponseEntity<List<Image>> getUserImages(@PathVariable int pageUserId, @Login User loginUser) {
+    public ResponseEntity<List<Image>> getUserImages(@PathVariable int pageUserId,  User loginUser) {
         List<Image> images = userService.특정유저게시물(pageUserId, loginUser.getId());
         return ResponseEntity.ok(images);
     }
@@ -37,7 +37,7 @@ public class UserController {
         return ResponseEntity.ok(userEntity);
     }
     @PostMapping("/api/user/profileEditUpload")
-    public ResponseEntity<?> profileEdit(@RequestParam("profileImage") MultipartFile file, int userId, @Login User loginUser) {
+    public ResponseEntity<?> profileEdit(@RequestParam("profileImage") MultipartFile file, int userId,  User loginUser) {
         if (userId == loginUser.getId()) {
             userService.프로필사진업로드(loginUser, file);
         }

@@ -19,7 +19,7 @@ public class HomeController {
     private final UserService userService;
 
     @GetMapping("/")
-    public ResponseEntity<User> homeLogin(@Login User loginUser){
+    public ResponseEntity<User> homeLogin(User loginUser){
 
         //세션 관리자에 저장된 회원 정보 조회
         if(loginUser==null){

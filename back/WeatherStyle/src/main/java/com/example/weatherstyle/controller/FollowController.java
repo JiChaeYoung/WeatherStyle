@@ -19,13 +19,13 @@ public class FollowController {
     private final FollowService followService;
 
     @GetMapping("/api/user/{pageUserId}/following")
-    public ResponseEntity<List<FollowDto>> getFollowingList(@PathVariable int pageUserId, @Login User loginUser) {
+    public ResponseEntity<List<FollowDto>> getFollowingList(@PathVariable int pageUserId, User loginUser) {
         List<FollowDto> followingList = followService.팔로잉리스트(loginUser.getId(), pageUserId);
         return ResponseEntity.ok(followingList);
     }
 
     @GetMapping("/api/user/{pageUserId}/followers")
-    public ResponseEntity<List<FollowDto>> getFollowerList(@PathVariable int pageUserId, @Login User loginUser) {
+    public ResponseEntity<List<FollowDto>> getFollowerList(@PathVariable int pageUserId, User loginUser) {
         List<FollowDto> followerList = followService.팔로워리스트(loginUser.getId(), pageUserId);
         return ResponseEntity.ok(followerList);
     }
