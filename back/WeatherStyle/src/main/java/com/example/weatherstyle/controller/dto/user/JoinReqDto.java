@@ -16,7 +16,7 @@ public class JoinReqDto {
     private String nickname;
     private String phoneNumber;
     private String birth;
-    private Address address;
+    private String address;
 
     public User toEntity(){
         return User.builder()
