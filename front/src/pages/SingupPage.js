@@ -12,6 +12,11 @@ const Form = styled.form`
   width: 300px;
   margin: auto;
   margin-top: 50px;
+  border: 1px solid gray;
+  border-radius: 5px;
+
+  padding: 50px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
 `;
 
 const Input = styled.input`
