@@ -1,4 +1,4 @@
-package com.example.weatherstyle.controller.dto.user;
+package com.example.weatherstyle.entity.dto.user;
 
 import com.example.weatherstyle.entity.user.User;
 import lombok.AllArgsConstructor;

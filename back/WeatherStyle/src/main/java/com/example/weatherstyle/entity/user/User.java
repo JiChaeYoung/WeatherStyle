@@ -1,7 +1,6 @@
 package com.example.weatherstyle.entity.user;
 
-import com.example.weatherstyle.controller.dto.follow.FollowDto;
-import com.example.weatherstyle.entity.Address;
+import com.example.weatherstyle.entity.dto.follow.FollowDto;
 import com.example.weatherstyle.entity.comment.Comment;
 import com.example.weatherstyle.entity.like.Likes;
 import com.example.weatherstyle.entity.post.Image;
@@ -28,7 +27,7 @@ import java.util.List;
         )
 )
 @Entity
-@Getter @Setter
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -49,8 +48,12 @@ public class User {
     private String aboutMe;
     @CreationTimestamp
     private Timestamp createDate;
-    @Embedded
-    private Address address; //값 객체 VO
+<<<<<<< HEAD
+    //    @Embedded
+=======
+//    @Embedded
+>>>>>>> 13483402eb3da5bf976fabdafd79794000134972
+    private String address; //값 객체 VO
     @OneToMany(mappedBy = "user")
     private List<Image> images =new ArrayList<>();
 
@@ -59,4 +62,20 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Comment> user_comment = new ArrayList<>();
+<<<<<<< HEAD
 }
+=======
+
+    public User(String email, String password, String name, String nickname,
+                String phoneNumber, String birth, String address, RoleType role) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.nickname = nickname;
+        this.phoneNumber = phoneNumber;
+        this.birth = birth;
+        this.address = address;
+        this.role = role;
+    }
+}
+>>>>>>> 13483402eb3da5bf976fabdafd79794000134972

@@ -1,29 +1,30 @@
-package com.example.weatherstyle.controller.dto.user;
+package com.example.weatherstyle.entity.dto.user;
 
-import com.example.weatherstyle.entity.Address;
 import com.example.weatherstyle.entity.user.RoleType;
 import com.example.weatherstyle.entity.user.User;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+@Data
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Getter @Setter
 public class JoinReqDto {
     private String email;
-    private String password;
     private String name;
     private String nickname;
+    private String password;
     private String phoneNumber;
     private String birth;
-    private Address address;
+    private String address;
 
-    public User toEntity(){
+    public User toEntity() {
         return User.builder()
                 .email(email)
-                .password(password)
                 .name(name)
                 .nickname(nickname)
+                .password(password)
                 .phoneNumber(phoneNumber)
                 .birth(birth)
                 .address(address)

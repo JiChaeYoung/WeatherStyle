@@ -1,9 +1,13 @@
-package com.example.weatherstyle.controller.dto.user;
+package com.example.weatherstyle.entity.dto.user;
 
 import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class LoginDto {
     @NotEmpty
     private String email;

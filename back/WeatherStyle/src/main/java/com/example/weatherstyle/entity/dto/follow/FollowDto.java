@@ -1,4 +1,4 @@
-package com.example.weatherstyle.controller.dto.follow;
+package com.example.weatherstyle.entity.dto.follow;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

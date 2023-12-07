@@ -1,6 +1,6 @@
 package com.example.weatherstyle.entity.post;
 
-import com.example.weatherstyle.controller.dto.user.UserProfileImageRespDto;
+import com.example.weatherstyle.entity.dto.user.UserProfileImageRespDto;
 import com.example.weatherstyle.entity.Address;
 import com.example.weatherstyle.entity.comment.Comment;
 import com.example.weatherstyle.entity.like.Likes;
@@ -40,7 +40,7 @@ public class Image {
     private Address address;
 
     @CreationTimestamp
-    private Timestamp creteDate;
+    private Timestamp createDate;
 
     @OneToMany(mappedBy = "image")
     private List<Likes> likes = new ArrayList<>();
