@@ -16,27 +16,28 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class UserController {
     private final UserService userService;
     private final FollowService followService;
 
-    @GetMapping("/api/user/{pageUserId}")
+    @GetMapping("/user/{pageUserId}")
     public ResponseEntity<UserProfileDto> profile(@PathVariable int pageUserId,  User loginUser){
         UserProfileDto userProfileDto = userService.회원프로필(pageUserId, loginUser);
         return ResponseEntity.ok(userProfileDto);
     }
-    @GetMapping("/api/user/{pageUserId}/images")
+    @GetMapping("/user/{pageUserId}/images")
     public ResponseEntity<List<Image>> getUserImages(@PathVariable int pageUserId,  User loginUser) {
         List<Image> images = userService.특정유저게시물(pageUserId, loginUser.getId());
         return ResponseEntity.ok(images);
     }
     //회원 수정 폼 가져오는 부분
-    @GetMapping("/api/user/profileEdit")
+    @GetMapping("/user/profileEdit")
     public ResponseEntity<User> profileEdit(@Login User loginUser) {
         User userEntity = userService.회원정보(loginUser);
         return ResponseEntity.ok(userEntity);
     }
-    @PostMapping("/api/user/profileEditUpload")
+    @PostMapping("/user/profileEditUpload")
     public ResponseEntity<?> profileEdit(@RequestParam("profileImage") MultipartFile file, int userId,  User loginUser) {
         if (userId == loginUser.getId()) {
             userService.프로필사진업로드(loginUser, file);
@@ -44,7 +45,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
     //실제 변경 업로드
-    @PutMapping("/api/user")
+    @PutMapping("/user")
     public ResponseEntity<?> userUpdate(@RequestBody User user) {
         userService.회원수정(user);
         return new ResponseEntity<>(HttpStatus.OK);

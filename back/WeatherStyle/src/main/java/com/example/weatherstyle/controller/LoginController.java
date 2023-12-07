@@ -17,10 +17,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/api")
 public class LoginController {
     private final LoginService loginService;
 
-    @PostMapping("/api/login")
+    @PostMapping("/login")
     public ResponseEntity login(@Valid @RequestBody LoginDto form,
                                 HttpServletRequest request) {
         User loginUser = loginService.login(form.getEmail(), form.getPassword());
@@ -38,7 +39,7 @@ public class LoginController {
     }
 
 
-    @PostMapping("/api/logout")
+    @PostMapping("/logout")
     public ResponseEntity logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
