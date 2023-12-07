@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import LikeBtn from './LikeBtn';
 import PostContent from './PostContent';
 import { AiTwotoneAlert } from 'react-icons/ai';
+import React from 'react';
 
 function ContentContainer() {
   return (

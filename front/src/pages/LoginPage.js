@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import React from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
+  const navigate = useNavigate();
+
   const handleLogin = () => {
     const enteredId = document.getElementById('idInput').value;
     const enteredPassword = document.getElementById('passwordInput').value;
-
-    // API 엔드포인트 URL
-    const apiUrl = '/login';
 
     // POST 요청으로 보낼 데이터
     const requestData = {
@@ -18,18 +18,21 @@ function LoginPage() {
 
     // axios를 사용하여 서버에 POST 요청 보내기
     axios
-      .post(apiUrl, requestData)
+      .post('/api/login', requestData)
       .then((response) => {
         // 성공적으로 응답 받았을 때 실행되는 부분
         console.log(response);
         // 리다이렉션 또는 다른 작업 수행
-        window.location.href = '/story';
+        navigate('/story');
       })
       .catch((error) => {
         // 에러 발생 시 실행되는 부분
         console.error(error);
         alert('ID와 비밀번호가 일치하지 않습니다.');
       });
+  };
+  const handleSingup = () => {
+    navigate('/signup');
   };
 
   return (
@@ -58,7 +61,7 @@ function LoginPage() {
             {/* <LoginBtn>
               <Link to='/story'>로그인</Link>
             </LoginBtn> */}
-            <LoginBtn>회원가입</LoginBtn>
+            <LoginBtn onClick={handleSingup}>회원가입</LoginBtn>
           </LoginBtnDiv>
         </LoginDiv>
       </MainSection>

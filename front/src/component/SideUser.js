@@ -1,6 +1,18 @@
 import styled from 'styled-components';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function SideBar() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate('/');
+  };
+
+  const handleProfile = () => {
+    navigate('/user');
+  };
+
   return (
     <UserDiv>
       <UserInfo>
@@ -8,8 +20,8 @@ function SideBar() {
           <UserImage>UserImage</UserImage>
         </SideUser>
         <SideBtn>
-          <UserBtn>내정보</UserBtn>
-          <LogoutBtn>로그아웃</LogoutBtn>
+          <UserBtn onClick={handleProfile}>내정보</UserBtn>
+          <LogoutBtn onClick={handleLogout}>로그아웃</LogoutBtn>
         </SideBtn>
       </UserInfo>
     </UserDiv>

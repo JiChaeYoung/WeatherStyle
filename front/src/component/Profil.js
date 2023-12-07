@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { GiShadowFollower } from 'react-icons/gi';
 import { SlUserFollowing } from 'react-icons/sl';
+import React from 'react';
 
 function Profil() {
   return (

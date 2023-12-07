@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import SideUser from './SideUser';
 import SideBarIcon from './SideBarIcon';
+import React from 'react';
 
 function SideBar() {
   return (

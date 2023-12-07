@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import React from 'react';
 
 function RightHeader() {
   const items = ['Item 1', 'Item 2', 'Item 3'];

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './ImageUpload.css';
+import React from 'react';
 
 function ImageUpload() {
   const [isActive, setActive] = useState(false);

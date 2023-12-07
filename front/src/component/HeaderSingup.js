@@ -5,10 +5,10 @@ function Header() {
   return (
     <HeaderDiv>
       <LogoDiv>LogoDiv</LogoDiv>
-      <WeaderDiv>WeaderDiv</WeaderDiv>
-      <WeaderDiv>WeaderDiv</WeaderDiv>
-      <WeaderDiv>현재 위치</WeaderDiv>
-      <WeaderDiv>현재 날씨</WeaderDiv>
+      <WeaderDiv>Home</WeaderDiv>
+      <WeaderDiv>asdf</WeaderDiv>
+      <WeaderDiv>asdf</WeaderDiv>
+      <WeaderDiv>asdfasdf</WeaderDiv>
     </HeaderDiv>
   );
 }

@@ -4,6 +4,7 @@ import UserPostPage from './pages/UserPostPage';
 import UserPage from './pages/UserPage';
 import LoginPage from './pages/LoginPage';
 import UploadPage from './pages/UploadPage';
+import SingupPage from './pages/SingupPage';
 import React from 'react';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
     <Router>
       <Routes>
         <Route path='/' element={<LoginPage />} />
+        <Route path='/signup' element={<SingupPage />} />
         <Route path='/story' element={<MainPage />} />
         <Route path='/userpost' element={<UserPostPage />} />
         <Route path='/user' element={<UserPage />} />

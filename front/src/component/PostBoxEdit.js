@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import LikeBtn from './LikeBtn';
 import PostContent from './PostContent';
+import React from 'react';
 
 function PostBoxEdit() {
   return (

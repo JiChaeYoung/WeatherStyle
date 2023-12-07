@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import UserContainer from './UserContainer';
 import ContentContainer from './ContentContainer';
+import React from 'react';
 
 function PostBox() {
   return (

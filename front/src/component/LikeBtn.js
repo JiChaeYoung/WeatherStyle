@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { BiLike } from 'react-icons/bi';
+import React from 'react';
 
 function LikeBtn() {
   return (

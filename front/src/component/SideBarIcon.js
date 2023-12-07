@@ -7,6 +7,7 @@ import {
   RiBarChartFill,
 } from 'react-icons/ri';
 import { Link as RouterLink } from 'react-router-dom';
+import React from 'react';
 
 const Link = styled(RouterLink)`
   color: inherit;
