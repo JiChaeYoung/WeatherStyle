@@ -1,4 +1,4 @@
-package com.example.weatherstyle.controller.dto.comment;
+package com.example.weatherstyle.entity.dto.comment;
 
 import lombok.Getter;
 import lombok.Setter;

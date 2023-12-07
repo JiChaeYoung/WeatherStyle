@@ -1,8 +1,8 @@
 package com.example.weatherstyle.service;
 
-import com.example.weatherstyle.controller.dto.image.ImageDto;
-import com.example.weatherstyle.controller.dto.image.ImageUpdateDto;
-import com.example.weatherstyle.controller.dto.user.UserProfileImageRespDto;
+import com.example.weatherstyle.entity.dto.image.ImageDto;
+import com.example.weatherstyle.entity.dto.image.ImageUpdateDto;
+import com.example.weatherstyle.entity.dto.user.UserProfileImageRespDto;
 import com.example.weatherstyle.entity.comment.Comment;
 import com.example.weatherstyle.entity.follow.Follow;
 import com.example.weatherstyle.entity.follow.FollowRepository;

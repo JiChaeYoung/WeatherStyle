@@ -1,6 +1,6 @@
 package com.example.weatherstyle.service;
 
-import com.example.weatherstyle.controller.dto.follow.FollowDto;
+import com.example.weatherstyle.entity.dto.follow.FollowDto;
 import com.example.weatherstyle.entity.follow.FollowRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;

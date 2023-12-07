@@ -1,4 +1,4 @@
-package com.example.weatherstyle.controller.dto.image;
+package com.example.weatherstyle.entity.dto.image;
 
 import com.example.weatherstyle.entity.Address;
 import com.example.weatherstyle.entity.post.Image;

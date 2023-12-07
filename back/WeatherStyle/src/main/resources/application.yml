@@ -24,7 +24,11 @@ logging:
     org.hibernate.orm.jdbc.bind: trace
 
 file:
+<<<<<<< HEAD
   path: C:\Users\손채원\Desktop\Image
+=======
+  path: C:/file/
+>>>>>>> 13483402eb3da5bf976fabdafd79794000134972
 
 
 
