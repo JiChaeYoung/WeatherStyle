@@ -31,13 +31,11 @@ public class Image {
     @JoinColumn(name = "userId")
     private User user;
 
-    private String content; //게시물에 글쓰기
-
     private String weatherDescription; //날씨관련 정보(게시물)
 
     private String imageUrl;
 
-    private Address address;
+    private String address;
 
     @CreationTimestamp
     private Timestamp createDate;

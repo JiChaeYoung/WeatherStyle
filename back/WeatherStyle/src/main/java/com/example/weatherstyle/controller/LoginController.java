@@ -12,11 +12,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-<<<<<<< HEAD
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-=======
->>>>>>> 13483402eb3da5bf976fabdafd79794000134972
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,7 +25,6 @@ public class LoginController {
                                 HttpServletRequest request) {
         User loginUser = loginService.login(form.getEmail(), form.getPassword());
         log.info("login? {}", loginUser);
-<<<<<<< HEAD
 
         if (loginUser == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -41,25 +35,9 @@ public class LoginController {
         return new ResponseEntity<>(HttpStatus.OK);
 
     }
-    @PostMapping("/logout")
-    public String logout(HttpServletRequest request){
-=======
-
-        if (loginUser == null) {
-            log.info("실패");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            log.info("성공");
-            HttpSession session = request.getSession();
-            session.setAttribute(SessionConst.LOGIN_MEMBER, loginUser);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-    }
-
 
     @PostMapping("/api/logout")
     public ResponseEntity logout(HttpServletRequest request) {
->>>>>>> 13483402eb3da5bf976fabdafd79794000134972
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();

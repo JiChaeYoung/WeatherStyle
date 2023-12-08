@@ -133,9 +133,9 @@ public class ImageService {
         List<Follow> LoginUserFollowingList = followRepository.findByFromUserId(loginUserId);
 
         // 내가 팔로우 한 유저인지 아닌지 찾아서 해당 부분을 삭제함
-        for (Follow asdf : LoginUserFollowingList) {
+        for (Follow list : LoginUserFollowingList) {
             for (int i = 0; i < imagesEntity.size(); i++) {
-                if (imagesEntity.get(i).getUserId() == asdf.getToUser().getId()) {
+                if (imagesEntity.get(i).getUserId() == list.getToUser().getId()) {
                     imagesEntity.remove(i);
                 }
             }
@@ -152,7 +152,6 @@ public class ImageService {
         }
         else{
             Image imageEntity = imageRepository.findById(imageId).get();
-            imageEntity.setContent(imageUpdateDto.getContent());
             imageEntity.setWeatherDescription((imageUpdateDto.getWeatherDescription()));
             return imageEntity;
         }

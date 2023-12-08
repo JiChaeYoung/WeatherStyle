@@ -1,6 +1,8 @@
 package com.example.weatherstyle.service;
 
+import com.example.weatherstyle.SessionConst;
 import com.example.weatherstyle.entity.dto.user.JoinReqDto;
+import com.example.weatherstyle.entity.dto.user.LoginUserDto;
 import com.example.weatherstyle.entity.dto.user.UserProfileDto;
 import com.example.weatherstyle.entity.dto.user.UserProfileImageRespDto;
 import com.example.weatherstyle.entity.comment.Comment;
@@ -14,6 +16,7 @@ import com.example.weatherstyle.exception.MyUserIdNotFoundException;
 import com.example.weatherstyle.exception.MyUserInfoExistException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -32,6 +35,7 @@ import java.util.function.Supplier;
 @RequiredArgsConstructor //생성자로 Autowired 주입
 public class UserService {
 
+    private final HttpSession session;
     private final EntityManager em;
     private final UserRepository userRepository;
     private final FollowRepository followRepository;
@@ -67,7 +71,7 @@ public class UserService {
         userEntity.setPhoneNumber(user.getPhoneNumber());
     }
     @Transactional(readOnly = true)
-    public User 회원정보(User user) {
+    public User 회원정보(LoginUserDto user) {
         return userRepository.findById(user.getId()).orElseThrow(new Supplier<MyUserIdNotFoundException>() {
             @Override
             public MyUserIdNotFoundException get() {
@@ -105,7 +109,7 @@ public class UserService {
         return boards;
     }
     @Transactional(readOnly = true)
-    public UserProfileDto 회원프로필(int id, User loginUser) {
+    public UserProfileDto 회원프로필(int id, LoginUserDto loginUser) {
 
         int imageCount;
         int followerCount;
@@ -150,7 +154,7 @@ public class UserService {
     private String uploadFolder;
 
     @Transactional
-    public void 프로필사진업로드(User loginUser, MultipartFile file) {
+    public void 프로필사진업로드(LoginUserDto loginUser, MultipartFile file) {
         UUID uuid = UUID.randomUUID();
         String imageFilename = uuid + "_" + file.getOriginalFilename();
         Path imageFilepath = Paths.get(uploadFolder + imageFilename);
@@ -172,6 +176,13 @@ public class UserService {
         userEntity.setProfileImage(imageFilename);
 
         // 자신의 프로필 이미지 변경 후에 세션에 변경된 이미지가 적용되도록 다시 등록해주기
-        loginUser.setProfileImage(imageFilename);
+        loginUser.setImageUrl(imageFilename);
+        session.setAttribute(SessionConst.LOGIN_MEMBER, loginUser);
+    }
+
+    @Transactional(readOnly = true)
+    public List<User> 회원검색(String username, int id) {
+        username = "%" + username + "%";
+        return userRepository.mSearchUserList(username, id);
     }
 }
