@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './ImageUpload.css';
 import React from 'react';
 
-function ImageUpload() {
+function ImageUpload({ onUpload }) {
   const [isActive, setActive] = useState(false);
   const [uploadedInfo, setUploadedInfo] = useState(null);
   const [imageSrc, setImageSrc] = useState(null);
@@ -16,10 +16,13 @@ function ImageUpload() {
   const setFileInfo = (file) => {
     const { name, size: byteSize, type } = file;
     const size = (byteSize / (1024 * 1024)).toFixed(2) + 'mb';
-    setUploadedInfo({ name, size, type });
+    const fileInfo = { name, size, type };
 
-    // Create a URL for the uploaded image
-    setImageSrc(URL.createObjectURL(file));
+    setUploadedInfo(fileInfo);
+    if (onUpload) {
+      // onUpload 함수가 존재하는 경우에만 호출
+      onUpload(fileInfo);
+    }
   };
 
   const handleDrop = (event) => {

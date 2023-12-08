@@ -2,9 +2,37 @@ import styled from 'styled-components';
 import SideBar from '../component/SideBar';
 import Header from '../component/Header';
 import ImgaeUpload from '../component/ImageUpload';
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 function UploadPage() {
+  const [uploadedInfo, setUploadedInfo] = useState(null);
+
+  const handleImageUpload = async () => {
+    if (!uploadedInfo) {
+      alert('업로드할 이미지를 선택해주세요.');
+      return;
+    }
+    const formData = new FormData();
+    formData.append('image', uploadedInfo);
+
+    try {
+      const response = await axios.post('/api/image', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (response.status === 200) {
+        alert('이미지가 성공적으로 업로드되었습니다.');
+      } else {
+        alert('이미지 업로드에 실패하였습니다.');
+      }
+    } catch (error) {
+      console.error('이미지 업로드에 실패하였습니다.', error);
+    }
+  };
+
   return (
     <MainContainer>
       <Container>
@@ -18,22 +46,15 @@ function UploadPage() {
             <UserDiv>
               <UploadDiv>
                 <UploadSec>
-                  <TitlePost>
-                    <input placeholder='제목을 입력하시오.'></input>
-                  </TitlePost>
-                  <ComemntPost>
-                    <textarea
-                      style={{ width: '300px', height: '250px' }}
-                      placeholder='내용을 입력하시오.'
-                    ></textarea>
-                  </ComemntPost>
+                  <TitlePost></TitlePost>
+                  <ComemntPost></ComemntPost>
                 </UploadSec>
                 <UploadSec>
-                  <ImgaeUpload></ImgaeUpload>
+                  <ImgaeUpload onUpload={setUploadedInfo} />
                 </UploadSec>
               </UploadDiv>
-              <OkBtn>
-                <span>게시하기</span>
+              <OkBtn onClick={handleImageUpload}>
+                <span>이미지 업로드</span>
               </OkBtn>
             </UserDiv>
           </UserSection>
