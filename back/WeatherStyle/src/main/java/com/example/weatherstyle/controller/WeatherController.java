@@ -17,8 +17,13 @@ public class WeatherController {
     private final WeatherService weatherService;
 
     @GetMapping("/api/weather")
-    public ResponseEntity<WeatherInfo> getWeather() {
-        return ResponseEntity.ok(weatherService.getWeather("Seoul"));
+    public ResponseEntity<String> getWeather() {
+        try {
+            WeatherInfo weatherInfo = weatherService.getWeather("Seoul");
+            return ResponseEntity.ok(weatherInfo.getWeather());
+        } catch (Exception e) {
+            throw new RuntimeException("날씨 정보를 가져오는 데 실패했습니다", e);
+        }
     }
 
     @GetMapping("/test/api/getTemperature")

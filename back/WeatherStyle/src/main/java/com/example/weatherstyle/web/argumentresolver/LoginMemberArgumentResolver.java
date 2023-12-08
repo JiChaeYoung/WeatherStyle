@@ -1,6 +1,7 @@
 package com.example.weatherstyle.web.argumentresolver;
 
 import com.example.weatherstyle.SessionConst;
+import com.example.weatherstyle.entity.dto.user.LoginUserDto;
 import com.example.weatherstyle.entity.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -14,7 +15,7 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         boolean hasLoginAnnotation = parameter.hasParameterAnnotation(Login.class);
-        boolean hasUserForm = User.class.isAssignableFrom(parameter.getParameterType());
+        boolean hasUserForm = LoginUserDto.class.isAssignableFrom(parameter.getParameterType());
 
         return hasLoginAnnotation&&hasUserForm;
     }

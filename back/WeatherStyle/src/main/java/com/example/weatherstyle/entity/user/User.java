@@ -48,11 +48,7 @@ public class User {
     private String aboutMe;
     @CreationTimestamp
     private Timestamp createDate;
-<<<<<<< HEAD
     //    @Embedded
-=======
-//    @Embedded
->>>>>>> 13483402eb3da5bf976fabdafd79794000134972
     private String address; //값 객체 VO
     @OneToMany(mappedBy = "user")
     private List<Image> images =new ArrayList<>();
@@ -62,9 +58,6 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Comment> user_comment = new ArrayList<>();
-<<<<<<< HEAD
-}
-=======
 
     public User(String email, String password, String name, String nickname,
                 String phoneNumber, String birth, String address, RoleType role) {
@@ -78,4 +71,3 @@ public class User {
         this.role = role;
     }
 }
->>>>>>> 13483402eb3da5bf976fabdafd79794000134972
