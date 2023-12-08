@@ -1,33 +1,47 @@
 import styled from 'styled-components';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function LeftHeader() {
-  const items = ['Item 1', 'Item 2', 'Item 3'];
+  const address = '서울시 강남구 테헤란로';
+  const [weather, setWeather] = useState('');
+  const [temperature, setTemperature] = useState('');
+
+  useEffect(() => {
+    const getWeatherData = async () => {
+      try {
+        // 날씨 데이터를 가져옵니다.
+        const weatherData = await axios.get('/api/weather');
+        setWeather(weatherData.data);
+
+        // 온도 데이터를 가져옵니다.
+        const temperatureData = await axios.get('/api/getTemperature');
+        setTemperature(temperatureData.data);
+      } catch (error) {
+        console.error('날씨 정보를 가져오는데 실패했습니다.', error);
+      }
+    };
+
+    getWeatherData();
+  }, []);
 
   return (
     <MainContainer>
       <HeaderContainer>
         <LogoDiv>LogoDiv</LogoDiv>
         <WeatherDiv>
-          <ul>
-            주소
-            {items.map((item, index) => (
-              <li key={index}>{item}</li>
-            ))}
-          </ul>
-          <ul>
-            온도
-            {items.map((item, index) => (
-              <li key={index}>{item}</li>
-            ))}
-          </ul>
-
-          <ul>
-            온도
-            {items.map((item, index) => (
-              <li key={index}>{item}</li>
-            ))}
-          </ul>
+          <Info>
+            <Title>주소</Title>
+            <InfoContent>{address}</InfoContent>
+          </Info>
+          <Info>
+            <Title>온도</Title>
+            <InfoContent>{temperature} ºC</InfoContent>
+          </Info>
+          <Info>
+            <Title>날씨</Title>
+            <InfoContent>{weather}</InfoContent>
+          </Info>
         </WeatherDiv>
       </HeaderContainer>
     </MainContainer>
@@ -41,11 +55,11 @@ const MainContainer = styled.div`
 `;
 
 const HeaderContainer = styled.div`
-  background-color: white;
+  background: linear-gradient(to bottom, #fff0f5, white);
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: 200px;
+  height: 150px;
   width: 50%;
 
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
@@ -62,12 +76,27 @@ const LogoDiv = styled.div`
 `;
 
 const WeatherDiv = styled.div`
-  border: 1px solid black;
   display: flex;
+  flex-direction: center;
+  justify-content: space-around;
   height: 80%;
   width: 50%;
-  & li {
-    margin: 10px;
-    font-size: 1em;
-  }
+`;
+
+const Info = styled.ul`
+  list-style: none;
+  margin-top: 25px;
+  padding: 0;
+`;
+
+const InfoContent = styled.li`
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 5px;
+`;
+
+const Title = styled.li`
+  font-size: 1em;
+  margin-bottom: 10px;
+  color: #666;
 `;

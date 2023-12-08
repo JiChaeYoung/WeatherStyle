@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import React from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -58,10 +58,7 @@ function LoginPage() {
           </IdSection>
           <LoginBtnDiv>
             <LoginBtn onClick={handleLogin}>로그인</LoginBtn>
-            {/* <LoginBtn>
-              <Link to='/story'>로그인</Link>
-            </LoginBtn> */}
-            <LoginBtn onClick={handleSingup}>회원가입</LoginBtn>
+            <SignupBtn onClick={handleSingup}>회원가입</SignupBtn>
           </LoginBtnDiv>
         </LoginDiv>
       </MainSection>
@@ -73,20 +70,30 @@ export default LoginPage;
 
 const MainContainer = styled.div``;
 
+const moveGradient = keyframes`
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+`;
+
 const MainSection = styled.div`
-  background-color: white;
   height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(to left, #808080, #fff);
+  background-size: 200% 200%;
+  animation: ${moveGradient} 5s linear infinite;
 `;
 
 const TitleDiv = styled.div`
   width: 400px;
   height: 100px;
   font-size: 50px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -104,13 +111,14 @@ const LoginDiv = styled.div`
   align-items: center;
   justify-content: center;
   align-content: space-around;
-  margin: 5%;
+  margin: 3%;
 `;
 
 const IdSection = styled.div`
   border: 1px solid black;
   width: 200px;
   height: 40px;
+  margin-bottom: 3px;
   input {
     width: 193px;
     height: 35px;
@@ -130,5 +138,37 @@ const LoginBtn = styled.button`
   width: 170px;
   height: 90%;
   margin: 2px;
-  box-shadow: 1px 1px 1px 1px gray;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  background-color: #000;
+  color: #fff;
+  border: 5px dotted gary;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+
+  &:hover {
+    background-color: #333;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    box-shadow: 0;
+    transform: translateY(2px);
+  }
+`;
+
+const SignupBtn = styled(LoginBtn)`
+  background-color: #fff;
+  color: #000;
+
+  &:hover {
+    background-color: #eee;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    box-shadow: 0;
+    transform: translateY(2px);
+  }
 `;

@@ -14,9 +14,9 @@ const Form = styled.form`
   margin-top: 50px;
   border: 1px solid gray;
   border-radius: 5px;
-
   padding: 50px;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: #f3f3f3;
 `;
 
 const Input = styled.input`
@@ -29,9 +29,20 @@ const Button = styled.button`
   padding: 10px;
   margin: 10px 0;
   border: none;
-  background-color: #4caf50;
+  background: linear-gradient(90deg, #b4b4b4, #dcdcdc);
   color: white;
   cursor: pointer;
+  transition: all 0.3s ease 0s;
+
+  &:hover {
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    box-shadow: 0;
+    transform: translateY(2px);
+  }
 `;
 
 const Signup = () => {
@@ -68,6 +79,7 @@ const Signup = () => {
       .post('/api/auth/joinForm', form)
       .then((response) => {
         console.log(response);
+        alert('회원 가입 완료 !');
         navigate('/'); // 회원가입 후 메인 페이지로 이동
       })
       .catch((error) => {

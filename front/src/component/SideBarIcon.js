@@ -17,32 +17,32 @@ const Link = styled(RouterLink)`
 function icons() {
   return (
     <>
-      <ListItem>
-        <Link to='/story'>
+      <Link to='/story'>
+        <ListItem>
           <FaHome />홈
-        </Link>
-      </ListItem>
-      <ListItem>
-        <Link to='/user'>
+        </ListItem>
+      </Link>
+      <Link to='/user'>
+        <ListItem>
           <RiAccountBoxFill />
           내정보
-        </Link>
-      </ListItem>
-      <ListItem>
-        <Link to='/upload'>
+        </ListItem>
+      </Link>
+      <Link to='/upload'>
+        <ListItem>
           <RiArchiveDrawerFill />서 랍
-        </Link>
-      </ListItem>
-      <ListItem>
-        <Link to='/user'>
+        </ListItem>
+      </Link>
+      <Link to='/user'>
+        <ListItem>
           <RiBarChartFill />통 계
-        </Link>
-      </ListItem>
-      <ListItem>
-        <Link to='/upload'>
+        </ListItem>
+      </Link>
+      <Link to='/upload'>
+        <ListItem>
           <RiDiscussFill />채 팅
-        </Link>
-      </ListItem>
+        </ListItem>
+      </Link>
     </>
   );
 }
@@ -56,15 +56,24 @@ const ListItem = styled.li`
   padding: 6%;
   margin-top: 10px;
   font-size: 18px;
+  color: black;
 
   & svg {
     font-size: 24px;
     margin-right: 20px;
+    color: black;
   }
 
   &:hover {
-    background-color: #fff0f0;
+    background-color: #ffb6c1;
     width: 75%;
+    font-size: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    color: white;
+    font-weight: bold;
+
+    & svg {
+      color: white;
+    }
   }
 `;
