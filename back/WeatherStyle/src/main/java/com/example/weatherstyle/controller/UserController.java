@@ -1,6 +1,6 @@
 package com.example.weatherstyle.controller;
 
-import com.example.weatherstyle.entity.dto.user.LoginUserDto;
+import com.example.weatherstyle.entity.dto.user.LoginUser;
 import com.example.weatherstyle.entity.dto.user.UserProfileDto;
 import com.example.weatherstyle.entity.post.Image;
 import com.example.weatherstyle.entity.user.User;
@@ -22,23 +22,23 @@ public class UserController {
     private final FollowService followService;
 
     @GetMapping("/api/user/{pageUserId}")
-    public ResponseEntity<UserProfileDto> profile(@PathVariable int pageUserId,  @Login LoginUserDto loginUser){
+    public ResponseEntity<UserProfileDto> profile(@PathVariable int pageUserId,  @Login LoginUser loginUser){
         UserProfileDto userProfileDto = userService.회원프로필(pageUserId, loginUser);
         return ResponseEntity.ok(userProfileDto);
     }
     @GetMapping("/api/user/{pageUserId}/images")
-    public ResponseEntity<List<Image>> getUserImages(@PathVariable int pageUserId,  @Login LoginUserDto loginUser) {
+    public ResponseEntity<List<Image>> getUserImages(@PathVariable int pageUserId,  @Login LoginUser loginUser) {
         List<Image> images = userService.특정유저게시물(pageUserId, loginUser.getId());
         return ResponseEntity.ok(images);
     }
     //회원 수정 폼 가져오는 부분
     @GetMapping("/api/user/profileEdit")
-    public ResponseEntity<User> profileEdit(@Login LoginUserDto loginUser) {
+    public ResponseEntity<User> profileEdit(@Login LoginUser loginUser) {
         User userEntity = userService.회원정보(loginUser);
         return ResponseEntity.ok(userEntity);
     }
     @PostMapping("/api/user/profileEditUpload")
-    public ResponseEntity<?> profileEdit(@RequestParam("profileImage") MultipartFile file, int userId,  @Login LoginUserDto loginUser) {
+    public ResponseEntity<?> profileEdit(@RequestParam("profileImage") MultipartFile file, int userId,  @Login LoginUser loginUser) {
         if (userId == loginUser.getId()) {
             userService.프로필사진업로드(loginUser, file);
         }

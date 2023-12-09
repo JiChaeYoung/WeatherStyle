@@ -1,7 +1,7 @@
 package com.example.weatherstyle.web.argumentresolver;
 
 import com.example.weatherstyle.SessionConst;
-import com.example.weatherstyle.entity.dto.user.LoginUserDto;
+import com.example.weatherstyle.entity.dto.user.LoginUser;
 import com.example.weatherstyle.entity.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -15,20 +15,27 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         boolean hasLoginAnnotation = parameter.hasParameterAnnotation(Login.class);
-        boolean hasUserForm = LoginUserDto.class.isAssignableFrom(parameter.getParameterType());
+        boolean hasUserForm = LoginUser.class.isAssignableFrom(parameter.getParameterType());
 
-        return hasLoginAnnotation&&hasUserForm;
+        return hasLoginAnnotation && hasUserForm;
     }
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        HttpServletRequest request = (HttpServletRequest)webRequest.getNativeRequest();
+        HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
+        HttpSession session = request.getSession(false);
 
-        HttpSession session=request.getSession(false);
-
-        if(session==null){
+        if (session == null) {
             return null;
         }
-        return session.getAttribute(SessionConst.LOGIN_MEMBER);
+
+        // 세션에서 가져온 객체가 User 타입이라면 LoginUserDto로 변환
+        Object sessionAttribute = session.getAttribute(SessionConst.LOGIN_MEMBER);
+        if (sessionAttribute instanceof User) {
+            User user = (User) sessionAttribute;
+            return new LoginUser(user);
+        }
+
+        return sessionAttribute;
     }
 }

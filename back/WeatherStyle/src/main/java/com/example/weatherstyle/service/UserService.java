@@ -2,7 +2,7 @@ package com.example.weatherstyle.service;
 
 import com.example.weatherstyle.SessionConst;
 import com.example.weatherstyle.entity.dto.user.JoinReqDto;
-import com.example.weatherstyle.entity.dto.user.LoginUserDto;
+import com.example.weatherstyle.entity.dto.user.LoginUser;
 import com.example.weatherstyle.entity.dto.user.UserProfileDto;
 import com.example.weatherstyle.entity.dto.user.UserProfileImageRespDto;
 import com.example.weatherstyle.entity.comment.Comment;
@@ -71,7 +71,7 @@ public class UserService {
         userEntity.setPhoneNumber(user.getPhoneNumber());
     }
     @Transactional(readOnly = true)
-    public User 회원정보(LoginUserDto user) {
+    public User 회원정보(LoginUser user) {
         return userRepository.findById(user.getId()).orElseThrow(new Supplier<MyUserIdNotFoundException>() {
             @Override
             public MyUserIdNotFoundException get() {
@@ -109,7 +109,7 @@ public class UserService {
         return boards;
     }
     @Transactional(readOnly = true)
-    public UserProfileDto 회원프로필(int id, LoginUserDto loginUser) {
+    public UserProfileDto 회원프로필(int id, LoginUser loginUser) {
 
         int imageCount;
         int followerCount;
@@ -154,7 +154,7 @@ public class UserService {
     private String uploadFolder;
 
     @Transactional
-    public void 프로필사진업로드(LoginUserDto loginUser, MultipartFile file) {
+    public void 프로필사진업로드(LoginUser loginUser, MultipartFile file) {
         UUID uuid = UUID.randomUUID();
         String imageFilename = uuid + "_" + file.getOriginalFilename();
         Path imageFilepath = Paths.get(uploadFolder + imageFilename);

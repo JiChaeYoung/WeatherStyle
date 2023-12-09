@@ -1,19 +1,10 @@
 package com.example.weatherstyle.web;
 
-import com.example.weatherstyle.entity.dto.user.LoginUserDto;
-import com.example.weatherstyle.web.argumentresolver.Login;
 import com.example.weatherstyle.web.argumentresolver.LoginMemberArgumentResolver;
-import com.example.weatherstyle.web.interceptor.LoginCheckInterceptor;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.MethodParameter;
-import org.springframework.web.bind.support.WebDataBinderFactory;
-import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.method.support.ModelAndViewContainer;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
