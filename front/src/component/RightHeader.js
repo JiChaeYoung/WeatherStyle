@@ -10,9 +10,6 @@ function RightHeader() {
   const [rain, setRain] = useState('0');
   const [snow, setSnow] = useState('0');
 
-  const latitude = '37.5665° N';
-  const longitude = '126.9780° E';
-
   useEffect(() => {
     const fetchData = async () => {
       try {

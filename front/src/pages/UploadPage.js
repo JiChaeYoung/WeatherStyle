@@ -13,8 +13,12 @@ function UploadPage() {
       alert('업로드할 이미지를 선택해주세요.');
       return;
     }
+
     const formData = new FormData();
-    formData.append('image', uploadedInfo);
+
+    formData.append('file', uploadedInfo);
+    formData.append('weatherDescription', 'asdfasdf');
+    formData.append('address', 'qwerqwer');
 
     try {
       const response = await axios.post('/api/image', formData, {

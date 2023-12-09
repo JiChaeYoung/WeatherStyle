@@ -15,6 +15,8 @@ public class ImageDto {
     private String address;
 
     public Image toEntity(String imageUrl, User userEntity) {
+        System.out.printf("weatherDescription={}", weatherDescription);
+        System.out.printf("address={}", address);
         return Image.builder()
                 .address(address)
                 .weatherDescription(weatherDescription)

@@ -35,7 +35,7 @@ public class ImageController {
 //    }
 
     @PostMapping("/image")
-    public ResponseEntity<?> imageUpload(@Login LoginUserDto loginUser, ImageDto imageReqDto) {
+    public ResponseEntity<?> imageUpload(@Login LoginUserDto loginUser, @ModelAttribute ImageDto imageReqDto) {
         imageService.게시물업로드(loginUser.getId(), imageReqDto);
         return new ResponseEntity<>("Image uploaded successfully", HttpStatus.OK);
     }

@@ -32,13 +32,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Value("${file.path}")
     private String uploadFolder;
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginCheckInterceptor())
-                .order(1)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/api/login","/css/**", "/error","/api/logout","api/auth/joinForm","/auth/**","/*.ico");
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(new LoginCheckInterceptor())
+//                .order(1)
+//                .addPathPatterns("/**")
+//                .excludePathPatterns("/api/login","/css/**", "/error","/api/logout","api/auth/joinForm","/auth/**","/*.ico");
+//    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

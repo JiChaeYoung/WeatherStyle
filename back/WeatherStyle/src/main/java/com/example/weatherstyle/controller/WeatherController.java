@@ -26,7 +26,7 @@ public class WeatherController {
         }
     }
 
-    @GetMapping("/test/api/getTemperature")
+    @GetMapping("/api/getTemperature")
     public ResponseEntity<String> getTemperature() {
         try {
             WeatherInfo weatherInfo = weatherService.getWeather("Seoul");
@@ -36,7 +36,7 @@ public class WeatherController {
         }
     }
 
-    @GetMapping("/test/api/getHumidity")
+    @GetMapping("/api/getHumidity")
     public ResponseEntity<String> getHumidity() {
         try {
             WeatherInfo weatherInfo = weatherService.getWeather("Seoul");
@@ -46,7 +46,7 @@ public class WeatherController {
         }
     }
 
-    @GetMapping("/test/api/getWindSpeed")
+    @GetMapping("/api/getWindSpeed")
     public ResponseEntity<String> getWindSpeed() {
         try {
             WeatherInfo weatherInfo = weatherService.getWeather("Seoul");
@@ -56,7 +56,7 @@ public class WeatherController {
         }
     }
 
-    @GetMapping("/test/api/getTempMinMax")
+    @GetMapping("/api/getTempMinMax")
     public ResponseEntity<Map<String, String>> getTempMinMax() {
         try {
             WeatherInfo weatherInfo = weatherService.getWeather("Seoul");
@@ -69,7 +69,7 @@ public class WeatherController {
         }
     }
 
-    @GetMapping("/test/api/getRainSnowInfo")
+    @GetMapping("/api/getRainSnowInfo")
     public ResponseEntity<Map<String, String>> getRainSnowInfo() {
         try {
             WeatherInfo weatherInfo = weatherService.getWeather("Seoul");
@@ -81,7 +81,7 @@ public class WeatherController {
             throw new RuntimeException("강우량 및 적설량 정보를 가져오는 데 실패했습니다", e);
         }
     }
-    @GetMapping("/test/api/getAQI")
+    @GetMapping("/api/getAQI")
     public ResponseEntity<Integer> getAirQualityIndex() {
         try {
             // 도시의 날씨 정보를 먼저 가져옴

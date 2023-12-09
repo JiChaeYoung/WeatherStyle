@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './ImageUpload.css';
 import React from 'react';
+import axios from 'axios';
 
 function ImageUpload({ onUpload }) {
   const [isActive, setActive] = useState(false);
@@ -19,10 +20,19 @@ function ImageUpload({ onUpload }) {
     const fileInfo = { name, size, type };
 
     setUploadedInfo(fileInfo);
+
+    // const formData = new FormData();
+    // formData.append('file', file);
+
     if (onUpload) {
       // onUpload 함수가 존재하는 경우에만 호출
-      onUpload(fileInfo);
+      onUpload(file);
     }
+  };
+
+  const handleUpload = async ({ target }) => {
+    const file = target.files[0];
+    setFileInfo(file);
   };
 
   const handleDrop = (event) => {
@@ -30,11 +40,6 @@ function ImageUpload({ onUpload }) {
     setActive(false);
 
     const file = event.dataTransfer.files[0];
-    setFileInfo(file);
-  };
-
-  const handleUpload = ({ target }) => {
-    const file = target.files[0];
     setFileInfo(file);
   };
 
