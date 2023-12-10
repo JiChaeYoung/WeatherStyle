@@ -9,6 +9,9 @@ import com.example.weatherstyle.entity.follow.FollowRepository;
 import com.example.weatherstyle.entity.like.Likes;
 import com.example.weatherstyle.entity.post.Image;
 import com.example.weatherstyle.entity.post.ImageRepository;
+import com.example.weatherstyle.entity.tag.Tag;
+import com.example.weatherstyle.entity.tag.TagRepository;
+import com.example.weatherstyle.entity.tag.Utils;
 import com.example.weatherstyle.entity.user.User;
 import com.example.weatherstyle.entity.user.UserRepository;
 import com.example.weatherstyle.exception.MyImageDeleteException;
@@ -18,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -33,6 +37,7 @@ public class ImageService {
     private final UserRepository userRepository;
     private final FollowRepository followRepository;
     private final EntityManager em;
+    private final TagRepository tagRepository;
 
     @Transactional
     public void 게시물삭제(int imageId, int imageUserId, int loginUserId)throws MyImageDeleteException {
@@ -60,14 +65,20 @@ public class ImageService {
         }
 
         // 1. Image 저장
-        Image image = imageDto.toEntity(imageFilename, userEntity);
-        imageRepository.save(image);
+        Image image = imageDto.toEntity(String.valueOf(imageFilepath), userEntity);
+        Image imageEntity = imageRepository.save(image);
+
+        // 2. Tag 저장
+        List<String> tagNames = Utils.tagParse(imageDto.getTags());
+        for (String name : tagNames) {
+            Tag tag = Tag.builder().image(imageEntity).name(name).build();
+            tagRepository.save(tag);
+        }
     }
 
     @Transactional(readOnly = true)
     public List<Image> 단독게시물(int loginUserId, int imageId) {
-        List<Image> boards = null;
-        boards = imageRepository.mBoardImage(imageId);
+        List<Image> boards = imageRepository.mBoardImage(imageId);
 
         for (Image board : boards) {
             board.setLikeCount(board.getLikes().size());
@@ -90,12 +101,33 @@ public class ImageService {
 
     @Transactional(readOnly = true)
     public List<Image> 피드사진(int loginUserId) {
-        List<Image> images = null;
-        images = imageRepository.mFeeds(loginUserId);
+        List<Image> images = imageRepository.mFeeds(loginUserId);
         if (images.size() == 0) {
             images = imageRepository.mAllFeeds(loginUserId);
         }
 
+        for (Image image : images) {
+            image.setLikeCount(image.getLikes().size());
+
+            // 좋아요 상태 여부 등록
+            for (Likes like : image.getLikes()) {
+                if (like.getUser().getId() == loginUserId) {
+                    image.setLikeState(true);
+                }
+            }
+            // 댓글 주인 여부 등록
+            for (Comment comment : image.getComments()) {
+                if (comment.getUser().getId() == loginUserId) {
+                    comment.setCommentHost(true);
+                }
+            }
+        }
+
+        return images;
+    }
+    @Transactional(readOnly = true)
+    public List<Image> getImagesBySimilarTag(int loginUserId,String tags){
+        List<Image> images = imageRepository.mFeedsTag(tags);
         for (Image image : images) {
             image.setLikeCount(image.getLikes().size());
 

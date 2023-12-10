@@ -4,7 +4,9 @@ import com.example.weatherstyle.entity.dto.user.UserProfileImageRespDto;
 import com.example.weatherstyle.entity.Address;
 import com.example.weatherstyle.entity.comment.Comment;
 import com.example.weatherstyle.entity.like.Likes;
+import com.example.weatherstyle.entity.tag.Tag;
 import com.example.weatherstyle.entity.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -55,5 +57,8 @@ public class Image {
 
     @Transient
     private int commentCount;
+
+    @OneToMany(mappedBy = "image")
+    private List<Tag> tags;
 
 }

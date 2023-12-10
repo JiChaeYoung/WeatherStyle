@@ -4,13 +4,18 @@ import com.example.weatherstyle.entity.dto.image.ImageDto;
 import com.example.weatherstyle.entity.dto.user.LoginUser;
 import com.example.weatherstyle.entity.dto.user.UserProfileImageRespDto;
 import com.example.weatherstyle.entity.post.Image;
+import com.example.weatherstyle.entity.weather.WeatherInfo;
 import com.example.weatherstyle.service.ImageService;
+import com.example.weatherstyle.service.WeatherService;
 import com.example.weatherstyle.web.argumentresolver.Login;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
+import java.net.MalformedURLException;
 import java.util.List;
 
 @RestController
@@ -18,15 +23,21 @@ import java.util.List;
 @RequestMapping("/api")
 public class ImageController {
     private final ImageService imageService;
+    private final WeatherService weatherService;
+    private final Image image;
 
     @GetMapping( "/image/feed" )
     public ResponseEntity<List<Image>> feed(@Login LoginUser loginUser) {
         List<Image> images = imageService.피드사진(loginUser.getId());
         return ResponseEntity.ok(images);
     }
-    @GetMapping("/test/image/feed")
-    public @ResponseBody List<Image> testFeed(@Login LoginUser loginUser) {
-        return imageService.피드사진(loginUser.getId());
+    @GetMapping("/image/feed/tag")
+    public ResponseEntity <List<Image>> testFeed(@Login LoginUser loginUser) {
+        WeatherInfo weather = weatherService.getWeather(loginUser.getAddress());
+        List<Image> imagesBySimilarTag = imageService.getImagesBySimilarTag(loginUser.getId(), weather.getWeather());
+
+        return ResponseEntity.ok(imagesBySimilarTag);
+
     }
 
 //    @GetMapping("/image/uploadForm")

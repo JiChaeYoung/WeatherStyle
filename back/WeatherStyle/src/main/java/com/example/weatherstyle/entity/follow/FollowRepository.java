@@ -3,9 +3,11 @@ package com.example.weatherstyle.entity.follow;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface FollowRepository extends JpaRepository<Follow, Integer> {
     //내가 팔로우 하고 있는사람 찾아오기
     List<Follow> findByFromUserId(int user_id);
