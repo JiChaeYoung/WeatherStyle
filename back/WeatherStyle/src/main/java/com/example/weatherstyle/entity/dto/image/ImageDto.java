@@ -15,7 +15,7 @@ public class ImageDto {
     private MultipartFile file;
     private String weatherDescription;
     private String address;
-//    private String tags;
+    private String tags;
 
     public Image toEntity(String imageUrl, User userEntity) {
         return Image.builder()

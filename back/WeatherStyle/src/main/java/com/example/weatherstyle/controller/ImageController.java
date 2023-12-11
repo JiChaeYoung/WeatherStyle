@@ -1,6 +1,7 @@
 package com.example.weatherstyle.controller;
 
 import com.example.weatherstyle.entity.dto.image.ImageDto;
+import com.example.weatherstyle.entity.dto.image.ImageUpdateDto;
 import com.example.weatherstyle.entity.dto.user.LoginUser;
 import com.example.weatherstyle.entity.dto.user.UserProfileImageRespDto;
 import com.example.weatherstyle.entity.post.Image;
@@ -25,10 +26,17 @@ public class ImageController {
     private final ImageService imageService;
     private final WeatherService weatherService;
 
+    @ResponseBody
     @GetMapping( "/image/feed" )
     public ResponseEntity<List<Image>> feed(@Login LoginUser loginUser) {
         List<Image> images = imageService.피드사진(loginUser.getId());
         return ResponseEntity.ok(images);
+    }
+    @ResponseBody
+    @GetMapping("/images/{fileUrl}")
+    public Resource downloadImage(@PathVariable("fileUrl") String fileUrl) throws
+            MalformedURLException {
+        return new UrlResource("file:" + fileUrl);
     }
     @GetMapping("/image/feed/tag")
     public ResponseEntity <List<Image>> testFeed(@Login LoginUser loginUser) {
@@ -68,5 +76,10 @@ public class ImageController {
     public ResponseEntity<?> boardDelete(@PathVariable int imageId, @PathVariable int ImageUserId, @Login LoginUser loginUser) {
         imageService.게시물삭제(imageId, ImageUserId, loginUser.getId());
         return new ResponseEntity<>("Image deleted successfully", HttpStatus.OK);
+    }
+    @PutMapping("/image/{imageId}/{imageUserId}")
+    public ResponseEntity<?> imageUpdate(@PathVariable int imageId, @PathVariable int imageUserId, @Login LoginUser loginUser, @ModelAttribute ImageUpdateDto imageUpdateDto){
+        imageService.게시물수정(loginUser.getId(), imageId,imageUserId,imageUpdateDto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

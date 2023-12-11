@@ -21,16 +21,19 @@ public class UserController {
     private final UserService userService;
     private final FollowService followService;
 
+    @ResponseBody
     @GetMapping("/api/user/{pageUserId}")
     public ResponseEntity<UserProfileDto> profile(@PathVariable int pageUserId,  @Login LoginUser loginUser){
         UserProfileDto userProfileDto = userService.회원프로필(pageUserId, loginUser);
         return ResponseEntity.ok(userProfileDto);
     }
+    @ResponseBody
     @GetMapping("/api/user/{pageUserId}/images")
     public ResponseEntity<List<Image>> getUserImages(@PathVariable int pageUserId,  @Login LoginUser loginUser) {
         List<Image> images = userService.특정유저게시물(pageUserId, loginUser.getId());
         return ResponseEntity.ok(images);
     }
+    @ResponseBody
     //회원 수정 폼 가져오는 부분
     @GetMapping("/api/user/profileEdit")
     public ResponseEntity<User> profileEdit(@Login LoginUser loginUser) {

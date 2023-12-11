@@ -68,11 +68,11 @@ public class ImageService {
         Image imageEntity = imageRepository.save(image);
 
         // 2. Tag 저장
-//        List<String> tagNames = Utils.tagParse(imageDto.getTags());
-//        for (String name : tagNames) {
-//            Tag tag = Tag.builder().image(imageEntity).name(name).build();
-//            tagRepository.save(tag);
-//        }
+        List<String> tagNames = Utils.tagParse(imageDto.getTags());
+        for (String name : tagNames) {
+            Tag tag = Tag.builder().image(imageEntity).name(name).build();
+            tagRepository.save(tag);
+        }
     }
 
     @Transactional(readOnly = true)
