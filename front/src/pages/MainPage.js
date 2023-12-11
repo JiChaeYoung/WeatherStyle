@@ -3,22 +3,36 @@ import LeftHeader from '../component/LeftHeader';
 import RightHeader from '../component/RightHeader';
 import PostBox from '../component/PostBox';
 import MenuBar from '../component/MenuBar';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function MainPage() {
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await axios.get('/api/image/feed');
+        setImages(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+      console.log(images);
+    };
+
+    fetchImages();
+    console.log(images);
+    console.log(images);
+  }, []);
   return (
     <MainContainer>
       <LeftMainSection>
         <LeftHeader />
-        <PostContainer>
-          <PostBox />
-        </PostContainer>
-        <PostContainer>
-          <PostBox />
-        </PostContainer>
-        <PostContainer>
-          <PostBox />
-        </PostContainer>
+        {images.map((image, index) => (
+          <PostContainer key={index}>
+            <PostBox image={image} />
+          </PostContainer>
+        ))}
       </LeftMainSection>
       <RightMainSection>
         <RightHeader />

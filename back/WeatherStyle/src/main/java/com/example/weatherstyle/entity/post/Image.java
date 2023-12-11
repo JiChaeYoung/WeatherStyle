@@ -30,7 +30,7 @@ public class Image {
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "USERID")
     private User user;
 
     private String weatherDescription; //날씨관련 정보(게시물)
@@ -40,15 +40,18 @@ public class Image {
     private String address;
 
     @CreationTimestamp
+    @Column(name = "CREATEDATE")
     private Timestamp createDate;
 
     @OneToMany(mappedBy = "image")
-    private List<Likes> likes = new ArrayList<>();
+    @JsonIgnoreProperties({ "image" })
+    private List<Likes> likes ;
 
     @OrderBy("id DESC")//댓글 정렬
     @OneToMany(mappedBy = "image")
-    private List<Comment> comments = new ArrayList<>();
-    
+    @JsonIgnoreProperties({ "image" })
+    private List<Comment> comments;
+
     @Transient //테이블에 컬럼 안만들어짐
     private int likeCount; //좋아요 카운트
 
@@ -58,7 +61,8 @@ public class Image {
     @Transient
     private int commentCount;
 
-    @OneToMany(mappedBy = "image")
-    private List<Tag> tags;
+//    @OneToMany(mappedBy = "image")
+//    @JsonIgnoreProperties({ "image" }) // Jackson한테 내리는 명령
+//    private List<Tag> tags;
 
 }
