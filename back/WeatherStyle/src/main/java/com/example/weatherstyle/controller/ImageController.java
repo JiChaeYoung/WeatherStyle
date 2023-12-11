@@ -24,7 +24,6 @@ import java.util.List;
 public class ImageController {
     private final ImageService imageService;
     private final WeatherService weatherService;
-    private final Image image;
 
     @GetMapping( "/image/feed" )
     public ResponseEntity<List<Image>> feed(@Login LoginUser loginUser) {

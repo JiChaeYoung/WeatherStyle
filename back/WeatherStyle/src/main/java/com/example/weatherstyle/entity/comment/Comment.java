@@ -3,16 +3,18 @@ package com.example.weatherstyle.entity.comment;
 import com.example.weatherstyle.entity.post.Image;
 import com.example.weatherstyle.entity.user.User;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.sql.Timestamp;
 
+@Data
 @Entity
-@Getter @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Comment {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -21,16 +23,19 @@ public class Comment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name="imageId")
+    @JoinColumn(name="IMAGEID")
+    @ToString.Exclude
     private Image image;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="userId")
+    @JoinColumn(name="USERID")
+    @ToString.Exclude
     private User user;
 
     @CreationTimestamp
     private Timestamp creteDate;
 
+    @Transient
     private boolean commentHost;
 
 }

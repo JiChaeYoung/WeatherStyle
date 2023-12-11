@@ -33,7 +33,8 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "users")
 public class User {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String email;
     private String password;
@@ -50,14 +51,15 @@ public class User {
     private Timestamp createDate;
     //    @Embedded
     private String address; //값 객체 VO
+
     @OneToMany(mappedBy = "user")
-    private List<Image> images =new ArrayList<>();
+    private List<Image> images;
 
     @OneToMany(mappedBy = "user") //사실 Like만 User알면 되는데 User한테 좋아요 누른 게시물 보여주려고
-    private List<Likes> user_like = new ArrayList<>();
+    private List<Likes> user_like;
 
     @OneToMany(mappedBy = "user")
-    private List<Comment> user_comment = new ArrayList<>();
+    private List<Comment> user_comment;
 
     public User(String email, String password, String name, String nickname,
                 String phoneNumber, String birth, String address, RoleType role) {

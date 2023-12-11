@@ -31,7 +31,7 @@ public class FollowController {
     }
 
     @GetMapping("test/follow/followingList/{pageUserId}")
-    public @ResponseBody List<FollowDto> testFollowingList(@PathVariable int pageUserId, @Login LoginUser loginUser, Model model) {
+    public @ResponseBody List<FollowDto> testFollowingList(@PathVariable int pageUserId, @Login LoginUser loginUser) {
 
         return followService.팔로잉리스트(loginUser.getId(), pageUserId);
     }

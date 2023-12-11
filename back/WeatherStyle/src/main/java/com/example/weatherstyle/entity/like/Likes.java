@@ -3,16 +3,18 @@ package com.example.weatherstyle.entity.like;
 import com.example.weatherstyle.entity.post.Image;
 import com.example.weatherstyle.entity.user.User;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.sql.Timestamp;
 
+@Data
 @Entity
-@Getter @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Likes {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -22,11 +24,11 @@ public class Likes {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "imageId")
+    @JoinColumn(name = "IMAGEID")
     private Image image;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="userId")
+    @JoinColumn(name="USERID")
     private User user;
 
     @CreatedDate

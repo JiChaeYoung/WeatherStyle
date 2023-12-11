@@ -6,6 +6,7 @@ import com.example.weatherstyle.entity.comment.Comment;
 import com.example.weatherstyle.entity.like.Likes;
 import com.example.weatherstyle.entity.tag.Tag;
 import com.example.weatherstyle.entity.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,11 +27,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Image {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "USERID")
+    @JsonIgnore
     private User user;
 
     private String weatherDescription; //날씨관련 정보(게시물)
@@ -40,14 +43,17 @@ public class Image {
     private String address;
 
     @CreationTimestamp
+    @Column(name = "CREATEDATE")
     private Timestamp createDate;
 
-    @OneToMany(mappedBy = "image")
-    private List<Likes> likes = new ArrayList<>();
+    @OrderBy("id DESC")
+    @JsonIgnoreProperties({ "image" })
+    @OneToMany(mappedBy = "image", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
 
-    @OrderBy("id DESC")//댓글 정렬
-    @OneToMany(mappedBy = "image")
-    private List<Comment> comments = new ArrayList<>();
+    @JsonIgnoreProperties({ "image" })
+    @OneToMany(mappedBy = "image", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Likes> likes;
     
     @Transient //테이블에 컬럼 안만들어짐
     private int likeCount; //좋아요 카운트
@@ -58,7 +64,8 @@ public class Image {
     @Transient
     private int commentCount;
 
-    @OneToMany(mappedBy = "image")
-    private List<Tag> tags;
+//    @OneToMany(mappedBy = "image")
+//    @JsonIgnoreProperties({ "image" }) // Jackson한테 내리는 명령
+//    private List<Tag> tags;
 
 }

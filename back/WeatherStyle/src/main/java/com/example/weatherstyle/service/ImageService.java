@@ -21,7 +21,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -69,11 +68,11 @@ public class ImageService {
         Image imageEntity = imageRepository.save(image);
 
         // 2. Tag 저장
-        List<String> tagNames = Utils.tagParse(imageDto.getTags());
-        for (String name : tagNames) {
-            Tag tag = Tag.builder().image(imageEntity).name(name).build();
-            tagRepository.save(tag);
-        }
+//        List<String> tagNames = Utils.tagParse(imageDto.getTags());
+//        for (String name : tagNames) {
+//            Tag tag = Tag.builder().image(imageEntity).name(name).build();
+//            tagRepository.save(tag);
+//        }
     }
 
     @Transactional(readOnly = true)
@@ -126,8 +125,18 @@ public class ImageService {
         return images;
     }
     @Transactional(readOnly = true)
-    public List<Image> getImagesBySimilarTag(int loginUserId,String tags){
-        List<Image> images = imageRepository.mFeedsTag(tags);
+    public List<Image> getImagesBySimilarTag(int loginUserId, String tag) {
+        List<Image> images = null;
+        if (tag == null || tag.equals("")) {
+            images = imageRepository.mFeeds(loginUserId);
+            if (images.size() == 0) {
+                images = imageRepository.mAllFeeds(loginUserId);
+            }
+        } else {
+            tag="%"+tag+"%";
+            images = imageRepository.mFeedsTag(tag);
+        }
+
         for (Image image : images) {
             image.setLikeCount(image.getLikes().size());
 
@@ -178,14 +187,14 @@ public class ImageService {
     }
 
     @Transactional
-    public Image 게시물수정(int loginUserId, int imageId, int imageUserId, ImageUpdateDto imageUpdateDto) throws MyImageDeleteException{
-        if(loginUserId!=imageUserId){
-            throw  new MyImageDeleteException("게시물 작성자만 수정 가능합니다.");
-        }
-        else{
-            Image imageEntity = imageRepository.findById(imageId).get();
-            imageEntity.setWeatherDescription((imageUpdateDto.getWeatherDescription()));
+    public Image 게시물수정(int loginUserId, int imageId, int imageUserId, ImageUpdateDto imageUpdateDto) throws MyImageDeleteException {
+        if (loginUserId != imageUserId) {
+            throw new MyImageDeleteException("게시물 작성자만 수정 가능합니다.");
+        } else {
+            Image imageEntity = imageRepository.findById(imageId).orElseThrow(() -> new MyImageDeleteException("게시물을 찾을 수 없습니다."));
+            imageEntity.setWeatherDescription(imageUpdateDto.getWeatherDescription());
             return imageEntity;
         }
     }
+
 }
