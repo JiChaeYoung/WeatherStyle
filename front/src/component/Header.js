@@ -1,5 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import React, { useEffect, useState } from 'react';
+import mainlogo from '../../public/images/logoopng.png';
 import axios from 'axios';
 
 function Header() {
@@ -32,7 +33,7 @@ function Header() {
     return (
         <HeaderDiv>
             <LogoDiv>
-                <img src='./logopng.png' alt='Logo' />
+                <img src={mainlogo} alt="weatherStyle logo"/>
             </LogoDiv>
             <InfoDiv>
                 <Title>날씨</Title>

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
+import mainlogo from '../../public/images/logoopng.png';
 import axios from 'axios';
 
 function LeftHeader() {
@@ -26,7 +27,7 @@ function LeftHeader() {
       <MainContainer>
         <HeaderContainer>
           <LogoDiv>
-            <img src='./logopng.png' alt='Logo' />
+            <img src={mainlogo} alt="weatherStyle logo"/>
           </LogoDiv>
           <WeatherDiv>
             <Info>

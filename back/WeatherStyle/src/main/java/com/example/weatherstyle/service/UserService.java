@@ -185,6 +185,11 @@ public class UserService {
     @Transactional(readOnly = true)
     public List<User> 회원검색(String nickName, int id) {
         nickName = "%" + nickName + "%";
-        return userRepository.mSearchUserList(nickName, id);
+        if(userRepository.mSearchUserList(nickName, id)==null){
+            return null;
+        }
+        else {
+            return userRepository.mSearchUserList(nickName,id);
+        }
     }
 }

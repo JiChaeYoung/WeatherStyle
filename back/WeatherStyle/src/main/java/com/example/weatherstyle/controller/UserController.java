@@ -54,8 +54,11 @@ public class UserController {
     }
     @ResponseBody
     @GetMapping("/user/search")
-    public ResponseEntity<List<User>> userSearch(@Login LoginUser loginUser, String nickName){
+    public ResponseEntity<?> userSearch(@Login LoginUser loginUser, String nickName){
         List<User> userList = userService.회원검색(nickName, loginUser.getId());
+        if(userList==null){
+            return new ResponseEntity<>("User not found", HttpStatus.UNAUTHORIZED);
+        }
         return ResponseEntity.ok(userList);
     }
 }

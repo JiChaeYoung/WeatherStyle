@@ -26,11 +26,11 @@ public class LikeController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/likes/{imageId}")
-    public ResponseEntity<?> unLike(@PathVariable int imageId,@Login LoginUser loginUser) {
-        likesService.좋아요취소(imageId, loginUser.getId());
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+//    @DeleteMapping("/likes/{imageId}")
+//    public ResponseEntity<?> unLike(@PathVariable int imageId,@Login LoginUser loginUser) {
+//        likesService.좋아요취소(imageId, loginUser.getId());
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
     @GetMapping("/likes/count/{imageId}")
     public ResponseEntity<Long> likeCount(@PathVariable int imageId) {
         long likeCount = likesService.좋아요개수(imageId);
