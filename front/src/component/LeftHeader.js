@@ -10,11 +10,8 @@ function LeftHeader() {
   useEffect(() => {
     const getWeatherData = async () => {
       try {
-        // 날씨 데이터를 가져옵니다.
         const weatherData = await axios.get('/api/weather');
         setWeather(weatherData.data);
-
-        // 온도 데이터를 가져옵니다.
         const temperatureData = await axios.get('/api/getTemperature');
         setTemperature(temperatureData.data);
       } catch (error) {
@@ -26,25 +23,27 @@ function LeftHeader() {
   }, []);
 
   return (
-    <MainContainer>
-      <HeaderContainer>
-        <LogoDiv>LogoDiv</LogoDiv>
-        <WeatherDiv>
-          <Info>
-            <Title>주소</Title>
-            <InfoContent>{address}</InfoContent>
-          </Info>
-          <Info>
-            <Title>온도</Title>
-            <InfoContent>{temperature} ºC</InfoContent>
-          </Info>
-          <Info>
-            <Title>날씨</Title>
-            <InfoContent>{weather}</InfoContent>
-          </Info>
-        </WeatherDiv>
-      </HeaderContainer>
-    </MainContainer>
+      <MainContainer>
+        <HeaderContainer>
+          <LogoDiv>
+            <img src='./logopng.png' alt='Logo' />
+          </LogoDiv>
+          <WeatherDiv>
+            <Info>
+              <Title>주소</Title>
+              <InfoContent>{address}</InfoContent>
+            </Info>
+            <Info>
+              <Title>온도</Title>
+              <InfoContent>{temperature} ºC</InfoContent>
+            </Info>
+            <Info>
+              <Title>날씨</Title>
+              <InfoContent>{weather}</InfoContent>
+            </Info>
+          </WeatherDiv>
+        </HeaderContainer>
+      </MainContainer>
   );
 }
 
@@ -69,7 +68,6 @@ const HeaderContainer = styled.div`
 `;
 
 const LogoDiv = styled.div`
-  border: 1px solid black;
   display: flex;
   height: 50%;
   width: 30%;

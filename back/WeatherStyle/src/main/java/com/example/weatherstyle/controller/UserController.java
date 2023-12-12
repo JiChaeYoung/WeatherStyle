@@ -17,30 +17,29 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class UserController {
     private final UserService userService;
-    private final FollowService followService;
 
     @ResponseBody
-    @GetMapping("/api/user/{pageUserId}")
+    @GetMapping("/user/{pageUserId}")
     public ResponseEntity<UserProfileDto> profile(@PathVariable int pageUserId,  @Login LoginUser loginUser){
         UserProfileDto userProfileDto = userService.회원프로필(pageUserId, loginUser);
         return ResponseEntity.ok(userProfileDto);
     }
     @ResponseBody
-    @GetMapping("/api/user/{pageUserId}/images")
+    @GetMapping("/user/{pageUserId}/images")
     public ResponseEntity<List<Image>> getUserImages(@PathVariable int pageUserId,  @Login LoginUser loginUser) {
         List<Image> images = userService.특정유저게시물(pageUserId, loginUser.getId());
         return ResponseEntity.ok(images);
     }
     @ResponseBody
-    //회원 수정 폼 가져오는 부분
-    @GetMapping("/api/user/profileEdit")
+    @GetMapping("/user/profile")
     public ResponseEntity<User> profileEdit(@Login LoginUser loginUser) {
         User userEntity = userService.회원정보(loginUser);
         return ResponseEntity.ok(userEntity);
     }
-    @PostMapping("/api/user/profileEditUpload")
+    @PostMapping("/user/profileEditUpload")
     public ResponseEntity<?> profileEdit(@RequestParam("profileImage") MultipartFile file, int userId,  @Login LoginUser loginUser) {
         if (userId == loginUser.getId()) {
             userService.프로필사진업로드(loginUser, file);
@@ -48,9 +47,15 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
     //실제 변경 업로드
-    @PutMapping("/api/user")
+    @PutMapping("/user")
     public ResponseEntity<?> userUpdate(@RequestBody User user) {
         userService.회원수정(user);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @ResponseBody
+    @GetMapping("/user/search")
+    public ResponseEntity<List<User>> userSearch(@Login LoginUser loginUser, String nickName){
+        List<User> userList = userService.회원검색(nickName, loginUser.getId());
+        return ResponseEntity.ok(userList);
     }
 }

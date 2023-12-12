@@ -3,31 +3,58 @@ import LeftHeader from '../component/LeftHeader';
 import RightHeader from '../component/RightHeader';
 import PostBox from '../component/PostBox';
 import MenuBar from '../component/MenuBar';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function MainPage() {
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await axios.get('/api/image/feed');
+
+        setImages(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchImages();
+  }, []);
+
+  const calculateMainContainerHeight = () => {
+    // 이미지의 개수에 따라 적절한 높이를 계산 (이 예시에서는 100px 단위로 계산)
+    const imageHeight = 100; // 이미지의 예상 높이
+    const minHeight = 100; // 최소 높이
+    const calculatedHeight = Math.max(minHeight, images.length * imageHeight);
+
+    return calculatedHeight;
+  };
   return (
-    <MainContainer>
-      <LeftMainSection>
-        <LeftHeader />
-        <PostContainer>
-          <PostBox />
-        </PostContainer>
-        <PostContainer>
-          <PostBox />
-        </PostContainer>
-        <PostContainer>
-          <PostBox />
-        </PostContainer>
-      </LeftMainSection>
-      <RightMainSection>
-        <RightHeader />
-        <PostContainer>
-          <WeatherComment>WeatherComment</WeatherComment>
-          <MenuBar />
-        </PostContainer>
-      </RightMainSection>
-    </MainContainer>
+      <MainContainer style={{ height: `${calculateMainContainerHeight()}vh` }}>
+        <LeftMainSection>
+          <LeftHeader />
+          {images.map((image, index) => {
+            return (
+                <PostContainer key={index}>
+                  <PostBox
+                      image={image.imageUrl}
+                      likes={image.id}
+                      tags={image.tags}
+                  />
+                </PostContainer>
+            );
+          })}
+        </LeftMainSection>
+        <RightMainSection>
+          <RightHeader />
+          <PostContainer>
+            <WeatherComment>WeatherComment</WeatherComment>
+            <MenuBar />
+          </PostContainer>
+        </RightMainSection>
+      </MainContainer>
   );
 }
 
@@ -36,7 +63,7 @@ export default MainPage;
 const MainContainer = styled.div`
   background-color: white;
   display: flex;
-  height: 300vh;
+  height: 100vh;
 `;
 
 const LeftMainSection = styled.div`

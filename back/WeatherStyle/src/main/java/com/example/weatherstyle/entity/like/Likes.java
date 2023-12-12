@@ -2,6 +2,7 @@ package com.example.weatherstyle.entity.like;
 
 import com.example.weatherstyle.entity.post.Image;
 import com.example.weatherstyle.entity.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
@@ -25,10 +26,12 @@ public class Likes {
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "IMAGEID")
+    @JsonIgnore
     private Image image;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="USERID")
+    @JsonIgnore
     private User user;
 
     @CreatedDate

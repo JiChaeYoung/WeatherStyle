@@ -19,6 +19,7 @@ function UploadPage() {
     formData.append('file', uploadedInfo);
     formData.append('weatherDescription', 'asdfasdf');
     formData.append('address', 'qwerqwer');
+    formData.append('tags','#도맑음')
 
     try {
       const response = await axios.post('/api/image', formData, {

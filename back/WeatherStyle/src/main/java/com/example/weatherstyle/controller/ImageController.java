@@ -33,10 +33,10 @@ public class ImageController {
         return ResponseEntity.ok(images);
     }
     @ResponseBody
-    @GetMapping("/images/{fileUrl}")
-    public Resource downloadImage(@PathVariable("fileUrl") String fileUrl) throws
+    @GetMapping("/images/{filename}")
+    public Resource downloadImage(@PathVariable("filename") String filename) throws
             MalformedURLException {
-        return new UrlResource("file:" + fileUrl);
+        return new UrlResource("file:" + imageService.getFullPath(filename));
     }
     @GetMapping("/image/feed/tag")
     public ResponseEntity <List<Image>> testFeed(@Login LoginUser loginUser) {

@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -64,8 +65,11 @@ public class Image {
     @Transient
     private int commentCount;
 
-//    @OneToMany(mappedBy = "image")
-//    @JsonIgnoreProperties({ "image" }) // Jackson한테 내리는 명령
-//    private List<Tag> tags;
+    @OneToMany(mappedBy = "image")
+    @JsonIgnoreProperties({ "image" }) // Jackson한테 내리는 명령
+    private List<Tag> tags;
+
+
+
 
 }

@@ -3,53 +3,55 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function Header() {
-  const [weather, setWeather] = useState('');
-  const [temperature, setTemperature] = useState('');
-  const location = '서울시 강남구';
-  const [humidity, setHumidity] = useState('');
+    const [weather, setWeather] = useState('');
+    const [temperature, setTemperature] = useState('');
+    const location = '서울시 강남구';
+    const [humidity, setHumidity] = useState('');
 
-  useEffect(() => {
-    const getWeatherData = async () => {
-      try {
-        // 날씨 데이터를 가져옵니다.
-        const weatherData = await axios.get('/api/weather');
-        setWeather(weatherData.data);
+    useEffect(() => {
+        const getWeatherData = async () => {
+            try {
+                // 날씨 데이터를 가져옵니다.
+                const weatherData = await axios.get('/api/weather');
+                setWeather(weatherData.data);
 
-        // 온도 데이터를 가져옵니다.
-        const temperatureData = await axios.get('/api/getTemperature');
-        setTemperature(temperatureData.data);
+                // 온도 데이터를 가져옵니다.
+                const temperatureData = await axios.get('/api/getTemperature');
+                setTemperature(temperatureData.data);
 
-        const humidityData = await axios.get('/api/getHumidity');
-        setHumidity(humidityData.data);
-      } catch (error) {
-        console.error('날씨 정보를 가져오는데 실패했습니다.', error);
-      }
-    };
+                const humidityData = await axios.get('/api/getHumidity');
+                setHumidity(humidityData.data);
+            } catch (error) {
+                console.error('날씨 정보를 가져오는데 실패했습니다.', error);
+            }
+        };
 
-    getWeatherData();
-  }, []);
+        getWeatherData();
+    }, []);
 
-  return (
-    <HeaderDiv>
-      <LogoDiv>LogoDiv</LogoDiv>
-      <InfoDiv>
-        <Title>날씨</Title>
-        <Content>{weather}</Content>
-      </InfoDiv>
-      <InfoDiv>
-        <Title>온도</Title>
-        <Content>{temperature} ºC</Content>
-      </InfoDiv>
-      <InfoDiv>
-        <Title>현재 위치</Title>
-        <Content>{location}</Content>
-      </InfoDiv>
-      <InfoDiv>
-        <Title>습도</Title>
-        <Content>{humidity} %</Content>
-      </InfoDiv>
-    </HeaderDiv>
-  );
+    return (
+        <HeaderDiv>
+            <LogoDiv>
+                <img src='./logopng.png' alt='Logo' />
+            </LogoDiv>
+            <InfoDiv>
+                <Title>날씨</Title>
+                <Content>{weather}</Content>
+            </InfoDiv>
+            <InfoDiv>
+                <Title>온도</Title>
+                <Content>{temperature} ºC</Content>
+            </InfoDiv>
+            <InfoDiv>
+                <Title>현재 위치</Title>
+                <Content>{location}</Content>
+            </InfoDiv>
+            <InfoDiv>
+                <Title>습도</Title>
+                <Content>{humidity} %</Content>
+            </InfoDiv>
+        </HeaderDiv>
+    );
 }
 
 export default Header;
@@ -69,9 +71,9 @@ const HeaderDiv = styled.div`
 
   &:hover {
     background: ${(props) =>
-      props.isRaining
-        ? 'linear-gradient(270deg, #BEEFFF, white)'
-        : 'linear-gradient(270deg, #FFCA9B, white)'};
+            props.isRaining
+                    ? 'linear-gradient(270deg, #BEEFFF, white)'
+                    : 'linear-gradient(270deg, #FFCA9B, white)'};
     animation: ${moveGradient} 3s linear infinite;
   }
 `;

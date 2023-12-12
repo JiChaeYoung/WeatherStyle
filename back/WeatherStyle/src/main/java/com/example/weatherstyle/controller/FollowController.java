@@ -15,16 +15,17 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class FollowController {
     private final FollowService followService;
 
-    @GetMapping("/api/user/{pageUserId}/following")
+    @GetMapping("/user/{pageUserId}/following")
     public ResponseEntity<List<FollowDto>> getFollowingList(@PathVariable int pageUserId,@Login LoginUser loginUser) {
         List<FollowDto> followingList = followService.팔로잉리스트(loginUser.getId(), pageUserId);
         return ResponseEntity.ok(followingList);
     }
 
-    @GetMapping("/api/user/{pageUserId}/followers")
+    @GetMapping("/user/{pageUserId}/followers")
     public ResponseEntity<List<FollowDto>> getFollowerList(@PathVariable int pageUserId,@Login LoginUser loginUser) {
         List<FollowDto> followerList = followService.팔로워리스트(loginUser.getId(), pageUserId);
         return ResponseEntity.ok(followerList);

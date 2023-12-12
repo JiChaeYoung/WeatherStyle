@@ -25,7 +25,7 @@ logging:
     org.hibernate.orm.jdbc.bind: trace
 
 file:
-  path:  C:/Users/지혜인/Desktop/WeatherStyle/WeatherStyle/back/WeatherStyle/src/main/resources/templates/image/
+  path:  C:/images/
 
 
 

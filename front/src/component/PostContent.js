@@ -1,12 +1,20 @@
 import styled from 'styled-components';
 import React from 'react';
 
-function PostContent() {
-  return (
-    <Container>
-      <ContentDiv>ContentDiv</ContentDiv>
-    </Container>
-  );
+function PostContent({ tags }) {
+    const tags2 = tags;
+    return (
+        <Container>
+            <ContentDiv>
+                {tags2.map((tag, index) => {
+                    if (index > 0) {
+                        return `#${tag.name}`;
+                    }
+                    return null;
+                })}
+            </ContentDiv>
+        </Container>
+    );
 }
 
 export default PostContent;

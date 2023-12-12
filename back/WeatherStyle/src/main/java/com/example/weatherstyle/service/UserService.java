@@ -14,6 +14,7 @@ import com.example.weatherstyle.entity.user.UserPostRepository;
 import com.example.weatherstyle.entity.user.UserRepository;
 import com.example.weatherstyle.exception.MyUserIdNotFoundException;
 import com.example.weatherstyle.exception.MyUserInfoExistException;
+import com.example.weatherstyle.web.argumentresolver.Login;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.servlet.http.HttpSession;
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -109,7 +111,7 @@ public class UserService {
         return boards;
     }
     @Transactional(readOnly = true)
-    public UserProfileDto 회원프로필(int id, LoginUser loginUser) {
+    public UserProfileDto 회원프로필(int id,@Login LoginUser loginUser) {
 
         int imageCount;
         int followerCount;
@@ -181,8 +183,8 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public List<User> 회원검색(String username, int id) {
-        username = "%" + username + "%";
-        return userRepository.mSearchUserList(username, id);
+    public List<User> 회원검색(String nickName, int id) {
+        nickName = "%" + nickName + "%";
+        return userRepository.mSearchUserList(nickName, id);
     }
 }

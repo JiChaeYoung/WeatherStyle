@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
 function UserContainer() {
@@ -11,7 +11,7 @@ function UserContainer() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('API_URL');
+        const response = await axios('API_URL');
         const data = await response.json();
 
         setUserImage(data.userImage);
@@ -27,12 +27,12 @@ function UserContainer() {
   }, []);
 
   return (
-    <Container>
-      <UserImage>{userImage}</UserImage>
-      <UserName>{userName}</UserName>
-      <UserLoacl>{userLoacl}</UserLoacl>
-      <UserWeather>{userWeather}</UserWeather>
-    </Container>
+      <Container>
+        <UserImage>{userImage}</UserImage>
+        <UserName>{userName}</UserName>
+        <UserLoacl>{userLoacl}</UserLoacl>
+        <UserWeather>{userWeather}</UserWeather>
+      </Container>
   );
 }
 

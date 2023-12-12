@@ -198,5 +198,7 @@ public class ImageService {
             return imageEntity;
         }
     }
-
+    public String getFullPath(String filename) {
+        return uploadFolder+filename;
+    }
 }
