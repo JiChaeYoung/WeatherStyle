@@ -1,10 +1,18 @@
 import styled from 'styled-components';
 import React from 'react';
 
-function PostContent() {
+function PostContent({ tags }) {
+  const tags2 = tags;
   return (
     <Container>
-      <ContentDiv>ContentDiv</ContentDiv>
+      <ContentDiv>
+        {tags2.map((tag, index) => {
+          if (index > 0) {
+            return `#${tag.name}`;
+          }
+          return null;
+        })}
+      </ContentDiv>
     </Container>
   );
 }

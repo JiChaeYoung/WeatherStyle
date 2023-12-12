@@ -31,7 +31,9 @@ function Header() {
 
   return (
     <HeaderDiv>
-      <LogoDiv>LogoDiv</LogoDiv>
+      <LogoDiv>
+        <img src='/logopng.png' alt='Logo' />
+      </LogoDiv>
       <InfoDiv>
         <Title>날씨</Title>
         <Content>{weather}</Content>

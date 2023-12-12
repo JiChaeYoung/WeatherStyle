@@ -4,19 +4,19 @@ import PostContent from './PostContent';
 import { AiTwotoneAlert } from 'react-icons/ai';
 import React from 'react';
 
-function ContentContainer() {
+function ContentContainer({ likes, tags }) {
   return (
     <Container>
       <LikeContainer>
         <LikeDiv>
-          <LikeBtn />
+          <LikeBtn like={likes} />
         </LikeDiv>
-        <PostTitle>PostTitle</PostTitle>
+        <PostTitle></PostTitle>
         <ReportBtn>
           <AiTwotoneAlert />
         </ReportBtn>
       </LikeContainer>
-      <PostContent />
+      <PostContent tags={tags} />
     </Container>
   );
 }
@@ -51,7 +51,6 @@ const LikeDiv = styled.div`
 `;
 
 const PostTitle = styled.div`
-  border: 1px solid black;
   display: flex;
   justify-content: center;
   align-items: center;

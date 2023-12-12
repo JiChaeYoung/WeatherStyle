@@ -1,42 +1,30 @@
 import styled from 'styled-components';
 import UserContainer from './UserContainer';
 import ContentContainer from './ContentContainer';
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 
-function ImageContainer() {
-  const [images, setImages] = useState([]);
-
-  useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        const response = await axios.get('/api/image/feed');
-        setImages(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchImages();
-  }, []);
-
+function ImageContainer({ images }) {
   return (
-    <div>
-      {images.map((image, index) => (
-        <img key={index} src={image.url} alt='사진' />
-      ))}
+    <div style={{ width: '100%', height: '100%' }}>
+      <img
+        src={`http://localhost:8080/api/images/${images}`}
+        alt='사진'
+        style={{ maxWidth: '100%', height: 'auto' }}
+      />
     </div>
   );
 }
 
-function PostBox() {
+function PostBox({ image, likes, tags }) {
+  let imagePath = image.replace('C:\\images\\', '');
+  imagePath = imagePath.replace(/\\/g, '/');
   return (
     <PostSection>
       <UserContainer />
       <ImageContainer1>
-        <ImageContainer />
+        <ImageContainer images={imagePath} />
       </ImageContainer1>
-      <ContentContainer />
+      <ContentContainer likes={likes} tags={tags} />
     </PostSection>
   );
 }
@@ -54,7 +42,9 @@ const PostSection = styled.div`
 `;
 
 const ImageContainer1 = styled.div`
-  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 90%;
   width: 70%;
 `;

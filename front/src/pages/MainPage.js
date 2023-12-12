@@ -13,26 +13,39 @@ function MainPage() {
     const fetchImages = async () => {
       try {
         const response = await axios.get('/api/image/feed');
+
         setImages(response.data);
       } catch (error) {
         console.error(error);
       }
-      console.log(images);
     };
 
     fetchImages();
-    console.log(images);
-    console.log(images);
   }, []);
+
+  const calculateMainContainerHeight = () => {
+    // 이미지의 개수에 따라 적절한 높이를 계산 (이 예시에서는 100px 단위로 계산)
+    const imageHeight = 100; // 이미지의 예상 높이
+    const minHeight = 100; // 최소 높이
+    const calculatedHeight = Math.max(minHeight, images.length * imageHeight);
+
+    return calculatedHeight;
+  };
   return (
-    <MainContainer>
+    <MainContainer style={{ height: `${calculateMainContainerHeight()}vh` }}>
       <LeftMainSection>
         <LeftHeader />
-        {images.map((image, index) => (
-          <PostContainer key={index}>
-            <PostBox image={image} />
-          </PostContainer>
-        ))}
+        {images.map((image, index) => {
+          return (
+            <PostContainer key={index}>
+              <PostBox
+                image={image.imageUrl}
+                likes={image.id}
+                tags={image.tags}
+              />
+            </PostContainer>
+          );
+        })}
       </LeftMainSection>
       <RightMainSection>
         <RightHeader />
@@ -50,7 +63,7 @@ export default MainPage;
 const MainContainer = styled.div`
   background-color: white;
   display: flex;
-  height: 300vh;
+  height: 100vh;
 `;
 
 const LeftMainSection = styled.div`

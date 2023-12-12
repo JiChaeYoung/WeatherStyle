@@ -5,6 +5,7 @@ import UserPage from './pages/UserPage';
 import LoginPage from './pages/LoginPage';
 import UploadPage from './pages/UploadPage';
 import SingupPage from './pages/SingupPage';
+import UserSearch from './pages/UserSearch';
 import React from 'react';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path='/signup' element={<SingupPage />} />
         <Route path='/story' element={<MainPage />} />
         <Route path='/userpost' element={<UserPostPage />} />
+        <Route path='/search' element={<UserSearch />} />
         <Route path='/user' element={<UserPage />} />
         <Route path='/upload' element={<UploadPage />} />
       </Routes>
