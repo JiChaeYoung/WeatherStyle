@@ -2,6 +2,7 @@ package com.example.weatherstyle.service;
 
 import com.example.weatherstyle.entity.dto.image.ImageDto;
 import com.example.weatherstyle.entity.dto.image.ImageUpdateDto;
+import com.example.weatherstyle.entity.dto.user.ImageUserRespDto;
 import com.example.weatherstyle.entity.dto.user.UserProfileImageRespDto;
 import com.example.weatherstyle.entity.comment.Comment;
 import com.example.weatherstyle.entity.follow.Follow;
@@ -125,6 +126,20 @@ public class ImageService {
         }
 
         return images;
+    }
+    @Transactional(readOnly = true)
+    public ImageUserRespDto getUserInfoByImageId(int imageId) {
+        Image image = imageRepository.findById(imageId)
+                .orElseThrow(() -> new MyImageDeleteException("게시물을 찾을 수 없습니다."));
+
+        User user = image.getUser();
+        ImageUserRespDto userInfo = new ImageUserRespDto();
+        userInfo.setUserId(user.getId());
+        userInfo.setImageUrl(user.getProfileImage());
+        userInfo.setNickname(user.getNickname());
+        userInfo.setAddress(user.getAddress());
+
+        return userInfo;
     }
     @Transactional(readOnly = true)
     public List<Image> getImagesBySimilarTag(int loginUserId, String tag) {

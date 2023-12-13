@@ -49,6 +49,10 @@ function MyProfile() {
           <p>:</p>
           <p>{profileData.followerCount}</p>
         </FollowerDiv>
+        <AboutMeDiv>
+          <p>About Me:</p>
+          <AboutMeText>{profileData.aboutMe}</AboutMeText>
+        </AboutMeDiv>
       </ProfilInfoDiv>
     </ProfilDiv>
   );
@@ -131,4 +135,20 @@ const FollowerDiv = styled.div`
 
     margin: 2%;
   }
+`;
+const AboutMeDiv = styled.div`
+  width: 80%; /* 변경된 부분 */
+  height: 50%;
+  display: flex;
+  flex-direction: column; /* 변경된 부분 */
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 10%;
+`;
+
+const AboutMeText = styled.p`
+  font-size: 16px;
+  margin: 2%;
 `;

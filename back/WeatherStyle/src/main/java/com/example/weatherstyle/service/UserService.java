@@ -99,6 +99,7 @@ public class UserService {
         int imageCount;
         int followerCount;
         int followingCount;
+        String aboutMe;
         boolean followState;
 
         User userEntity = userRepository.findById(id).orElseThrow(new Supplier<MyUserIdNotFoundException>() {
@@ -129,7 +130,7 @@ public class UserService {
 
         // 4. 최종마무리
         UserProfileDto userProfileDto = UserProfileDto.builder().pageHost(id == loginUser.getId())
-                .followState(followState).followerCount(followerCount).followingCount(followingCount)
+                .followState(followState).followerCount(followerCount).followingCount(followingCount).aboutMe(userEntity.getAboutMe())
                 .imageCount(imageCount).user(userEntity).images(imageEntity) // 수정완료(Dto만듬) (댓글수, 좋아요수)
                 .build();
 
@@ -203,6 +204,7 @@ public class UserService {
         int imageCount;
         int followerCount;
         int followingCount;
+        String aboutMe;
 
         User userEntity = userRepository.findById(id)
                 .orElseThrow(() -> new MyUserIdNotFoundException());
@@ -224,10 +226,11 @@ public class UserService {
         followingCount = followRepository.mCountByFollowing(id);
 
         return UserProfileDto.builder()
-                .pageHost(true) // Assuming you want pageHost as true when getting the logged-in user's profile
+                .pageHost(true)
                 .followerCount(followerCount)
                 .followingCount(followingCount)
                 .imageCount(imageCount)
+                .aboutMe(userEntity.getAboutMe())
                 .user(userEntity)
                 .images(imageEntity)
                 .build();

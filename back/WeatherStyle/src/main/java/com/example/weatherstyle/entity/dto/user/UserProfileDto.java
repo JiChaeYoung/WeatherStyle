@@ -17,6 +17,7 @@ public class UserProfileDto {
     private boolean followState; // true(팔로우 취소), false(팔로우)
     private User user;
     private List<UserProfileImageRespDto> images;
+    private String aboutMe;
     private int followerCount;
     private int followingCount;
     private int imageCount;
