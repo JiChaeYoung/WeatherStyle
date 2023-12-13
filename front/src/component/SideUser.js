@@ -10,7 +10,7 @@ function SideBar() {
   };
 
   const handleProfile = () => {
-    navigate('/user');
+    navigate('/userupload');
   };
 
   return (
@@ -20,7 +20,7 @@ function SideBar() {
           <UserImage>UserImage</UserImage>
         </SideUser>
         <SideBtn>
-          <UserBtn onClick={handleProfile}>내정보</UserBtn>
+          <UserBtn onClick={handleProfile}>프로필 수정</UserBtn>
           <LogoutBtn onClick={handleLogout}>로그아웃</LogoutBtn>
         </SideBtn>
       </UserInfo>

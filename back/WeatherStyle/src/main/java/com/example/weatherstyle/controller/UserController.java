@@ -2,6 +2,7 @@ package com.example.weatherstyle.controller;
 
 import com.example.weatherstyle.entity.dto.user.LoginUser;
 import com.example.weatherstyle.entity.dto.user.UserProfileDto;
+import com.example.weatherstyle.entity.dto.user.UserUpdateForm;
 import com.example.weatherstyle.entity.post.Image;
 import com.example.weatherstyle.entity.user.User;
 import com.example.weatherstyle.service.FollowService;
@@ -33,12 +34,12 @@ public class UserController {
         List<Image> images = userService.특정유저게시물(pageUserId, loginUser.getId());
         return ResponseEntity.ok(images);
     }
-    @ResponseBody
-    @GetMapping("/user/profile")
-    public ResponseEntity<User> profileEdit(@Login LoginUser loginUser) {
-        User userEntity = userService.회원정보(loginUser);
-        return ResponseEntity.ok(userEntity);
-    }
+//    @ResponseBody
+//    @GetMapping("/user/profile")
+//    public ResponseEntity<User> profileEdit(@Login LoginUser loginUser) {
+//        User userEntity = userService.회원정보(loginUser);
+//        return ResponseEntity.ok(userEntity);
+//    }
     @PostMapping("/user/profileEditUpload")
     public ResponseEntity<?> profileEdit(@RequestParam("profileImage") MultipartFile file, int userId,  @Login LoginUser loginUser) {
         if (userId == loginUser.getId()) {
@@ -48,8 +49,8 @@ public class UserController {
     }
     //실제 변경 업로드
     @PutMapping("/user")
-    public ResponseEntity<?> userUpdate(@RequestBody User user) {
-        userService.회원수정(user);
+    public ResponseEntity<?> userUpdate(@RequestBody UserUpdateForm user, @Login LoginUser loginUser) {
+        userService.회원수정(user, loginUser.getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
     @ResponseBody
