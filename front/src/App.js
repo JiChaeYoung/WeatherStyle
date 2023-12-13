@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// App.js
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import MainPage from './pages/MainPage';
 import UserPostPage from './pages/UserPostPage';
 import UserPage from './pages/UserPage';
@@ -16,7 +17,7 @@ function App() {
       <Routes>
         <Route path='/' element={<LoginPage />} />
         <Route path='/signup' element={<SingupPage />} />
-        <Route path='/story' element={<MainPage />} />
+        <Route path='/story/*' element={<MainPage />} />
         <Route path='/userpost' element={<UserPostPage />} />
         <Route path='/search' element={<UserSearch />} />
         <Route path='/user' element={<UserPage />} />

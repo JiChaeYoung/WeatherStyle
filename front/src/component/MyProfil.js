@@ -23,10 +23,18 @@ function MyProfile() {
     return <div>Loading...</div>; // 데이터가 아직 로드되지 않았을 때 로딩 메시지를 표시
   }
 
+  console.log(profileData);
+
   return (
     <ProfilDiv>
       <ProfilImage>
-        <ProfilImage2>ProfilImage2</ProfilImage2>
+        <ProfilImage2>
+          <img
+            src={`http://localhost:8080/api/images/${profileData.user.profileImage}`}
+            alt='사진'
+            style={{ maxWidth: '100%', height: 'auto' }}
+          />
+        </ProfilImage2>
       </ProfilImage>
       <ProfilInfoDiv>
         <ProfilInfo>

@@ -52,14 +52,19 @@ function UploadPage() {
             <UserDiv>
               <UploadDiv>
                 <UploadSec>
-                  <TitlePost></TitlePost>
-                  <ComemntPost>
+                  <TitlePost>
                     <input
                       type='text'
                       placeholder='태그를 입력해주세요. (예: #사진, #여행)'
                       value={tags}
                       onChange={(e) => setTags(e.target.value)}
                     />
+                  </TitlePost>
+                  <ComemntPost>
+                    <textarea
+                      style={{ width: '250px', height: '230px' }}
+                      placeholder='내용을 입력하시오.'
+                    ></textarea>
                   </ComemntPost>
                 </UploadSec>
                 <UploadSec>

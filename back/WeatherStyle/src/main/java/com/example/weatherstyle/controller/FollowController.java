@@ -50,4 +50,9 @@ public class FollowController {
         followService.언팔로우(loginUser.getId(), id);
         return new ResponseEntity<String>("ok", HttpStatus.OK);
     }
+    @GetMapping("/checkFollowing/{pageUserId}")
+    public ResponseEntity<Boolean> checkFollowing(@PathVariable int pageUserId, @Login LoginUser loginUser) {
+        boolean isFollowing = followService.isFollowing(loginUser.getId(), pageUserId);
+        return ResponseEntity.ok(isFollowing);
+    }
 }

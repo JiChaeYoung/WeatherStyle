@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import SideBar from '../component/SideBar';
 import Header from '../component/Header';
-import Post from '../component/Post';
+import PostUser from '../component/PostUser';
 import MyProfil from '../component/MyProfil';
 import React from 'react';
 
@@ -16,7 +16,7 @@ function UserPage() {
             <UserDiv>
               <MyProfil />
               <PostDiv>
-                <Post />
+                <PostUser />
               </PostDiv>
             </UserDiv>
           </UserSection>

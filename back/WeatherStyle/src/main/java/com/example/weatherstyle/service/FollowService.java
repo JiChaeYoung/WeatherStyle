@@ -35,6 +35,9 @@ public class FollowService {
         List<FollowDto> followListEntity = query.getResultList();
         return followListEntity;
     }
+    public boolean isFollowing(int loginUserId, int pageUserId) {
+        return followRepository.existsByFromUserIdAndToUserId(loginUserId, pageUserId);
+    }
 
     public List<FollowDto> 팔로워리스트(int loginUserId, int pageUserId){
         // 첫번째 물음표 loginUserId, 두번째 물음표 pageUserId

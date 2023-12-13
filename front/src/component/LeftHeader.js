@@ -4,7 +4,7 @@ import mainlogo from '../../public/images/logoopng.png';
 import axios from 'axios';
 
 function LeftHeader() {
-  const address = '서울시 강남구 테헤란로';
+  const [profileData, setProfileData] = useState(null);
   const [weather, setWeather] = useState('');
   const [temperature, setTemperature] = useState('');
 
@@ -15,6 +15,8 @@ function LeftHeader() {
         setWeather(weatherData.data);
         const temperatureData = await axios.get('/api/getTemperature');
         setTemperature(temperatureData.data);
+        const response = await axios.get(`/api/user/myinfo`);
+        setProfileData(response.data);
       } catch (error) {
         console.error('날씨 정보를 가져오는데 실패했습니다.', error);
       }
@@ -23,28 +25,32 @@ function LeftHeader() {
     getWeatherData();
   }, []);
 
+  if (!profileData) {
+    return <div>Loading...</div>; // 데이터가 아직 로드되지 않았을 때 로딩 메시지를 표시
+  }
+
   return (
-      <MainContainer>
-        <HeaderContainer>
-          <LogoDiv>
-            <img src={mainlogo} alt="weatherStyle logo"/>
-          </LogoDiv>
-          <WeatherDiv>
-            <Info>
-              <Title>주소</Title>
-              <InfoContent>{address}</InfoContent>
-            </Info>
-            <Info>
-              <Title>온도</Title>
-              <InfoContent>{temperature} ºC</InfoContent>
-            </Info>
-            <Info>
-              <Title>날씨</Title>
-              <InfoContent>{weather}</InfoContent>
-            </Info>
-          </WeatherDiv>
-        </HeaderContainer>
-      </MainContainer>
+    <MainContainer>
+      <HeaderContainer>
+        <LogoDiv>
+          <img src={mainlogo} alt='weatherStyle logo' />
+        </LogoDiv>
+        <WeatherDiv>
+          <Info>
+            <Title>주소</Title>
+            <InfoContent>{profileData.user.address}</InfoContent>
+          </Info>
+          <Info>
+            <Title>온도</Title>
+            <InfoContent>{temperature} ºC</InfoContent>
+          </Info>
+          <Info>
+            <Title>날씨</Title>
+            <InfoContent>{weather}</InfoContent>
+          </Info>
+        </WeatherDiv>
+      </HeaderContainer>
+    </MainContainer>
   );
 }
 

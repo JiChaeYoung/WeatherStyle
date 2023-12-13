@@ -11,7 +11,7 @@ import java.util.List;
 public interface FollowRepository extends JpaRepository<Follow, Integer> {
     //내가 팔로우 하고 있는사람 찾아오기
     List<Follow> findByFromUserId(int user_id);
-
+    boolean existsByFromUserIdAndToUserId(int fromUserId, int toUserId);
     //나를 팔로우 하고 있는사람 수 반환
     @Query(value = "SELECT count(*) FROM follow WHERE toUserId = ?1", nativeQuery = true)
     int mCountByFollower(int toUserId);

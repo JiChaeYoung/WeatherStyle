@@ -2,10 +2,27 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
-function Post({ images }) {
+function Post() {
+  const [profileData, setProfileData] = useState(null);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await axios.get(`/api/user/myinfo`);
+        setProfileData(response.data);
+      } catch (error) {
+        console.error('프로필 데이터를 불러오는 중 에러 발생:', error);
+      }
+    };
+    fetchProfile();
+  }, []);
+  if (!profileData) {
+    return <div>Loading...</div>; // 데이터가 아직 로드되지 않았을 때 로딩 메시지를 표시
+  }
+
   return (
     <Post1>
-      {images.map((image, index) => (
+      {profileData.images.map((image, index) => (
         <Posts key={index}>
           {(() => {
             let imagePath = image.imageUrl.replace('C:\\images\\', '');

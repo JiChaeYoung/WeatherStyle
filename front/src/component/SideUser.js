@@ -1,9 +1,23 @@
 import styled from 'styled-components';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function SideBar() {
   const navigate = useNavigate();
+  const [profileData, setProfileData] = useState(null);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await axios.get(`/api/user/myinfo`);
+        setProfileData(response.data);
+      } catch (error) {
+        console.error('프로필 데이터를 불러오는 중 에러 발생:', error);
+      }
+    };
+    fetchProfile();
+  }, []);
 
   const handleLogout = () => {
     navigate('/');
@@ -12,12 +26,20 @@ function SideBar() {
   const handleProfile = () => {
     navigate('/userupload');
   };
-
+  if (!profileData) {
+    return <div>Loading...</div>; // 데이터가 아직 로드되지 않았을 때 로딩 메시지를 표시
+  }
   return (
     <UserDiv>
       <UserInfo>
         <SideUser>
-          <UserImage>UserImage</UserImage>
+          <UserImage>
+            <img
+              src={`http://localhost:8080/api/images/${profileData.user.profileImage}`}
+              alt='사진'
+              style={{ maxWidth: '100%', height: 'auto' }}
+            />
+          </UserImage>
         </SideUser>
         <SideBtn>
           <UserBtn onClick={handleProfile}>프로필 수정</UserBtn>

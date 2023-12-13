@@ -44,7 +44,7 @@ function SearchUserPage() {
               <UserDiv key={user.id}>
                 <Profil id={user.id} profileImage={user.profileImage} />
                 <PostDiv>
-                  <Post />
+                  <Post images={user.images} />
                 </PostDiv>
               </UserDiv>
             ))}

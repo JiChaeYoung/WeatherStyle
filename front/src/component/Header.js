@@ -4,55 +4,61 @@ import mainlogo from '../../public/images/logoopng.png';
 import axios from 'axios';
 
 function Header() {
-    const [weather, setWeather] = useState('');
-    const [temperature, setTemperature] = useState('');
-    const location = '서울시 강남구';
-    const [humidity, setHumidity] = useState('');
+  const [weather, setWeather] = useState('');
+  const [temperature, setTemperature] = useState('');
+  const [humidity, setHumidity] = useState('');
+  const [profileData, setProfileData] = useState(null);
 
-    useEffect(() => {
-        const getWeatherData = async () => {
-            try {
-                // 날씨 데이터를 가져옵니다.
-                const weatherData = await axios.get('/api/weather');
-                setWeather(weatherData.data);
+  useEffect(() => {
+    const getWeatherData = async () => {
+      try {
+        // 날씨 데이터를 가져옵니다.
+        const weatherData = await axios.get('/api/weather');
+        setWeather(weatherData.data);
 
-                // 온도 데이터를 가져옵니다.
-                const temperatureData = await axios.get('/api/getTemperature');
-                setTemperature(temperatureData.data);
+        // 온도 데이터를 가져옵니다.
+        const temperatureData = await axios.get('/api/getTemperature');
+        setTemperature(temperatureData.data);
 
-                const humidityData = await axios.get('/api/getHumidity');
-                setHumidity(humidityData.data);
-            } catch (error) {
-                console.error('날씨 정보를 가져오는데 실패했습니다.', error);
-            }
-        };
+        const humidityData = await axios.get('/api/getHumidity');
+        setHumidity(humidityData.data);
 
-        getWeatherData();
-    }, []);
+        const response = await axios.get(`/api/user/myinfo`);
+        setProfileData(response.data);
+      } catch (error) {
+        console.error('날씨 정보를 가져오는데 실패했습니다.', error);
+      }
+    };
 
-    return (
-        <HeaderDiv>
-            <LogoDiv>
-                <img src={mainlogo} alt="weatherStyle logo"/>
-            </LogoDiv>
-            <InfoDiv>
-                <Title>날씨</Title>
-                <Content>{weather}</Content>
-            </InfoDiv>
-            <InfoDiv>
-                <Title>온도</Title>
-                <Content>{temperature} ºC</Content>
-            </InfoDiv>
-            <InfoDiv>
-                <Title>현재 위치</Title>
-                <Content>{location}</Content>
-            </InfoDiv>
-            <InfoDiv>
-                <Title>습도</Title>
-                <Content>{humidity} %</Content>
-            </InfoDiv>
-        </HeaderDiv>
-    );
+    getWeatherData();
+  }, []);
+  if (!profileData) {
+    return <div>Loading...</div>; // 데이터가 아직 로드되지 않았을 때 로딩 메시지를 표시
+  }
+
+  return (
+    <HeaderDiv>
+      <LogoDiv>
+        <img src={mainlogo} alt='weatherStyle logo' />
+      </LogoDiv>
+      <InfoDiv>
+        <Title>날씨</Title>
+        <Content>{weather}</Content>
+      </InfoDiv>
+      <InfoDiv>
+        <Title>온도</Title>
+        <Content>{temperature} ºC</Content>
+      </InfoDiv>
+      <InfoDiv>
+        <Title>현재 위치</Title>
+        <Content>{profileData.user.address}</Content>
+      </InfoDiv>
+      <InfoDiv>
+        <Title>습도</Title>
+        <Content>{humidity} %</Content>
+      </InfoDiv>
+    </HeaderDiv>
+  );
 }
 
 export default Header;
@@ -72,9 +78,9 @@ const HeaderDiv = styled.div`
 
   &:hover {
     background: ${(props) =>
-            props.isRaining
-                    ? 'linear-gradient(270deg, #BEEFFF, white)'
-                    : 'linear-gradient(270deg, #FFCA9B, white)'};
+      props.isRaining
+        ? 'linear-gradient(270deg, #BEEFFF, white)'
+        : 'linear-gradient(270deg, #FFCA9B, white)'};
     animation: ${moveGradient} 3s linear infinite;
   }
 `;
