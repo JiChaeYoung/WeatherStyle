@@ -41,10 +41,9 @@ public class UserController {
 //        return ResponseEntity.ok(userEntity);
 //    }
     @PostMapping("/user/profileEditUpload")
-    public ResponseEntity<?> profileEdit(@RequestParam("profileImage") MultipartFile file, int userId,  @Login LoginUser loginUser) {
-        if (userId == loginUser.getId()) {
-            userService.프로필사진업로드(loginUser, file);
-        }
+    public ResponseEntity<?> profileEdit(@RequestParam("profileImage") MultipartFile file,  @Login LoginUser loginUser) {
+        userService.프로필사진업로드(loginUser, file);
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
     //실제 변경 업로드

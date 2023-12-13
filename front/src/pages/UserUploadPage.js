@@ -12,12 +12,19 @@ function EditUserPage({ loginUser }) {
         address: '',
     });
 
+    const [profileImage, setProfileImage] = useState(null);
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setNewUserData({
             ...newUserData,
             [name]: value,
         });
+    };
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setProfileImage(file);
     };
 
     const handleSaveChanges = async () => {
@@ -31,6 +38,13 @@ function EditUserPage({ loginUser }) {
         try {
             // 유저 정보 업데이트
             await axios.put('/api/user', filteredUserData);
+
+            // 프로필 사진 업로드
+            if (profileImage) {
+                const formData = new FormData();
+                formData.append('profileImage', profileImage);
+                await axios.post('/api/user/profileEditUpload', formData);
+            }
 
             // 업데이트가 성공하면 필요하다면 사용자 데이터 다시 불러오기
             // const response = await axios.get('/api/user/{userId}');
@@ -83,6 +97,14 @@ function EditUserPage({ loginUser }) {
                                         name="address"
                                         value={newUserData.address}
                                         onChange={handleInputChange}
+                                    />
+                                </label>
+                                <label>
+                                    Profile Image:
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={handleFileChange}
                                     />
                                 </label>
                             </form>
