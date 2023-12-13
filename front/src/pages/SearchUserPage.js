@@ -32,6 +32,7 @@ function SearchUserPage() {
   }, [searchTerm]);
 
   console.log(users);
+
   return (
     <MainContainer>
       <Container>
@@ -41,7 +42,7 @@ function SearchUserPage() {
           <UserSection>
             {users.map((user) => (
               <UserDiv key={user.id}>
-                <Profil id={user.id} />
+                <Profil id={user.id} profileImage={user.profileImage} />
                 <PostDiv>
                   <Post />
                 </PostDiv>

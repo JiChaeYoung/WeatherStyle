@@ -1,46 +1,32 @@
 import styled from 'styled-components';
 import { GiShadowFollower } from 'react-icons/gi';
 import { SlUserFollowing } from 'react-icons/sl';
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import ProfileImage from './ProfileImage';
-import FollowButton from './FollowButton'; // Import FollowButton
 
-function Profile({ id, profileImage }) {
+function MyProfile() {
   const [profileData, setProfileData] = useState(null);
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get(`/api/user/${id}`);
+        const response = await axios.get(`/api/user/myinfo`);
         setProfileData(response.data);
       } catch (error) {
         console.error('프로필 데이터를 불러오는 중 에러 발생:', error);
       }
     };
     fetchProfile();
-  }, [id]);
-
-  const updateFollowCounts = (isFollowing) => {
-    // Update follower and following counts based on the follow status
-    setProfileData((prevData) => {
-      return {
-        ...prevData,
-        followerCount: isFollowing
-          ? prevData.followerCount - 1
-          : prevData.followerCount + 1,
-      };
-    });
-  };
+  }, []);
 
   if (!profileData) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>; // 데이터가 아직 로드되지 않았을 때 로딩 메시지를 표시
   }
 
   return (
     <ProfilDiv>
       <ProfilImage>
-        <ProfileImage profileImage={profileImage} />
+        <ProfilImage2>ProfilImage2</ProfilImage2>
       </ProfilImage>
       <ProfilInfoDiv>
         <ProfilInfo>
@@ -55,13 +41,12 @@ function Profile({ id, profileImage }) {
           <p>:</p>
           <p>{profileData.followerCount}</p>
         </FollowerDiv>
-        <FollowButton pageUserId={id} updateCounts={updateFollowCounts} />
       </ProfilInfoDiv>
     </ProfilDiv>
   );
 }
 
-export default Profile;
+export default MyProfile;
 
 const ProfilDiv = styled.div`
   border: 1px solid lightgray;

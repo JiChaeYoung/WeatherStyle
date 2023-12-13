@@ -1,10 +1,7 @@
 package com.example.weatherstyle.service;
 
 import com.example.weatherstyle.SessionConst;
-import com.example.weatherstyle.entity.dto.user.JoinReqDto;
-import com.example.weatherstyle.entity.dto.user.LoginUser;
-import com.example.weatherstyle.entity.dto.user.UserProfileDto;
-import com.example.weatherstyle.entity.dto.user.UserProfileImageRespDto;
+import com.example.weatherstyle.entity.dto.user.*;
 import com.example.weatherstyle.entity.comment.Comment;
 import com.example.weatherstyle.entity.follow.FollowRepository;
 import com.example.weatherstyle.entity.like.Likes;
@@ -59,19 +56,28 @@ public class UserService {
         }
     }
     @Transactional
-    public void 회원수정(User user) {
+    public void 회원수정(UserUpdateForm user, int loginUserId) {
         // 더티 체킹
-        User userEntity = userRepository.findById(user.getId()).orElseThrow(new Supplier<MyUserIdNotFoundException>() {
-            @Override
-            public MyUserIdNotFoundException get() {
-                return new MyUserIdNotFoundException();
-            }
-        });
-        userEntity.setName(user.getName());
-        userEntity.setNickname(user.getNickname());
-        userEntity.setAboutMe(user.getAboutMe());
-        userEntity.setPhoneNumber(user.getPhoneNumber());
+        User userEntity = userRepository.findById(loginUserId)
+                .orElseThrow(() -> new MyUserIdNotFoundException());
+
+        // UserUpdateForm에서 null이 아닌 필드만 엔티티에 설정
+        if (user.getNickname() != null) {
+            userEntity.setNickname(user.getNickname());
+        }
+        if (user.getAboutMe() != null) {
+            userEntity.setAboutMe(user.getAboutMe());
+        }
+        if (user.getPhoneNumber() != null) {
+            userEntity.setPhoneNumber(user.getPhoneNumber());
+        }
+        if (user.getAddress() != null) {
+            userEntity.setAddress(user.getAddress());
+        }
+
+        // 다른 필드들은 변경하지 않음
     }
+
     @Transactional(readOnly = true)
     public User 회원정보(LoginUser user) {
         return userRepository.findById(user.getId()).orElseThrow(new Supplier<MyUserIdNotFoundException>() {
@@ -82,36 +88,13 @@ public class UserService {
         });
     }
 
-    //nickname 으로 다른 회원 검색할때
-    @Transactional(readOnly = true)
-    public User 특정회원(int selectedUserId) {
-        return userRepository.mSelectedUser(selectedUserId);
-    }
+//    @Transactional(readOnly = true)
+//    public User 특정회원(int selectedUserId) {
+//        return userRepository.mSelectedUser(selectedUserId);
+//    }
 
-    @Transactional
-    public List<Image> 특정유저게시물(int PostUserid, int loginUserId) {
-        List<Image> boards = null;
-        boards = userPostRepository.userPost(PostUserid);
-        for (Image board : boards) {
-            board.setLikeCount(board.getLikes().size());
-
-            // 좋아요 상태 여부 등록
-            for (Likes likes : board.getLikes()) {
-                if (likes.getUser().getId() == loginUserId) {
-                    board.setLikeState(true);
-                }
-            }
-            // 댓글 주인 여부 등록
-            for (Comment comment : board.getComments()) {
-                if (comment.getUser().getId() == loginUserId) {
-                    comment.setCommentHost(true);
-                }
-            }
-        }
-        return boards;
-    }
     @Transactional(readOnly = true)
-    public UserProfileDto 회원프로필(int id,@Login LoginUser loginUser) {
+    public UserProfileDto 회원프로필(int id,LoginUser loginUser) {
 
         int imageCount;
         int followerCount;
@@ -127,7 +110,7 @@ public class UserService {
 
         // 1. 이미지들과 전체 이미지 카운트(dto받기)
         StringBuilder sb = new StringBuilder();
-        sb.append("select im.id, im.imageUrl, im.userId,");
+        sb.append("select im.id, im.IMAGE_URL, im.userId,");
         sb.append("(select count(*) from likes lk where lk.imageId = im.id) as likeCount, ");
         sb.append("(select count(*) from comment ct where ct.imageId = im.id) as commentCount ");
         sb.append("from image im where im.userId = ? order by createDate desc");
@@ -151,6 +134,28 @@ public class UserService {
                 .build();
 
         return userProfileDto;
+    }
+    @Transactional
+    public List<Image> 특정유저게시물(int PostUserid, int loginUserId) {
+        List<Image> boards = null;
+        boards = userPostRepository.userPost(PostUserid);
+        for (Image board : boards) {
+            board.setLikeCount(board.getLikes().size());
+
+            // 좋아요 상태 여부 등록
+            for (Likes likes : board.getLikes()) {
+                if (likes.getUser().getId() == loginUserId) {
+                    board.setLikeState(true);
+                }
+            }
+            // 댓글 주인 여부 등록
+            for (Comment comment : board.getComments()) {
+                if (comment.getUser().getId() == loginUserId) {
+                    comment.setCommentHost(true);
+                }
+            }
+        }
+        return boards;
     }
     @Value("${file.path}")
     private String uploadFolder;
@@ -191,5 +196,40 @@ public class UserService {
         else {
             return userRepository.mSearchUserList(nickName,id);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public UserProfileDto 내정보(int id) {
+        int imageCount;
+        int followerCount;
+        int followingCount;
+
+        User userEntity = userRepository.findById(id)
+                .orElseThrow(() -> new MyUserIdNotFoundException());
+
+        // 1. 이미지들과 전체 이미지 카운트(dto받기)
+        StringBuilder sb = new StringBuilder();
+        sb.append("select im.id, im.IMAGE_URL, im.userId,");
+        sb.append("(select count(*) from likes lk where lk.imageId = im.id) as likeCount, ");
+        sb.append("(select count(*) from comment ct where ct.imageId = im.id) as commentCount ");
+        sb.append("from image im where im.userId = ? order by createDate desc");
+        String q = sb.toString();
+        Query query = em.createNativeQuery(q, "UserProfileImageRespDtoMapping").setParameter(1,id);
+        List<UserProfileImageRespDto> imageEntity = query.getResultList();
+
+        imageCount = imageEntity.size();
+
+        // 2. 팔로우 수
+        followerCount = followRepository.mCountByFollower(id);
+        followingCount = followRepository.mCountByFollowing(id);
+
+        return UserProfileDto.builder()
+                .pageHost(true) // Assuming you want pageHost as true when getting the logged-in user's profile
+                .followerCount(followerCount)
+                .followingCount(followingCount)
+                .imageCount(imageCount)
+                .user(userEntity)
+                .images(imageEntity)
+                .build();
     }
 }

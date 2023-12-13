@@ -7,6 +7,7 @@ import UploadPage from './pages/UploadPage';
 import SingupPage from './pages/SingupPage';
 import UserSearch from './pages/UserSearch';
 import SearchUserPage from './pages/SearchUserPage';
+import UserUploadPage from './pages/UserUploadPage';
 import React from 'react';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path='/user' element={<UserPage />} />
         <Route path='/upload' element={<UploadPage />} />
         <Route path='/usersearch' element={<SearchUserPage />} />
+        <Route path='/userupload' element={<UserUploadPage />} />
       </Routes>
     </Router>
   );

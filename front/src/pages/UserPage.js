@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import SideBar from '../component/SideBar';
 import Header from '../component/Header';
 import Post from '../component/Post';
-import Profil from '../component/Profil';
+import MyProfil from '../component/MyProfil';
 import React from 'react';
 
 function UserPage() {
@@ -14,7 +14,7 @@ function UserPage() {
           <SideBar />
           <UserSection>
             <UserDiv>
-              <Profil />
+              <MyProfil />
               <PostDiv>
                 <Post />
               </PostDiv>

@@ -17,11 +17,16 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-@SqlResultSetMapping(name = "UserProfileImageRespDtoMapping", classes = @ConstructorResult(targetClass = UserProfileImageRespDto.class, columns = {
-        @ColumnResult(name = "id", type = Integer.class), @ColumnResult(name = "imageUrl", type = String.class),
-        @ColumnResult(name = "likeCount", type = Integer.class),
-        @ColumnResult(name = "commentCount", type = Integer.class),
-        @ColumnResult(name = "userId", type = Integer.class) }))
+@SqlResultSetMapping(name = "UserProfileImageRespDtoMapping",
+        classes = @ConstructorResult(
+                targetClass = UserProfileImageRespDto.class,
+                columns = {
+                        @ColumnResult(name = "ID", type = Integer.class),
+                        @ColumnResult(name = "IMAGE_URL", type = String.class),
+                        @ColumnResult(name = "likeCount", type = Integer.class),
+                        @ColumnResult(name = "commentCount", type = Integer.class),
+                        @ColumnResult(name = "USERID", type = Integer.class)
+                }))
 @Entity
 @Getter @Setter
 @Builder
@@ -55,7 +60,7 @@ public class Image {
     @JsonIgnoreProperties({ "image" })
     @OneToMany(mappedBy = "image", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Likes> likes;
-    
+
     @Transient //테이블에 컬럼 안만들어짐
     private int likeCount; //좋아요 카운트
 
