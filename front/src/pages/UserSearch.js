@@ -2,55 +2,43 @@ import styled from 'styled-components';
 import SideBar from '../component/SideBar';
 import Header from '../component/Header';
 import React, { useState } from 'react';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function UploadPage() {
-    const [searchTerm, setSearchTerm] = useState('');
-    const [userList, setUserList] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
 
-    const handleSearchChange = (event) => {
-        setSearchTerm(event.target.value);
-    };
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
 
-    const handleSearchSubmit = async () => {
-        try {
-            const response = await axios.get('/api/user/search', {
-                params: { nickName: searchTerm },
-            });
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    console.log(`Searching for ${searchTerm}`);
+    navigate('/usersearch', { state: { searchTerm: searchTerm } });
+  };
+  return (
+    <MainContainer>
+      <Container>
+        <Header />
+        <MainSection>
+          <SideBar />
+          <UserSection>
+            <TitleDiv>
+              <input
+                type='text'
+                value={searchTerm}
+                onChange={handleSearchChange}
+                placeholder='검색어를 입력하세요'
+              />
 
-            setUserList(response.data);
-            console.log('사용자 목록:', response.data);
-        } catch (error) {
-            console.error('사용자 목록을 불러오는 중 에러 발생:', error);
-        }
-    };
-
-    return (
-        <MainContainer>
-            <Container>
-                <Header />
-                <MainSection>
-                    <SideBar />
-                    <UserSection>
-                        <TitleDiv>
-                            <input
-                                type='text'
-                                value={searchTerm}
-                                onChange={handleSearchChange}
-                                placeholder='검색어를 입력하세요'
-                            />
-                            <button onClick={handleSearchSubmit}>검색</button>
-                        </TitleDiv>
-                        <UserList>
-                            {userList.map((user) => (
-                                <div key={user.id}>{user.nickName}</div>
-                            ))}
-                        </UserList>
-                    </UserSection>
-                </MainSection>
-            </Container>
-        </MainContainer>
-    );
+              <button onClick={handleSearchSubmit}>검색</button>
+            </TitleDiv>
+          </UserSection>
+        </MainSection>
+      </Container>
+    </MainContainer>
+  );
 }
 
 export default UploadPage;
@@ -89,14 +77,4 @@ const UserSection = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
-
-const UserList = styled.div`
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  div {
-    margin: 5px;
-  }
 `;

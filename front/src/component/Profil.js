@@ -1,9 +1,30 @@
 import styled from 'styled-components';
 import { GiShadowFollower } from 'react-icons/gi';
 import { SlUserFollowing } from 'react-icons/sl';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-function Profil() {
+function Profile({ id }) {
+  const [profileData, setProfileData] = useState(null);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await axios.get(`/user/${id}`);
+        setProfileData(response.data);
+      } catch (error) {
+        console.error('프로필 데이터를 불러오는 중 에러 발생:', error);
+      }
+    };
+    fetchProfile();
+  }, [id]);
+
+  console.log(profileData);
+
+  if (!profileData) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <ProfilDiv>
       <ProfilImage>
@@ -14,20 +35,20 @@ function Profil() {
           <SlUserFollowing />
           <p>following</p>
           <p>:</p>
-          <p>123</p>
+          <p>{profileData.followingCount}</p>
         </ProfilInfo>
         <FollowerDiv>
           <GiShadowFollower />
           <p>follower</p>
           <p>:</p>
-          <p>123</p>
+          <p>{profileData.followerCount}</p>
         </FollowerDiv>
       </ProfilInfoDiv>
     </ProfilDiv>
   );
 }
 
-export default Profil;
+export default Profile;
 
 const ProfilDiv = styled.div`
   border: 1px solid lightgray;

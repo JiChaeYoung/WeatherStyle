@@ -76,30 +76,30 @@ const Menu4 = styled.div`
 `;
 
 function MenuBar() {
-    const [menu2Visible, setMenu2Visible] = useState(false);
-    const [menu3Visible, setMenu3Visible] = useState(false);
-    const [menu4Visible, setMenu4Visible] = useState(false);
+  const [menu2Visible, setMenu2Visible] = useState(false);
+  const [menu3Visible, setMenu3Visible] = useState(false);
+  const [menu4Visible, setMenu4Visible] = useState(false);
 
-    const handleMenuClick = () => {
-        setMenu2Visible(!menu2Visible);
-        setMenu3Visible(!menu3Visible);
-        setMenu4Visible(!menu4Visible);
-    };
+  const handleMenuClick = () => {
+    setMenu2Visible(!menu2Visible);
+    setMenu3Visible(!menu3Visible);
+    setMenu4Visible(!menu4Visible);
+  };
 
-    return (
-        <MenuDiv>
-            <Menu onClick={handleMenuClick}>더보기</Menu>
-            <Menu2 style={{ visibility: menu2Visible ? 'visible' : 'hidden' }}>
-                <Link to='/user'>내정보</Link>
-            </Menu2>
-            <Menu3 style={{ visibility: menu3Visible ? 'visible' : 'hidden' }}>
-                <Link to='/upload'>게시물</Link>
-            </Menu3>
-            <Menu4 style={{ visibility: menu4Visible ? 'visible' : 'hidden' }}>
-                <Link to='/search'>검색</Link>
-            </Menu4>
-        </MenuDiv>
-    );
+  return (
+    <MenuDiv>
+      <Menu onClick={handleMenuClick}>더보기</Menu>
+      <Menu2 style={{ visibility: menu2Visible ? 'visible' : 'hidden' }}>
+        <Link to='/user'>내정보</Link>
+      </Menu2>
+      <Menu3 style={{ visibility: menu3Visible ? 'visible' : 'hidden' }}>
+        <Link to='/upload'>게시물</Link>
+      </Menu3>
+      <Menu4 style={{ visibility: menu4Visible ? 'visible' : 'hidden' }}>
+        <Link to='/search'>검색</Link>
+      </Menu4>
+    </MenuDiv>
+  );
 }
 
 export default MenuBar;

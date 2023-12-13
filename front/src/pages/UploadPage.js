@@ -7,6 +7,7 @@ import axios from 'axios';
 
 function UploadPage() {
   const [uploadedInfo, setUploadedInfo] = useState(null);
+  const [tags, setTags] = useState(''); // 태그를 저장할 상태
 
   const handleImageUpload = async () => {
     if (!uploadedInfo) {
@@ -17,9 +18,9 @@ function UploadPage() {
     const formData = new FormData();
 
     formData.append('file', uploadedInfo);
+    formData.append('tags', tags); // 태그를 formData에 추가
     formData.append('weatherDescription', 'asdfasdf');
     formData.append('address', 'qwerqwer');
-    formData.append('tags','#도맑음')
 
     try {
       const response = await axios.post('/api/image', formData, {
@@ -52,7 +53,14 @@ function UploadPage() {
               <UploadDiv>
                 <UploadSec>
                   <TitlePost></TitlePost>
-                  <ComemntPost></ComemntPost>
+                  <ComemntPost>
+                    <input
+                      type='text'
+                      placeholder='태그를 입력해주세요. (예: #사진, #여행)'
+                      value={tags}
+                      onChange={(e) => setTags(e.target.value)}
+                    />
+                  </ComemntPost>
                 </UploadSec>
                 <UploadSec>
                   <ImgaeUpload onUpload={setUploadedInfo} />
