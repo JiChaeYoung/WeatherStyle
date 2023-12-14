@@ -1,13 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PostBox from '../component/PostBox';
 import PostBoxEdit from '../component/PostBoxEdit'; // Make sure to import PostBoxEdit
 import SideBar from '../component/SideBar';
 import Header from '../component/Header';
 import { RiBallPenFill } from 'react-icons/ri';
+import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 function UserPostPage() {
+  const location = useLocation();
+  let imageID = location.state ? location.state.imageID : '';
   const [isEditMode, setEditMode] = useState(false);
+  const [image, setImage] = useState([]);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await axios.get(`/api/image/${imageID}`);
+        setImage(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchImages();
+  }, [imageID]);
+
+  if (!image) {
+    return <div>Loading...</div>;
+  }
+  console.log(image[0]);
 
   const toggleEditMode = () => {
     setEditMode(!isEditMode);
@@ -20,7 +43,13 @@ function UserPostPage() {
         <MainSection>
           <SideBar />
           <PostSection>
-            <PostDiv>{isEditMode ? <PostBoxEdit /> : <PostBox />}</PostDiv>
+            <PostDiv>
+              {/* <PostBox
+                image={image[0].imageUrl}
+                likes={image[0].id}
+                tags={image[0].tags}
+              /> */}
+            </PostDiv>
             <SettingDiv>
               <button onClick={toggleEditMode}>
                 <RiBallPenFill />

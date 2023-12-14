@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
-function Post() {
+function PostUser() {
   const [profileData, setProfileData] = useState(null);
+  const navigate = useNavigate(); // navigate 함수 가져오기
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -16,32 +18,38 @@ function Post() {
     };
     fetchProfile();
   }, []);
+
   if (!profileData) {
-    return <div>Loading...</div>; // 데이터가 아직 로드되지 않았을 때 로딩 메시지를 표시
+    return <div>Loading...</div>;
   }
+
+  const handleImageClick = (id) => {
+    navigate('/userpost', {
+      state: { imageID: `${id}` },
+    });
+  };
 
   return (
     <Post1>
-      {profileData.images.map((image, index) => (
-        <Posts key={index}>
-          {(() => {
-            let imagePath = image.imageUrl.replace('C:\\images\\', '');
-            imagePath = imagePath.replace(/\\/g, '/');
-            return (
-              <img
-                src={`http://localhost:8080/api/images/${imagePath}`}
-                alt='post'
-                style={{ maxWidth: '100%', height: 'auto' }}
-              />
-            );
-          })()}
-        </Posts>
-      ))}
+      {profileData.images.map((image, index) => {
+        let imagePath = image.imageUrl.replace('C:\\images\\', '');
+        imagePath = imagePath.replace(/\\/g, '/');
+        return (
+          <Posts key={index}>
+            <img
+              src={`http://localhost:8080/api/images/${imagePath}`}
+              alt='post'
+              style={{ maxWidth: '100%', height: 'auto' }}
+              onClick={() => handleImageClick(image.id)} // 이미지 클릭 시 handleImageClick 함수 호출
+            />
+          </Posts>
+        );
+      })}
     </Post1>
   );
 }
 
-export default Post;
+export default PostUser;
 
 const Post1 = styled.div`
   width: 80%;

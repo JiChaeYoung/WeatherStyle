@@ -1,25 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 function Post({ images }) {
   return (
     <Post1>
-      {images.map((image, index) => (
-        <Posts key={index}>
-          {(() => {
-            let imagePath = image.imageUrl.replace('C:\\images\\', '');
-            imagePath = imagePath.replace(/\\/g, '/');
-            return (
-              <img
+      {images.map((image, index) => {
+        let imagePath = image.imageUrl.replace('C:\\images\\', '');
+        imagePath = imagePath.replace(/\\/g, '/');
+        return (
+          <Posts key={index}>
+            <Link to='/userpost'>
+              <Image
                 src={`http://localhost:8080/api/images/${imagePath}`}
                 alt='post'
-                style={{ maxWidth: '100%', height: 'auto' }}
-              />
-            );
-          })()}
-        </Posts>
-      ))}
+              ></Image>
+            </Link>
+          </Posts>
+        );
+      })}
     </Post1>
   );
 }
@@ -44,4 +43,16 @@ const Posts = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+`;
+
+const Image = styled.img`
+  // 이미지 스타일
+  max-width: 100%;
+  height: auto;
+  &:hover {
+    // 호버 시의 스타일
+    // 예: 배경색 변경
+    background-color: lightgray;
+  }
 `;

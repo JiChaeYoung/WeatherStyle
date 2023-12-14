@@ -2,6 +2,7 @@ package com.example.weatherstyle.controller;
 
 import com.example.weatherstyle.entity.dto.image.ImageDto;
 import com.example.weatherstyle.entity.dto.image.ImageUpdateDto;
+import com.example.weatherstyle.entity.dto.user.ImageUserRespDto;
 import com.example.weatherstyle.entity.dto.user.LoginUser;
 import com.example.weatherstyle.entity.dto.user.UserProfileImageRespDto;
 import com.example.weatherstyle.entity.post.Image;
@@ -81,5 +82,12 @@ public class ImageController {
     public ResponseEntity<?> imageUpdate(@PathVariable int imageId, @PathVariable int imageUserId, @Login LoginUser loginUser, @ModelAttribute ImageUpdateDto imageUpdateDto){
         imageService.게시물수정(loginUser.getId(), imageId,imageUserId,imageUpdateDto);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ResponseBody
+    @GetMapping("/user/infoByImage/{imageId}")
+    public ResponseEntity<ImageUserRespDto> getUserInfoByImageId(@PathVariable int imageId) {
+        ImageUserRespDto userInfo = imageService.getUserInfoByImageId(imageId);
+        return ResponseEntity.ok(userInfo);
     }
 }
