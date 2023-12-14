@@ -7,6 +7,7 @@ import Header from '../component/Header';
 import { RiBallPenFill } from 'react-icons/ri';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import Comment from '../component/Comment';
 
 function UserPostPage() {
   const location = useLocation();
@@ -35,6 +36,11 @@ function UserPostPage() {
   const toggleEditMode = () => {
     setEditMode(!isEditMode);
   };
+  const handleImageClick = (imageData) => {
+    setEditMode(true);
+    // 이미지 클릭 시 해당 이미지에 대한 데이터를 사용하여 PostBox 컴포넌트에 세팅
+    setImage([imageData]);
+  };
 
   return (
     <MainContainer>
@@ -44,16 +50,19 @@ function UserPostPage() {
           <SideBar />
           <PostSection>
             <PostDiv>
-              {/* <PostBox
-                image={image[0].imageUrl}
-                likes={image[0].id}
-                tags={image[0].tags}
-              /> */}
+              {image.length > 0 && (
+                <PostBox
+                  image={image[0].imageUrl}
+                  likes={image[0].id}
+                  tags={image[0].tags}
+                />
+              )}
             </PostDiv>
+            {isEditMode && <Comment />}
             <SettingDiv>
               <button onClick={toggleEditMode}>
                 <RiBallPenFill />
-                <p>수 정</p>
+                <p>댓 글</p>
               </button>
             </SettingDiv>
           </PostSection>
@@ -83,12 +92,11 @@ const PostSection = styled.div`
   width: 80%;
   height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const PostDiv = styled.div`
   background-color: white;
+  border: 1px solid black;
   width: 60%;
   height: 90%;
   display: flex;
@@ -116,4 +124,24 @@ const SettingDiv = styled.div`
       font-size: 80px;
     }
   }
+`;
+
+const CommentDiv = styled.div`
+  border: 1px solid black;
+  width: 90%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+`;
+
+const CommentSection = styled.div`
+  border: 1px solid black;
+  width: 100%;
+  height: 80%;
+`;
+
+const CreateComment = styled.div`
+  border: 1px solid black;
+  width: 100%;
+  height: 20%;
 `;

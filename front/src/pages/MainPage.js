@@ -22,6 +22,7 @@ function MainPage() {
 
     fetchImages();
   }, []);
+  console.log(images);
 
   const calculateMainContainerHeight = () => {
     // 이미지의 개수에 따라 적절한 높이를 계산 (이 예시에서는 100px 단위로 계산)
@@ -32,29 +33,29 @@ function MainPage() {
     return calculatedHeight;
   };
   return (
-      <MainContainer style={{ height: `${calculateMainContainerHeight()}vh` }}>
-        <LeftMainSection>
-          <LeftHeader />
-          {images.map((image, index) => {
-            return (
-                <PostContainer key={index}>
-                  <PostBox
-                      image={image.imageUrl}
-                      likes={image.id}
-                      tags={image.tags}
-                  />
-                </PostContainer>
-            );
-          })}
-        </LeftMainSection>
-        <RightMainSection>
-          <RightHeader />
-          <PostContainer>
-            <WeatherComment>WeatherComment</WeatherComment>
-            <MenuBar />
-          </PostContainer>
-        </RightMainSection>
-      </MainContainer>
+    <MainContainer style={{ height: `${calculateMainContainerHeight()}vh` }}>
+      <LeftMainSection>
+        <LeftHeader />
+        {images.map((image, index) => {
+          return (
+            <PostContainer key={index}>
+              <PostBox
+                image={image.imageUrl}
+                likes={image.id}
+                tags={image.tags}
+              />
+            </PostContainer>
+          );
+        })}
+      </LeftMainSection>
+      <RightMainSection>
+        <RightHeader />
+        <PostContainer>
+          <WeatherComment>WeatherComment</WeatherComment>
+          <MenuBar />
+        </PostContainer>
+      </RightMainSection>
+    </MainContainer>
   );
 }
 

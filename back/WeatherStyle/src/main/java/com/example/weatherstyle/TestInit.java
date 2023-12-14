@@ -15,7 +15,7 @@ public class TestInit {
     @PostConstruct
     public void init(){
         userService.회원가입(new JoinReqDto("test@test.com","test","test","test","010-1234-5678","1999-04-07","Seoul"));
-        userService.회원가입(new JoinReqDto("asdf@asdf.com","asdf","asdf","asdf","010-1234-5678","1999-04-07","asdf"));
+        userService.회원가입(new JoinReqDto("asdf@asdf.com","asdf","asdf","asdf","010-1234-5678","1999-04-07","Seoul"));
 
     }
 

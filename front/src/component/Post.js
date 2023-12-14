@@ -10,12 +10,7 @@ function Post({ images }) {
         imagePath = imagePath.replace(/\\/g, '/');
         return (
           <Posts key={index}>
-            <Link to='/userpost'>
-              <Image
-                src={`http://localhost:8080/api/images/${imagePath}`}
-                alt='post'
-              ></Image>
-            </Link>
+            <Link to='/userpost'></Link>
           </Posts>
         );
       })}
