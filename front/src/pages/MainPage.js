@@ -18,6 +18,8 @@ function MainPage() {
 
         setLeftImages(responseLeft.data);
         setRightImages(responseRight.data);
+        console.log(responseLeft.data)
+        console.log(responseRight.data)
 
       } catch (error) {
         console.error(error);

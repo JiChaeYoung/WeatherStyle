@@ -1,7 +1,9 @@
+// PostBox.js
+import React from 'react';
 import styled from 'styled-components';
 import UserContainer from './UserContainer';
 import ContentContainer from './ContentContainer';
-import React from 'react';
+import { Link } from 'react-router-dom';
 
 function ImageContainer({ images }) {
     return (
@@ -18,6 +20,7 @@ function ImageContainer({ images }) {
 function PostBox({ image, likes, tags }) {
     let imagePath = image.replace('C:\\images\\', '');
     imagePath = imagePath.replace(/\\/g, '/');
+
     return (
         <PostSection>
             <UserContainer id={likes} />
@@ -28,6 +31,9 @@ function PostBox({ image, likes, tags }) {
         </PostSection>
     );
 }
+
+
+
 
 export default PostBox;
 

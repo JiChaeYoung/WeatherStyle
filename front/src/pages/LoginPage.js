@@ -21,7 +21,7 @@ function LoginPage() {
       .post('/api/login', requestData)
       .then((response) => {
         // 성공적으로 응답 받았을 때 실행되는 부분
-        console.log(response);
+        // console.log(response);
         // 리다이렉션 또는 다른 작업 수행
         navigate('/story');
       })

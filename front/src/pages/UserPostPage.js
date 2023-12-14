@@ -50,7 +50,7 @@ function UserPostPage() {
                     <SideBar />
                     <PostSection>
                         <PostDiv>
-                            {image.length > 0 && (
+                            {image.imageUrl && (
                                 <PostBox
                                     image={image.imageUrl}  // 이미지 URL을 전달
                                     likes={image.id}  // 이미지 ID를 전달

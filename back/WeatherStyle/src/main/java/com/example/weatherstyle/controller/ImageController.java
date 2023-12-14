@@ -59,12 +59,12 @@ public class ImageController {
         return new ResponseEntity<>("Image uploaded successfully", HttpStatus.OK);
     }
 
-    @GetMapping("/image/explore")
-    public ResponseEntity<List<UserProfileImageRespDto>> imageExplore(@Login LoginUser loginUser) {
-        List<UserProfileImageRespDto> images = imageService.인기사진(loginUser.getId());
-        return ResponseEntity.ok(images);
-    }
-
+//    @GetMapping("/image/{filename}")
+//    public int getImageIdByImageUrl(@RequestParam String imageUrl) {
+//        Image image = imageService.findId(imageUrl);
+//
+//        return image.getId();
+//    }
     @ResponseBody
     @GetMapping("/image/{imageId}")
     public ResponseEntity<Image> board(@PathVariable int imageId,  @Login LoginUser loginUser) {

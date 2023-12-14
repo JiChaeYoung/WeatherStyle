@@ -31,9 +31,5 @@ public interface ImageRepository extends JpaRepository<Image, Integer> {
     List<Image> mFeedsTag(String tag);
 
 
-
-
-
-
-
+    Image findByImageUrl(String imageUrl);
 }

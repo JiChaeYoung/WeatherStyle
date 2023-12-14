@@ -209,4 +209,9 @@ public class ImageService {
 
         return userInfo;
     }
+
+    public Image findId(String imageUrl) {
+        Image byImageUrl = imageRepository.findByImageUrl(imageUrl);
+        return byImageUrl;
+    }
 }
