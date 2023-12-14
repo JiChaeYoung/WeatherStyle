@@ -2,6 +2,7 @@ package com.example.weatherstyle.entity.comment;
 
 import com.example.weatherstyle.entity.post.Image;
 import com.example.weatherstyle.entity.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,7 +11,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import java.sql.Timestamp;
 
-@Data
+@Setter @Getter
 @Entity
 @Builder
 @AllArgsConstructor
@@ -21,19 +22,21 @@ public class Comment {
 
     private String text;
 
+    private String userNickname;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="IMAGEID")
-    @ToString.Exclude
+    @JsonIgnore
     private Image image;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="USERID")
-    @ToString.Exclude
+    @JsonIgnore
     private User user;
 
     @CreationTimestamp
-    private Timestamp creteDate;
+    private Timestamp createDate;
 
     @Transient
     private boolean commentHost;

@@ -20,7 +20,7 @@ function PostBox({ image, likes, tags }) {
     imagePath = imagePath.replace(/\\/g, '/');
     return (
         <PostSection>
-            <UserContainer />
+            <UserContainer id={likes} />
             <ImageContainer1>
                 <ImageContainer images={imagePath} />
             </ImageContainer1>

@@ -2,38 +2,40 @@ import styled from 'styled-components';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
-function UserContainer() {
-  const [userImage, setUserImage] = useState(null);
-  const [userName, setUserName] = useState(null);
-  const [userLoacl, setUserLoacl] = useState(null);
-  const [userWeather, setUserWeather] = useState(null);
+function UserContainer({ id }) {
+    const [userImage, setUserImage] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios('API_URL');
-        const data = await response.json();
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios(`/api/user/infoByImage/${id}`);
+                setUserImage(response.data);
+            } catch (error) {
+                console.error('데이터를 가져오는 중에 오류가 발생하였습니다.', error);
+            }
+        };
 
-        setUserImage(data.userImage);
-        setUserName(data.userName);
-        setUserLoacl(data.userLoacl);
-        setUserWeather(data.userWeather);
-      } catch (error) {
-        console.error('데이터를 가져오는 중에 오류가 발생하였습니다.', error);
-      }
-    };
+        fetchData();
+    }, []);
 
-    fetchData();
-  }, []);
+    console.log(userImage);
 
-  return (
-      <Container>
-        <UserImage>{userImage}</UserImage>
-        <UserName>{userName}</UserName>
-        <UserLoacl>{userLoacl}</UserLoacl>
-        <UserWeather>{userWeather}</UserWeather>
-      </Container>
-  );
+    return (
+        <Container>
+            <UserImage>
+                <img
+                    src={`http://localhost:8080/api/images/${
+                        userImage ? userImage.imageUrl : ''
+                    }`}
+                    alt='사진'
+                    style={{ maxWidth: '100%', height: 'auto' }}
+                />
+            </UserImage>
+            <UserName>{userImage ? userImage.nickname : ''}</UserName>
+            <UserLoacl></UserLoacl>
+            <UserWeather> {userImage ? userImage.address : ''}</UserWeather>
+        </Container>
+    );
 }
 
 export default UserContainer;
@@ -48,28 +50,24 @@ const Container = styled.div`
 `;
 
 const UserImage = styled.div`
-  border: 1px solid black;
   width: 10%;
   height: 85%;
   margin: 1%;
 `;
 
 const UserName = styled.div`
-  border: 1px solid black;
   width: 20%;
   height: 85%;
   margin: 1%;
 `;
 
 const UserLoacl = styled.div`
-  border: 1px solid black;
   width: 40%;
   height: 85%;
   margin: 1%;
 `;
 
 const UserWeather = styled.div`
-  border: 1px solid black;
   width: 20%;
   height: 85%;
   margin: 1%;

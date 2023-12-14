@@ -53,7 +53,6 @@ public class Image {
     private Timestamp createDate;
 
     @OrderBy("id DESC")
-    @JsonIgnoreProperties({ "image" })
     @OneToMany(mappedBy = "image", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
 

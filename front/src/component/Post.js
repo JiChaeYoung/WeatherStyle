@@ -1,27 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 function Post({ images }) {
-  return (
-    <Post1>
-      {images.map((image, index) => (
-        <Posts key={index}>
-          {(() => {
-            let imagePath = image.imageUrl.replace('C:\\images\\', '');
-            imagePath = imagePath.replace(/\\/g, '/');
-            return (
-              <img
-                src={`http://localhost:8080/api/images/${imagePath}`}
-                alt='post'
-                style={{ maxWidth: '100%', height: 'auto' }}
-              />
-            );
-          })()}
-        </Posts>
-      ))}
-    </Post1>
-  );
+    return (
+        <Post1>
+            {images.map((image, index) => {
+                let imagePath = image.imageUrl.replace('C:\\images\\', '');
+                imagePath = imagePath.replace(/\\/g, '/');
+                return (
+                    <Posts key={index}>
+                        <Link to='/userpost'></Link>
+                    </Posts>
+                );
+            })}
+        </Post1>
+    );
 }
 
 export default Post;
@@ -44,4 +38,13 @@ const Posts = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+`;
+
+const Image = styled.img`
+  max-width: 100%;
+  height: auto;
+  &:hover {
+    background-color: lightgray;
+  }
 `;

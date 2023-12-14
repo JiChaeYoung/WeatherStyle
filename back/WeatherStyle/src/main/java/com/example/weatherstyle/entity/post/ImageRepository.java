@@ -24,7 +24,7 @@ public interface ImageRepository extends JpaRepository<Image, Integer> {
 
     // 단독 게시물 조회하는 부분
     @Query(value = "select * from image where id = ?1", nativeQuery = true)
-    List<Image> mBoardImage(int imageId);
+    Image mBoardImage(int imageId);
 
     // 태그로 검색하는 부분
     @Query(value = "select * from image where id in (select IMAGE_ID from tag where name like CONCAT('%', ?1, '%'))", nativeQuery = true)

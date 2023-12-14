@@ -1,37 +1,75 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PostBox from '../component/PostBox';
 import PostBoxEdit from '../component/PostBoxEdit'; // Make sure to import PostBoxEdit
 import SideBar from '../component/SideBar';
 import Header from '../component/Header';
 import { RiBallPenFill } from 'react-icons/ri';
+import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import Comment from '../component/Comment';
 
 function UserPostPage() {
-  const [isEditMode, setEditMode] = useState(false);
+    const { imageId } = useParams(); // useParams를 사용하여 URL 파라미터(imageId)를 가져옴
+    const [isEditMode, setEditMode] = useState(false);
+    const [image, setImage] = useState([]);
 
-  const toggleEditMode = () => {
-    setEditMode(!isEditMode);
-  };
+    useEffect(() => {
+        const fetchImage = async () => {
+            try {
+                const response = await axios.get(`/api/image/${imageId}`);
+                setImage(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
 
-  return (
-    <MainContainer>
-      <Container>
-        <Header />
-        <MainSection>
-          <SideBar />
-          <PostSection>
-            <PostDiv>{isEditMode ? <PostBoxEdit /> : <PostBox />}</PostDiv>
-            <SettingDiv>
-              <button onClick={toggleEditMode}>
-                <RiBallPenFill />
-                <p>수 정</p>
-              </button>
-            </SettingDiv>
-          </PostSection>
-        </MainSection>
-      </Container>
-    </MainContainer>
-  );
+        fetchImage();
+    }, [imageId]);
+
+    if (!image) {
+        return <div>Loading...</div>;
+    }
+    console.log(image);
+
+    const toggleEditMode = () => {
+        setEditMode(!isEditMode);
+    };
+    const handleImageClick = (imageData) => {
+        setEditMode(true);
+        // 이미지 클릭 시 해당 이미지에 대한 데이터를 사용하여 PostBox 컴포넌트에 세팅
+        setImage([imageData]);
+    };
+
+    return (
+        <MainContainer>
+            <Container>
+                <Header />
+                <MainSection>
+                    <SideBar />
+                    <PostSection>
+                        <PostDiv>
+                            {image.length > 0 && (
+                                <PostBox
+                                    image={image.imageUrl}  // 이미지 URL을 전달
+                                    likes={image.id}  // 이미지 ID를 전달
+                                    tags={image.tags}  // 이미지 태그를 전달
+                                />
+                            )}
+                        </PostDiv>
+                        {isEditMode && <Comment />}
+                        <SettingDiv>
+                            <button onClick={toggleEditMode}>
+                                <RiBallPenFill />
+                                <p>댓 글</p>
+                            </button>
+                        </SettingDiv>
+                    </PostSection>
+                </MainSection>
+            </Container>
+        </MainContainer>
+    );
 }
 
 export default UserPostPage;
@@ -54,12 +92,11 @@ const PostSection = styled.div`
   width: 80%;
   height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const PostDiv = styled.div`
   background-color: white;
+  border: 1px solid black;
   width: 60%;
   height: 90%;
   display: flex;
@@ -87,4 +124,24 @@ const SettingDiv = styled.div`
       font-size: 80px;
     }
   }
+`;
+
+const CommentDiv = styled.div`
+  border: 1px solid black;
+  width: 90%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+`;
+
+const CommentSection = styled.div`
+  border: 1px solid black;
+  width: 100%;
+  height: 80%;
+`;
+
+const CreateComment = styled.div`
+  border: 1px solid black;
+  width: 100%;
+  height: 20%;
 `;

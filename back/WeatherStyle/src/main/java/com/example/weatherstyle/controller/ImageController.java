@@ -65,10 +65,10 @@ public class ImageController {
         return ResponseEntity.ok(images);
     }
 
-    // 단독게시물 데이터 가져오는부분
+    @ResponseBody
     @GetMapping("/image/{imageId}")
-    public ResponseEntity<List<Image>> board(@PathVariable int imageId,  @Login LoginUser loginUser) {
-        List<Image> image = imageService.단독게시물(imageId, loginUser.getId());
+    public ResponseEntity<Image> board(@PathVariable int imageId,  @Login LoginUser loginUser) {
+        Image image = imageService.단독게시물(imageId, loginUser.getId());
         return ResponseEntity.ok(image);
     }
 
@@ -83,6 +83,7 @@ public class ImageController {
         imageService.게시물수정(loginUser.getId(), imageId,imageUserId,imageUpdateDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     @ResponseBody
     @GetMapping("/user/infoByImage/{imageId}")
     public ResponseEntity<ImageUserRespDto> getUserInfoByImageId(@PathVariable int imageId) {

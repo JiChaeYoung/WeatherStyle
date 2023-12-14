@@ -1,9 +1,14 @@
+// PostUser.js
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-function Post() {
+function PostUser() {
   const [profileData, setProfileData] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -16,32 +21,29 @@ function Post() {
     };
     fetchProfile();
   }, []);
+
   if (!profileData) {
-    return <div>Loading...</div>; // 데이터가 아직 로드되지 않았을 때 로딩 메시지를 표시
+    return <div>Loading...</div>;
   }
 
   return (
-    <Post1>
-      {profileData.images.map((image, index) => (
-        <Posts key={index}>
-          {(() => {
-            let imagePath = image.imageUrl.replace('C:\\images\\', '');
-            imagePath = imagePath.replace(/\\/g, '/');
-            return (
-              <img
-                src={`http://localhost:8080/api/images/${imagePath}`}
-                alt='post'
-                style={{ maxWidth: '100%', height: 'auto' }}
-              />
-            );
-          })()}
-        </Posts>
-      ))}
-    </Post1>
+      <Post1>
+        {profileData.images.map((image) => (
+            <Link to={`/userpost/${image.id}`} key={image.id}>
+              <Posts>
+                <img
+                    src={`http://localhost:8080/api/images/${image.imageUrl.replace('C:\\images\\', '').replace(/\\/g, '/')}`}
+                    alt='get'
+                    style={{ maxWidth: '100%', height: 'auto' }}
+                />
+              </Posts>
+            </Link>
+        ))}
+      </Post1>
   );
 }
 
-export default Post;
+export default PostUser;
 
 const Post1 = styled.div`
   width: 80%;
@@ -49,7 +51,7 @@ const Post1 = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  flex-direction: Row;
+  flex-direction: row;
 `;
 
 const Posts = styled.div`

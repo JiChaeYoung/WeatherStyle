@@ -70,17 +70,22 @@ function RightHeader() {
 
 export default RightHeader;
 
-const MainContainer = styled.div``;
+const MainContainer = styled.div`
+  margin-bottom: 193px;
+`;
 
 const HeaderContainer = styled.div`
   background: linear-gradient(to bottom, #e8f5ff, white);
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  
   height: 150px;
-  width: 100%;
+  width: 50%;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0px;
+  Right: 0px;
 `;
 
 const WeatherDiv = styled.div`

@@ -79,25 +79,23 @@ public class ImageService {
     }
 
     @Transactional(readOnly = true)
-    public List<Image> 단독게시물(int loginUserId, int imageId) {
-        List<Image> boards = imageRepository.mBoardImage(imageId);
+    public Image 단독게시물(int loginUserId, int imageId) {
+        Image boards = imageRepository.mBoardImage(imageId);
 
-        for (Image board : boards) {
-            board.setLikeCount(board.getLikes().size());
+        boards.setLikeCount(boards.getLikes().size());
 
             // 좋아요 상태 여부 등록
-            for (Likes like : board.getLikes()) {
+            for (Likes like : boards.getLikes()) {
                 if (like.getUser().getId() == loginUserId) {
-                    board.setLikeState(true);
+                    boards.setLikeState(true);
                 }
             }
             // 댓글 주인 여부 등록
-            for (Comment comment : board.getComments()) {
+            for (Comment comment : boards.getComments()) {
                 if (comment.getUser().getId() == loginUserId) {
                     comment.setCommentHost(true);
                 }
             }
-        }
         return boards;
     }
 
@@ -128,31 +126,11 @@ public class ImageService {
         return images;
     }
     @Transactional(readOnly = true)
-    public ImageUserRespDto getUserInfoByImageId(int imageId) {
-        Image image = imageRepository.findById(imageId)
-                .orElseThrow(() -> new MyImageDeleteException("게시물을 찾을 수 없습니다."));
-
-        User user = image.getUser();
-        ImageUserRespDto userInfo = new ImageUserRespDto();
-        userInfo.setUserId(user.getId());
-        userInfo.setImageUrl(user.getProfileImage());
-        userInfo.setNickname(user.getNickname());
-        userInfo.setAddress(user.getAddress());
-
-        return userInfo;
-    }
-    @Transactional(readOnly = true)
     public List<Image> getImagesBySimilarTag(int loginUserId, String tag) {
         List<Image> images = null;
-        if (tag == null || tag.equals("")) {
-            images = imageRepository.mFeeds(loginUserId);
-            if (images.size() == 0) {
-                images = imageRepository.mAllFeeds(loginUserId);
-            }
-        } else {
             tag="%"+tag+"%";
             images = imageRepository.mFeedsTag(tag);
-        }
+
 
         for (Image image : images) {
             image.setLikeCount(image.getLikes().size());
@@ -215,5 +193,20 @@ public class ImageService {
     }
     public String getFullPath(String filename) {
         return uploadFolder+filename;
+    }
+
+    @Transactional(readOnly = true)
+    public ImageUserRespDto getUserInfoByImageId(int imageId) {
+        Image image = imageRepository.findById(imageId)
+                .orElseThrow(() -> new MyImageDeleteException("게시물을 찾을 수 없습니다."));
+
+        User user = image.getUser();
+        ImageUserRespDto userInfo = new ImageUserRespDto();
+        userInfo.setUserId(user.getId());
+        userInfo.setImageUrl(user.getProfileImage());
+        userInfo.setNickname(user.getNickname());
+        userInfo.setAddress(user.getAddress());
+
+        return userInfo;
     }
 }
