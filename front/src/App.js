@@ -19,7 +19,7 @@ function App() {
         <Route path='/signup' element={<SingupPage />} />
         <Route path='/story/*' element={<MainPage />} />
         <Route path='/search' element={<UserSearch />} />
-        <Route path="/userpost/:imageId" element={<UserPostPage />} />
+        <Route path='/userpost/:imageId' element={<UserPostPage />} />
         <Route path='/user' element={<UserPage />} />
         <Route path='/upload' element={<UploadPage />} />
         <Route path='/usersearch' element={<SearchUserPage />} />

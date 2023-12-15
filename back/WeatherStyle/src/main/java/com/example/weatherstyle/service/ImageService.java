@@ -79,7 +79,7 @@ public class ImageService {
     }
 
     @Transactional(readOnly = true)
-    public Image 단독게시물(int loginUserId, int imageId) {
+    public Image 단독게시물(int imageId, int loginUserId) {
         Image boards = imageRepository.mBoardImage(imageId);
 
         boards.setLikeCount(boards.getLikes().size());

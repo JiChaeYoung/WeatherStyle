@@ -1,14 +1,17 @@
 import styled from 'styled-components';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Header() {
   return (
     <HeaderDiv>
-      <LogoDiv>LogoDiv</LogoDiv>
-      <WeaderDiv>Home</WeaderDiv>
-      <WeaderDiv>asdf</WeaderDiv>
-      <WeaderDiv>asdf</WeaderDiv>
-      <WeaderDiv>asdfasdf</WeaderDiv>
+      <LogoDiv>SW</LogoDiv>
+      <Link to='/'>
+        <WeaderDiv>Home</WeaderDiv>
+      </Link>
+      <WeaderDiv></WeaderDiv>
+      <WeaderDiv></WeaderDiv>
+      <WeaderDiv></WeaderDiv>
     </HeaderDiv>
   );
 }
@@ -22,7 +25,6 @@ const HeaderDiv = styled.div`
 `;
 
 const WeaderDiv = styled.div`
-  border: 1px solid gray;
   width: 15%;
   height: 85%;
   margin: 8px;

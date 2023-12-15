@@ -3,19 +3,19 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 function Post({ images }) {
-    return (
-        <Post1>
-            {images.map((image, index) => {
-                let imagePath = image.imageUrl.replace('C:\\images\\', '');
-                imagePath = imagePath.replace(/\\/g, '/');
-                return (
-                    <Posts key={index}>
-                        <Link to='/userpost'></Link>
-                    </Posts>
-                );
-            })}
-        </Post1>
-    );
+  return (
+    <Post1>
+      {images.map((image, index) => {
+        let imagePath = image.imageUrl.replace('C:\\images\\', '');
+        imagePath = imagePath.replace(/\\/g, '/');
+        return (
+          <Posts key={index}>
+            <Link to='/userpost' key={imagePath}></Link>
+          </Posts>
+        );
+      })}
+    </Post1>
+  );
 }
 
 export default Post;

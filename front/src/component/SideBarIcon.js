@@ -28,9 +28,9 @@ function icons() {
           내정보
         </ListItem>
       </Link>
-      <Link to='/upload'>
+      <Link to='/search'>
         <ListItem>
-          <RiArchiveDrawerFill />서 랍
+          <RiArchiveDrawerFill />검 색
         </ListItem>
       </Link>
       <Link to='/user'>

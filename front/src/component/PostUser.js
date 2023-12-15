@@ -26,20 +26,34 @@ function PostUser() {
     return <div>Loading...</div>;
   }
 
+  console.log(profileData.images);
+  console.log(profileData.images);
+  console.log(profileData.images);
+  console.log(profileData.images);
   return (
-      <Post1>
-        {profileData.images.map((image) => (
-            <Link to={`/userpost/${image.id}`} key={image.id}>
-              <Posts>
-                <img
-                    src={`http://localhost:8080/api/images/${image.imageUrl.replace('C:\\images\\', '').replace(/\\/g, '/')}`}
-                    alt='get'
-                    style={{ maxWidth: '100%', height: 'auto' }}
-                />
-              </Posts>
-            </Link>
-        ))}
-      </Post1>
+    <Post1>
+      {profileData.images.map((image) => (
+        <Posts>
+          <Link
+            to={`/userpost/${image.id}`}
+            imageUrl={`${image.imageUrl
+              .replace('C:\\images\\', '')
+              .replace(/\\/g, '/')}`}
+            image={`${image.imageUrl
+              .replace('C:\\images\\', '')
+              .replace(/\\/g, '/')}`}
+          >
+            <img
+              src={`http://localhost:8080/api/images/${image.imageUrl
+                .replace('C:\\images\\', '')
+                .replace(/\\/g, '/')}`}
+              alt='get'
+              style={{ maxWidth: '100%', height: 'auto' }}
+            />
+          </Link>
+        </Posts>
+      ))}
+    </Post1>
   );
 }
 
