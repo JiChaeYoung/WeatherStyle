@@ -1,2 +1,2 @@
-#Weather Style
-#Hallym University Computer Engineering Department Project
+# Weather Style
+# Hallym University Computer Engineering Department Project
