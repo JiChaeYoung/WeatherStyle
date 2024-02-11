@@ -1,0 +1,38 @@
+<!-- joinForm.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+</head>
+<body>
+<h1>회원가입</h1>
+<form action="/auth/joinForm" method="post">
+    <label for="email">이메일:</label>
+    <input type="email" id="email" name="email" required><br>
+    <label for="password">비밀번호:</label>
+    <input type="password" id="password" name="password" required><br>
+    <label for="name">이름:</label>
+    <input type="text" id="name" name="name" required><br>
+    <label for="nickname">별명:</label>
+    <input type="text" id="nickname" name="nickname" required><br>
+    <label for="phoneNumber">휴대전화:</label>
+    <input type="text" id="phoneNumber" name="phoneNumber" required><br>
+    <label for="birth">생년월일:</label>
+    <input type="text" id="birth" name="birth" required><br>
+    <label for="profileImage">프로필 이미지 :</label>
+    <input type="text" id="profileImage" name="profileImage" required><br>
+    <label for="aboutMe">자기소개:</label>
+    <input type="text" id="aboutMe" name="aboutMe"><br>
+    <label for="city">도시:</label>
+    <input type="text" id="city" name="address.city" required><br>
+    <label for="street">거리:</label>
+    <input type="text" id="street" name="address.street" required><br>
+    <label for="dong">동:</label>
+    <input type="text" id="dong" name="address.dong" required><br>
+    <!-- ... -->
+
+</form>
+</body>
+</html>
